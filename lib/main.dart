@@ -1,7 +1,5 @@
-import 'package:codelab_timetracker/page_activities.dart';
 import 'package:flutter/material.dart';
-
-
+import 'package:swapjob/Screens/SplashScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,14 +8,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TimeTracker',
+      debugShowCheckedModeBanner: false,
+      title: 'SWAP JOB',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: TextTheme(
-            subtitle1: TextStyle(fontSize: 20.0),
-            bodyText2: TextStyle(fontSize: 20.0)),
+          primaryColor: Color.fromRGBO(255, 183, 3, 1.0),
       ),
-      home: PageActivities(0),
+      home : SplashScreen(),
     );
   }
 }
