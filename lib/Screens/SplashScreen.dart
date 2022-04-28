@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'LoginScreen.dart';
+import 'auth/LoginScreen.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3),(){
+    Timer(const Duration(seconds: 1),(){
       Navigator.pop(context);
       Navigator.push(context, MaterialPageRoute(builder: (context) =>  LoginScreen())) ;
     });
@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Image(
           width: ScreenUtil().setWidth(200.0),
           height: ScreenUtil().setHeight(200.0),
-          image: const AssetImage('images/SWAP_JOBS.png'),
+          image: const AssetImage('images/icon_swapjob.png'),
         ),
       ),
     );

@@ -11,7 +11,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'SWAP JOB',
       theme: ThemeData(
-          primaryColor: Color.fromRGBO(255, 183, 3, 1.0),
+          primaryColor: const Color.fromRGBO(255, 183, 3, 1.0),
+
       ),
       home : SplashScreen(),
     );
