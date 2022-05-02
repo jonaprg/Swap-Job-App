@@ -41,7 +41,7 @@ class _InfoofferState extends State<InfoOffer> {
                               child: IconButton(
                                 icon: const Icon(Icons.arrow_back_ios,
                                     color: Colors.orange, size: 16),
-                                tooltip: 'Increase volume by 10',
+                                tooltip: 'Back',
                                 onPressed: () {
                                   setState(() {
                                     Navigator.pop(context);

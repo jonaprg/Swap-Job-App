@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert' as convert;
@@ -182,20 +184,27 @@ class _LoginState extends State<LoginScreen> {
   sign(String email, String password) async {
     print(email);
     print(password);
-    Map data = {
+    var data = {
       "email" : email,
       "password" : password
     };
+    var headers = {
+      'Content-Type': 'application/json'
+    };
+    //var response = await http.post(Uri.parse("http://api.swapjob.tk/SwapJob/auth/signin"), body: convert.jsonEncode(data));
+    var request = http.Request('POST', Uri.parse('http://api.swapjob.tk/SwapJob/auth/signin'));
+    request.body = json.encode(data);
+    request.headers.addAll(headers);
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
 
-    var response = await http.post(Uri.parse("http://api.swapjob.tk/SwapJob/auth/signin"), body: convert.jsonEncode(data));
-    print(response.statusCode);
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (response.statusCode == 200) {
-      var jsonResponse =
-      convert.jsonDecode(response.body) as Map<String, dynamic>;
+      print(response.body);
+      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
       setState(() {
         _isLoading = false;
-        sharedPreferences.setString("token", jsonResponse['token']);
+        sharedPreferences.setString("accessToken", jsonResponse['accessToken']);
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
                 builder: (BuildContext context) => HomePage()),
@@ -204,8 +213,22 @@ class _LoginState extends State<LoginScreen> {
 
     }
     else {
-      print(response.body);
+      setState(() {
+        _isLoading = false;
+      });
+
     }
+
+
+
+
+
+
+
+
+
+
+
   }
 
 }
