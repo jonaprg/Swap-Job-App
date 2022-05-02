@@ -22,19 +22,19 @@ dependencies:
   font_awesome_flutter: ^10.1.0
   bubble: ^1.2.1
   carousel_slider: ^4.1.1
-  flutter_tindercard:  ^0.2.0
   country_code_picker: ^2.0.2
-  swipe_stack: ^1.0.0
-  flutter_swiper: ^1.1.6
+  flutter_tindercard: ^0.2.0
+  flutter_svg: ^1.0.3
+  flutter_custom_clippers: ^1.1.2
   geolocator: ^8.2.0
   location: ^4.3.0
-  geocoder: ^0.2.1
+  #geocoder: ^0.2.1
   image_picker: ^0.8.5
   image_cropper: ^2.0.0
   path_provider: ^2.0.9
   cached_network_image: ^3.2.0
   share: ^2.0.4
-  flutter_webview_plugin: ^0.4.0
+  #flutter_webview_plugin: ^0.4.0
   rflutter_alert: ^2.0.4
   agora_rtc_engine: ^5.1.0
   permission_handler: ^9.2.0
@@ -44,6 +44,7 @@ dependencies:
   flutter_mapbox_autocomplete: ^2.0.0
   http: ^0.13.4
   intl: ^0.17.0
+  shared_preferences: ^2.0.13
   flutter:
     sdk: flutter
 
@@ -57,7 +58,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^1.0.0
+  flutter_lints: ^1.0.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
