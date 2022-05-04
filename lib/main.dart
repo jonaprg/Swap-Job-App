@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
           primaryColor: const Color.fromRGBO(255, 183, 3, 1.0),
 
       ),
-      home : LoginSignUpScreen(),
+      home : HomePage(),
     );
   }
 }

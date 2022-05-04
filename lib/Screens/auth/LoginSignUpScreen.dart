@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swapjob/Screens/auth/LoginScreen.dart';
+import 'package:swapjob/Screens/auth/register/RegisterScreen.dart';
 //import 'package:tinder_clone/Models/tinder_clone_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -140,7 +141,6 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                                 fontWeight: FontWeight.bold))),
                   ),
                   onPressed: () {
-                    bool updateNumber = false;
                     Navigator.push(context,
                         CupertinoPageRoute(builder: (context) => LoginScreen()));
                   },
@@ -165,7 +165,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                             width: MediaQuery.of(context).size.width * .8,
                             child: const Center(
                                 child: Text(
-                              "SIGN IN WITH EMAIL",
+                              "SIGN UP WITH EMAIL",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
@@ -173,7 +173,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                         onTap: () async {
                           bool updateNumber = false;
                           Navigator.push(context,
-                              CupertinoPageRoute(builder: (context) => UserName()));
+                              CupertinoPageRoute(builder: (context) => RegisterScreen()));
                         },
                       ),
                     ),

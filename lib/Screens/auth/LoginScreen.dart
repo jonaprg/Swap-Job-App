@@ -17,7 +17,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginState extends State<LoginScreen> {
-  Map<String, dynamic> userData = {}; //user personal info
   bool _isLoading = false;
   String email = '';
   String password = '';
@@ -142,7 +141,7 @@ class _LoginState extends State<LoginScreen> {
                             setState(() {
                               _isLoading = true;
                             });
-                            sign(emailController.text, passwordController.text);
+                            login(emailController.text, passwordController.text);
                           },
                         ),
                       ),
@@ -181,7 +180,7 @@ class _LoginState extends State<LoginScreen> {
   }
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  sign(String email, String password) async {
+  login(String email, String password) async {
     print(email);
     print(password);
     var data = {
@@ -215,6 +214,8 @@ class _LoginState extends State<LoginScreen> {
     else {
       setState(() {
         _isLoading = false;
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("The user not exists, bad credentials")));
       });
 
     }

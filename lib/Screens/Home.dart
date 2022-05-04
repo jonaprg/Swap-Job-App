@@ -39,27 +39,20 @@ class _HomePageState extends State<HomePage> {
   Widget getBody() {
     return IndexedStack(
       index: pageIndex,
-      children: [TextButton(
-        onPressed: () {
-          sharedPreferences.clear();
-          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => LoginSignUpScreen()), (Route<dynamic> route) => false);
-        },
-        child: Text("Log Out", style: TextStyle(color: Colors.white)),
-      ),
+      children: [
         ExplorePage(), LikesPage(), AccountPage()]
     );
   }
 
   getAppBar() {
     List bottomItems = [
-      pageIndex == 0 ? "images/profile.png" : "images/profile.png",
-      pageIndex == 1
+      pageIndex == 0
           ? "images/home_active_icon.svg"
           : "images/home_icon.svg",
-      pageIndex == 2
+      pageIndex == 1
           ? "images/messages_active_icon.svg"
           : "images/messages_icon.svg",
-      pageIndex == 3
+      pageIndex == 2
           ? "images/account_active_icon.svg"
           : "images/account_icon.svg",
     ];
