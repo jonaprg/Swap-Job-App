@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'Skill.dart';
 import 'Preference.dart';
 
@@ -6,7 +5,7 @@ class Offer {
   late var id;
   late String title;
   late String description;
-  late Float salary;
+  late var salary;
   late bool isRemote;
   late bool isVisible;
   late int labour;
@@ -17,14 +16,14 @@ class Offer {
       this.isVisible, this.labour, this.skillList, this.preferenceList);
 
   Offer.fromJson(Map<String, dynamic> json) {
-    id = json['id'].parseLong();
-    title = json['title'];
-    description = json['description'];
-    salary = json['salary'].parseFloat();
-    isRemote = json['isRemote'].parseBool();
-    isVisible = json['isVisible'].parseBool();
-    labour = json['labour'].parseInt();
-    skillList = json['skillList'];
-    preferenceList = json['preferenceList'];
+    id = json['id'] as int;
+    title = json['title'] as String;
+    description = json['description'] as String;
+    salary = json['salary'];
+    isRemote = json['isRemote'] as bool;
+    isVisible = json['isVisible'] as bool;
+    labour = json['labour'] as int;
+    skillList = json['skillList'] as List<Skill>;
+    preferenceList = json['preferenceList'] as List<Preference>;
   }
 }
