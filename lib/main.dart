@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: const Color.fromRGBO(255, 183, 3, 1.0),
       ),
-      home: LoginScreen(),
+      home : LoginSignUpScreen(),
     );
   }
 }
