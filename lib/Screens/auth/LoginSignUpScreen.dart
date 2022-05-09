@@ -1,17 +1,8 @@
-import 'dart:js';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swapjob/Screens/auth/LoginScreen.dart';
 import 'package:swapjob/Screens/auth/register/RegisterScreen.dart';
-//import 'package:tinder_clone/Models/tinder_clone_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import 'package:swapjob/Utils/color.dart';
-import '../UserName.dart';
-import 'email_verifaction.dart';
 
 class LoginSignUpScreen extends StatefulWidget {
   @override

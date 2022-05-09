@@ -6,10 +6,12 @@ import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swapjob/Previous/HomeScreen_Other.dart';
+
 //import 'package:swapjob/Screens/UserDOB.dart'; BIRTHDAY SCCREEN
 import 'package:swapjob/Utils/color.dart';
 
 import '../Home.dart';
+import '../../../Utils/requests.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -80,7 +82,6 @@ class _LoginState extends State<LoginScreen> {
                       hintText: "Email",
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: primaryOrangeColor)),
-
                       helperStyle: TextStyle(
                           color: secondaryDarkBlueColor, fontSize: 15),
                     ),
@@ -141,7 +142,8 @@ class _LoginState extends State<LoginScreen> {
                             setState(() {
                               _isLoading = true;
                             });
-                            login(emailController.text, passwordController.text);
+                            login(
+                                emailController.text, passwordController.text);
                           },
                         ),
                       ),
@@ -153,13 +155,11 @@ class _LoginState extends State<LoginScreen> {
                         child: InkWell(
                           child: Container(
                               decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.circular(25),
-                                color: primaryOrangeColor
-                              ),
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(25),
+                                  color: primaryOrangeColor),
                               height: MediaQuery.of(context).size.height * .065,
                               width: MediaQuery.of(context).size.width * .75,
-
                               child: Center(
                                   child: Text(
                                 "CONTINUE",
@@ -178,58 +178,22 @@ class _LoginState extends State<LoginScreen> {
       ),
     );
   }
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   login(String email, String password) async {
-    print(email);
-    print(password);
-    var data = {
-      "email" : email,
-      "password" : password
-    };
-    var headers = {
-      'Content-Type': 'application/json'
-    };
-    //var response = await http.post(Uri.parse("http://api.swapjob.tk/SwapJob/auth/signin"), body: convert.jsonEncode(data));
-    var request = http.Request('POST', Uri.parse('http://api.swapjob.tk/SwapJob/auth/signin'));
-    request.body = json.encode(data);
-    request.headers.addAll(headers);
-    var streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
-
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    if (response.statusCode == 200) {
-      print(response.body);
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+    bool success = await performLogin(email, password);
+    if (success) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+          (Route<dynamic> route) => false);
+    } else {
       setState(() {
         _isLoading = false;
-        sharedPreferences.setString("accessToken", jsonResponse['accessToken']);
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-                builder: (BuildContext context) => HomePage()),
-                (Route<dynamic> route) => false);
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("The user not exists, bad credentials")));
       });
-
     }
-    else {
-      setState(() {
-        _isLoading = false;
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("The user not exists, bad credentials")));
-      });
-
-    }
-
-
-
-
-
-
-
-
-
-
-
   }
-
 }
