@@ -4,6 +4,7 @@ class User {
   final String id;
   List imageUrl = [];
   final String name;
+
   /*
   final bool isBlocked;
   String address;
@@ -36,12 +37,10 @@ class User {
     //this.distanceBW,
     //required this.sexualOrientation,
   });
+
   factory User.fromJson() {
     // DateTime date = DateTime.parse(doc["user_DOB"]);
     return User(
-        id: '1',
-      name: 'hola',
-      imageUrl: List.generate(10, (index) => null)
-    );
+        id: '1', name: 'hola', imageUrl: List.generate(10, (index) => null));
   }
 }
