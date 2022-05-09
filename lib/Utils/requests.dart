@@ -35,21 +35,38 @@ const String baseUrl = "http://localhost"; //LOCAL
 //           .toList();
 // }
 
-// Future<List<Offer>?> getOffers() async {
-//   final response = await http.get(Uri.parse('http://localhost/offer/all'),
-//   headers: {
-//     // HttpHeaders.authorizationHeader: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYWtvQGFzdGFwb3IuY29tIiwiaWF0IjoxNjUyMDk2NDYyLCJleHAiOjE2NTIxODI4NjJ9.wKbbMfN0asCniRv_jdk0Xxa8Wc6_T6S6c1-nwU8WKDlxqwCJ7AoWS-_FCW0EjsWciDUCz8kyufowOPHPljM9mQ',
-//     // HttpHeaders.accessControlAllowOriginHeader: '*',
-//     // HttpHeaders.accessControlAllowCredentialsHeader: 'true'
-//   });
-//
-//   final responseJson = json.decode(response.body);
-//   print(responseJson);
-//
-//   return responseJson.isEmpty
-//       ? []
-//       : responseJson;
-// }
+Future<List<Offer>?> getOffers() async {
+  // final response = await http.get(Uri.parse(baseUrl + '/offer/all'),
+  // headers: {
+  //   HttpHeaders.authorizationHeader: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYWtvQGFzdGFwb3IuY29tIiwiaWF0IjoxNjUyMDk2NDYyLCJleHAiOjE2NTIxODI4NjJ9.wKbbMfN0asCniRv_jdk0Xxa8Wc6_T6S6c1-nwU8WKDlxqwCJ7AoWS-_FCW0EjsWciDUCz8kyufowOPHPljM9mQ',
+  //   HttpHeaders.accessControlAllowOriginHeader: '*',
+  //   HttpHeaders.accessControlAllowCredentialsHeader: 'true'
+  // });
+  //
+  // final responseJson = json.decode(response.body);
+  // print(responseJson);
+  //
+  // return responseJson.isEmpty
+  //     ? []
+  //     : responseJson;
+  var headers = {
+    'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYWtvQGFzdGFwb3IuY29tIiwiaWF0IjoxNjUyMTE3MjU5LCJleHAiOjE2NTIyMDM2NTl9.qyd1y6Vqn9cI1KP6vYdkUmrtQL1TW1PJRUw97bQyaf99k3nRdqwpAOM_xjzty_p-aihsIbKnYVcd5kUJ6q5C_A',
+    'Access-Control-Allow-Origin': '*'
+  };
+  var request = http.Request('GET', Uri.parse('http://localhost/offer/all'));
+
+  request.headers.addAll(headers);
+
+  http.StreamedResponse response = await request.send();
+
+  if (response.statusCode == 200) {
+    print(await response.stream.bytesToString());
+  }
+  else {
+    print(response.reasonPhrase);
+  }
+  return [];
+}
 
 Future<bool> performLogin(String email, String password) async {
   print(email);
@@ -59,10 +76,9 @@ Future<bool> performLogin(String email, String password) async {
     "password" : password
   };
   var headers = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   };
-  //var response = await http.post(Uri.parse("http://api.swapjob.tk/SwapJob/auth/signin"), body: convert.jsonEncode(data));
-  var request = http.Request('POST', Uri.parse('http://api.swapjob.tk/SwapJob/auth/signin'));
+  var request = http.Request('POST', Uri.parse(baseUrl + '/auth/signin'));
   request.body = json.encode(data);
   request.headers.addAll(headers);
   var streamedResponse = await request.send();
