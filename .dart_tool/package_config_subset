@@ -1,7 +1,3 @@
-swapjob
-2.12
-file:///C:/Users/jonap/Desktop/LIS/Swap-Job-App/
-file:///C:/Users/jonap/Desktop/LIS/Swap-Job-App/lib/
 agora_rtc_engine
 2.12
 file:///C:/Users/jonap/Downloads/flutter_windows_2.10.5-stable/flutter/.pub-cache/hosted/pub.dartlang.org/agora_rtc_engine-5.1.0/
@@ -482,4 +478,8 @@ flutter_web_plugins
 2.12
 file:///C:/Users/jonap/Downloads/flutter_windows_2.10.5-stable/flutter/packages/flutter_web_plugins/
 file:///C:/Users/jonap/Downloads/flutter_windows_2.10.5-stable/flutter/packages/flutter_web_plugins/lib/
+swapjob
+2.12
+file:///C:/Users/jonap/OneDrive/Escritorio/LIS/Swap-Job-App/
+file:///C:/Users/jonap/OneDrive/Escritorio/LIS/Swap-Job-App/lib/
 2

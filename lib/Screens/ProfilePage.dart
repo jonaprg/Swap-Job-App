@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:swapjob/Screens/EditProfile.dart';
 
-import '../Utils/account_json.dart';
 
 class AccountPage extends StatefulWidget {
   @override
@@ -39,28 +38,28 @@ class _AccountPageState extends State<AccountPage> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                account_json[0]['firstName'] + ", " + account_json[0]['lastName'],
+                'firstName lastName',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
               ),
               SizedBox(
                 height: 20,
               ),
               Text(
-                account_json[0]['email'],
+               'email',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
               ),
               SizedBox(
                 height: 20,
               ),
               Text(
-                account_json[0]['phone'],
+                'phone',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
               ),
               SizedBox(
                 height: 20,
               ),
               Text(
-                account_json[0]['description'],
+                'description',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
               ),
               SizedBox(

@@ -4,6 +4,7 @@ import 'package:swapjob/Screens/SplashScreen.dart';
 import 'package:swapjob/Previous/TabsScreen_Other.dart';
 import 'package:swapjob/Screens/auth/LoginScreen.dart';
 import 'package:swapjob/Screens/auth/LoginSignUpScreen.dart';
+import 'package:swapjob/Screens/auth/register/RegisterScreen.dart';
 
 import 'Model/Offer.dart';
 import 'Model/User.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: const Color.fromRGBO(255, 183, 3, 1.0),
       ),
-      home : LoginSignUpScreen(),
+      home : LoginScreen(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:swapjob/Model/Offer.dart';
 import 'package:swapjob/Screens/LikesPage.dart';
 import 'package:swapjob/Screens/ProfilePage.dart';
 import 'package:swapjob/Screens/ExplorePage.dart';
@@ -26,7 +27,12 @@ class _HomePageState extends State<HomePage> {
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => LoginSignUpScreen()), (Route<dynamic> route) => false);
     }
   }
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkLoginStatus();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

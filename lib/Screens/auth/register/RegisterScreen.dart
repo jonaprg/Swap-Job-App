@@ -184,14 +184,14 @@ class _RegisterState extends State<RegisterScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   Future signup(String email, String password) async {
-    print(email);
-    print(password);
     var data = {
       "email" : email,
       "password" : password
     };
     var headers = {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
+
     };
     //var response = await http.post(Uri.parse("http://api.swapjob.tk/SwapJob/auth/signin"), body: convert.jsonEncode(data));
     var request = http.Request('POST', Uri.parse('http://api.swapjob.tk/SwapJob/auth/signin'));
@@ -200,7 +200,6 @@ class _RegisterState extends State<RegisterScreen> {
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
 
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text("The user already exists")));

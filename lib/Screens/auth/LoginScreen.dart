@@ -186,13 +186,11 @@ class _LoginState extends State<LoginScreen> {
   login(String email, String password) async {
     bool success = await performLogin(email, password);
     if (success) {
-      Future<List<Offer>?> offers = getOffers();
+      Future<List<Offer>> offers = getOffers();
       offers.then((offers) {
-        if (offers != null) {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (BuildContext context) => HomePage()),
-              (Route<dynamic> route) => false);
-        }
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+            (Route<dynamic> route) => false);
       });
     } else {
       setState(() {
