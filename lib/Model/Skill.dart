@@ -1,13 +1,19 @@
 class Skill {
-  late int id;
-  late String title;
-  late String description;
+  final int id;
+  final String title;
+  final String description;
 
-  Skill(this.id, this.title, this.description);
+  const Skill({
+    required this.id,
+    required this.title,
+    required this.description
+  });
 
-  Skill.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    title = json['title'];
-    description = json['description'];
+  factory Skill.fromJson(Map<String, dynamic> json) {
+    return Skill(
+    id : json['id'],
+    title : json['title'],
+    description : json['description'],
+    );
   }
 }

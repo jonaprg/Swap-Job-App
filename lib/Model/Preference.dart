@@ -1,19 +1,26 @@
 
 class Preference {
-  late var id;
-  late String title;
-  late var lowThreshold;
-  late var highThreshold;
-  late var value;
+  final int id;
+  final String title;
+  final int lowThreshold;
+  final int highThreshold;
+  final int value;
 
-  Preference(
-      this.id, this.title, this.lowThreshold, this.highThreshold, this.value);
-
-  Preference.fromJson(Map<String, dynamic> json) {
-    id = json['id'] as int;
-    title = json['title'] as String;
-    lowThreshold = json['lowThreshold'];
-    highThreshold = json['highThreshold'];
-    value = json['value'];
+  const Preference( {
+     required this.id,
+     required this.title,
+     required this.lowThreshold,
+     required this.highThreshold,
+     required this.value
+  });
+     
+  factory Preference.fromJson(Map<String, dynamic> json) {
+    return Preference(
+    id : json['id'] as int,
+    title : json['title'] as String,
+    lowThreshold : json['lowThreshold'],
+    highThreshold : json['highThreshold'],
+    value : json['value'],
+    );
   }
 }

@@ -21,8 +21,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginState extends State<LoginScreen> {
   bool _isLoading = false;
-  String email = '';
-  String password = '';
+  String email = 'pako@astapor.com';
+  String password = 'P@ssw0rd';
 
   @override
   void dispose() {
@@ -184,7 +184,7 @@ class _LoginState extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
 
   login(String email, String password) async {
-    bool success = await performLogin(email, password);
+    bool success = await performLogin("pako@astapor.com", "P@ssw0rd");
     if (success) {
       Future<List<Offer>> offers = getOffers();
       offers.then((offers) {

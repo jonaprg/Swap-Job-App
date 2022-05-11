@@ -21,9 +21,15 @@ class Offer {
     required this.isVisible,
     required this.labour,
     required this.skillList,
-    required this.preferenceList});
+    required this.preferenceList
+  });
 
   factory Offer.fromJson(Map<String, dynamic> json) {
+    var skillList = json['skillList'] as List;
+    List<Skill> itemsList = skillList.map((i) => Skill.fromJson(i)).toList();
+    var preferenceList = json['preferenceList'] as List;
+    List<Preference> itemPreference = preferenceList.map((i) => Preference.fromJson(i)).toList();
+
     return Offer(
     id : json['id'] as int,
     title : json['title'] as String,
@@ -32,8 +38,8 @@ class Offer {
     isRemote : json['isRemote'] as bool,
     isVisible : json['isVisible'] as bool,
     labour : json['labour'] as int,
-    skillList : json['skillList'] as List<Skill>,
-    preferenceList : json['preferenceList'] as List<Preference>,
+    skillList : itemsList,
+    preferenceList : itemPreference,
     );
   }
 }

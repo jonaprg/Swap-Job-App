@@ -269,11 +269,14 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
 
     var headers = {
       'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
+    'Access-Control-Allow-Origin': '*',
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers" : "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+    "Access-Control-Allow-Methods" : "POST,GET, HEAD",
     };
     //var response = await http.post(Uri.parse("http://api.swapjob.tk/SwapJob/auth/signin"), body: convert.jsonEncode(data));
     var request = http.Request(
-        'POST', Uri.parse('http://api.swapjob.tk/SwapJob/auth/signup'));
+        'POST', Uri.parse('http://localhost/auth/signup'));
     print(data.values.elementAt(0));
     print(data.values.elementAt(1));
     request.body = json.encode(data);
@@ -286,7 +289,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
     if (response.statusCode == 200) {
       bool success = await performLogin(data.values.elementAt(0), data.values.elementAt(1));
       if (success) {
-        Future<List<Offer>?> offers = getOffers();
+        Future<List<Offer>> offers = getOffers();
         offers.then((offers) {
           if (offers != null) {
             Navigator.of(context).pushAndRemoveUntil(

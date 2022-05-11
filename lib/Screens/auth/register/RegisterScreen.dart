@@ -12,6 +12,8 @@ import 'package:swapjob/Utils/color.dart';
 
 import '../LoginScreen.dart';
 
+const String baseUrl = "http://localhost"; //LOCAL
+//const String baseUrl = "http://api.swapjob.tk/SwapJob"; //PRODUCTION
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -190,11 +192,14 @@ class _RegisterState extends State<RegisterScreen> {
     };
     var headers = {
       'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
+    'Access-Control-Allow-Origin': '*',
+      "Access-Control-Allow-Credentials": "true",
+      "Access-Control-Allow-Headers" : "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+      "Access-Control-Allow-Methods" : "POST, HEAD",
 
     };
     //var response = await http.post(Uri.parse("http://api.swapjob.tk/SwapJob/auth/signin"), body: convert.jsonEncode(data));
-    var request = http.Request('POST', Uri.parse('http://api.swapjob.tk/SwapJob/auth/signin'));
+    var request = http.Request('POST', Uri.parse(baseUrl +'/auth/signin'));
     request.body = json.encode(data);
     request.headers.addAll(headers);
     var streamedResponse = await request.send();
