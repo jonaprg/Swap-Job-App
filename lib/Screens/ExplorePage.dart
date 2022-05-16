@@ -33,7 +33,8 @@ class _ExplorePageState extends State<ExplorePage>
         future: itemsTemp,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Center(
+            print({snapshot.error});
+            return  Center(
               child: Text('An error has occurred!'),
             );
           } else if (snapshot.hasData) {

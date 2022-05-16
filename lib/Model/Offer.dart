@@ -31,7 +31,6 @@ class Offer {
   });
 
   factory Offer.fromJson(Map<String, dynamic> json) {
-    print(json);
     var skillList = json['skillList'] as List;
     List<Skill> itemsList = skillList.map((i) => Skill.fromJson(i)).toList();
     var preferenceList = json['preferenceList'] as List;

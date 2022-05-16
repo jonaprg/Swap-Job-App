@@ -27,15 +27,10 @@ class _MatchesPageState extends State<MatchesPage>
         future: itemsTemp,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            print(snapshot.error);
             return  Center(
               child: Text('An error has occurred!'),
             );
           } else if (snapshot.hasData) {
-            // print(snapshot.data);
-            // for(MatchUser m in snapshot.data!){
-            //   print(m.toString());
-            // }
             return MatchList(matches: snapshot.data!);
           } else {
             return const Center(
@@ -74,7 +69,7 @@ class MatchList extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Expanded(
-                          child: Text(matches[index].offer.companyName,
+                          child: Text('Offer: ' +matches[index].offer.title,
                               style: TextStyle(
                                   fontWeight: FontWeight.normal,
                                   color: Colors.black)),
@@ -112,12 +107,12 @@ class MatchList extends StatelessWidget {
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 0, 0, 4),
-                                child: Text(matches[index].offer.title,
+                                child: Text('Company: ' + matches[index].offer.companyName,
                                     style: TextStyle(
                                         fontWeight: FontWeight.normal,
                                         color: Colors.black)),
                               ),
-                              Text('Salary',
+                              Text('Salary: ' + matches[index].offer.salary.toString() + ' €',
                                   textAlign: TextAlign.end,
                                   style: TextStyle(
                                       fontWeight: FontWeight.normal,

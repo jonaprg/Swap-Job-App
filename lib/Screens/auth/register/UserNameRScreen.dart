@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -15,6 +14,7 @@ import '../../../Utils/requests.dart';
 
 class UserNameRScreen extends StatefulWidget {
   Map<String, dynamic> userData;
+
   UserNameRScreen(this.userData);
 
   @override
@@ -83,7 +83,6 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                       hintText: "First name",
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: primaryOrangeColor)),
-
                       helperStyle: TextStyle(
                           color: secondaryDarkBlueColor, fontSize: 15),
                     ),
@@ -139,7 +138,6 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                     },
                   ),
                   const SizedBox(height: 30.0),
-
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
@@ -155,7 +153,8 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                   ),
                 ]),
               ),
-              firstNameController.text.isNotEmpty && lastNameController.text.isNotEmpty
+              firstNameController.text.isNotEmpty &&
+                      lastNameController.text.isNotEmpty
                   ? Padding(
                       padding: const EdgeInsets.only(bottom: 40),
                       child: Align(
@@ -187,17 +186,16 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                           onTap: () {
                             print(currentDate);
                             print(firstNameController.text);
-                            widget.userData.addAll(
-                              {
-
-                                "firstName": firstNameController.text,
-                                "lastName": lastNameController.text,
-                                "postalCode": int.parse(postalCodeController.text),
-                                "phone": phoneController.text,
-                                "birthDate": DateFormat('yyyy-MM-dd').format(currentDate),
-                                "description": "string",
-                                "companyUser" : true
-
+                            widget.userData.addAll({
+                              "firstName": firstNameController.text,
+                              "lastName": lastNameController.text,
+                              "postalCode":
+                                  int.parse(postalCodeController.text),
+                              "phone": phoneController.text,
+                              "birthDate":
+                                  DateFormat('yyyy-MM-dd').format(currentDate),
+                              "description": "string",
+                              "companyUser": true
                             });
                             /*widget.userData.addAll({
                               "email": "asd123312@gmail.com",
@@ -264,19 +262,18 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
       });
   }
 
-
   signupWithAll(Map data) async {
-
     var headers = {
       'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    "Access-Control-Allow-Credentials": "true",
-    "Access-Control-Allow-Headers" : "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-    "Access-Control-Allow-Methods" : "POST,GET, HEAD",
+      'Access-Control-Allow-Origin': '*',
+      "Access-Control-Allow-Credentials": "true",
+      "Access-Control-Allow-Headers":
+          "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+      "Access-Control-Allow-Methods": "POST,GET, HEAD",
     };
     //var response = await http.post(Uri.parse("http://api.swapjob.tk/SwapJob/auth/signin"), body: convert.jsonEncode(data));
-    var request = http.Request(
-        'POST', Uri.parse('http://localhost/auth/signup'));
+    var request =
+        http.Request('POST', Uri.parse('http://localhost/auth/signup'));
     print(data.values.elementAt(0));
     print(data.values.elementAt(1));
     request.body = json.encode(data);
@@ -287,31 +284,23 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
     print(response.statusCode);
     print(response.body);
     if (response.statusCode == 200) {
-      bool success = await performLogin(data.values.elementAt(0), data.values.elementAt(1));
+      bool success = await performLogin(
+          data.values.elementAt(0), data.values.elementAt(1));
       if (success) {
-        Future<List<Offer>> offers = getOffers();
-        offers.then((offers) {
-          if (offers != null) {
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (BuildContext context) => HomePage()),
-                    (Route<dynamic> route) => false);
-          }
-        });
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+            (Route<dynamic> route) => false);
       } else {
         setState(() {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("Server error")));
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text("Server error")));
         });
       }
-    }
-    else {
+    } else {
       setState(() {
         ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(
-            content: Text("Error, retry again")));
+            .showSnackBar(const SnackBar(content: Text("Error, retry again")));
       });
     }
   }
 }
-
-
