@@ -22,8 +22,8 @@ class MatchUser {
       id : json['id'] as int,
       isFinalized : json['isFinalized'] as bool,
       isContracted : json['isContracted'] as bool,
-      user :  User.fromJson(json['user']),
-      offer :  Offer.fromJson(json['user']),
+      user : User.fromJson(json['user']),
+      offer : Offer.fromJson(json['offer']),
     );
   }
 

@@ -5,8 +5,8 @@ import 'package:swapjob/Model/Matches.dart';
 import 'package:swapjob/Model/Offer.dart';
 import 'package:http/http.dart' as http;
 
-// const String baseUrl = "http://localhost"; //LOCAL
-const String baseUrl = "http://api.swapjob.tk/SwapJob"; //PRODUCTION
+const String baseUrl = "http://localhost"; //LOCAL
+//const String baseUrl = "http://api.swapjob.tk/SwapJob"; //PRODUCTION
 // const String baseUrl = "http://swapjob.tk:8080/SwapJob"; //SEMI PRODUCTION
 
 final http.Client client = http.Client();
@@ -79,7 +79,6 @@ Future<bool> performLogin(String email, String password) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
   if (response.statusCode == 200) {
-    print(response.body);
     var jsonResponse =
         convert.jsonDecode(response.body) as Map<String, dynamic>;
     sharedPreferences.setString('accessToken', jsonResponse['accessToken']);
