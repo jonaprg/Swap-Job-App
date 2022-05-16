@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:convert' as convert;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:swapjob/Model/Matches.dart';
+import 'package:swapjob/Model/User.dart';
+import 'package:swapjob/Model/UserMatches.dart';
 import 'package:swapjob/Model/Offer.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,7 +12,25 @@ const String baseUrl = "http://localhost"; //LOCAL
 
 final http.Client client = http.Client();
 
-Future<List<MatchUser>> getMatchesUser() async {
+Future<List<User>> getUserProfile() async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  var token = sharedPreferences.getString('accessToken');
+
+  final response = await client
+      .get(Uri.parse(baseUrl+'/user/getProfile'), headers: {
+    "Accept": "application/json",
+    'Authorization': 'Bearer $token',
+  });
+  if (response.statusCode == 200) {
+    final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
+    return parsed.map<User>((json) => User.fromJson(json)).toList();
+  } else {
+    throw Exception('Failed to load matches for user');
+  }
+}
+
+
+Future<List<UserMatch>> getMatchesUser() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
 
@@ -22,7 +41,7 @@ Future<List<MatchUser>> getMatchesUser() async {
   });
   if (response.statusCode == 200) {
     final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
-    return parsed.map<MatchUser>((json) => MatchUser.fromJson(json)).toList();
+    return parsed.map<UserMatch>((json) => UserMatch.fromJson(json)).toList();
   } else {
     throw Exception('Failed to load matches for user');
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:swapjob/Model/Matches.dart';
+import 'package:swapjob/Model/UserMatches.dart';
+import 'package:swapjob/Screens/Home.dart';
 import 'package:swapjob/Utils/requests.dart';
 
 class MatchesPage extends StatefulWidget {
@@ -9,13 +10,18 @@ class MatchesPage extends StatefulWidget {
 
 class _MatchesPageState extends State<MatchesPage>
     with TickerProviderStateMixin {
-  late Future<List<MatchUser>> itemsTemp;
+  late Future<List<UserMatch>> itemsTemp;
+  late List<UserMatch> matches;
+
   int itemLength = 0;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    itemsTemp = getMatchesUser();
+    // TODO: implement initState
+    setState(() {
+      itemsTemp = getMatchesUser();
+    });
+
 
   }
 
@@ -23,7 +29,7 @@ class _MatchesPageState extends State<MatchesPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: FutureBuilder<List<MatchUser>>(
+      body: FutureBuilder<List<UserMatch>>(
         future: itemsTemp,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -31,7 +37,97 @@ class _MatchesPageState extends State<MatchesPage>
               child: Text('An error has occurred!'),
             );
           } else if (snapshot.hasData) {
-            return MatchList(matches: snapshot.data!);
+            matches = snapshot.data!;
+
+            return ListView.builder(
+              itemCount: 1,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(left: 5, right: 5),
+                  child: Wrap(
+                    spacing: 5,
+                    runSpacing: 5,
+                    children: List.generate(matches.length, (indexTwo) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: Text('Offer: ' +matches[indexTwo].offer.title,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          color: Colors.black)),
+                                ),
+                                Expanded(
+                                  child: Text('id: ' +matches[indexTwo].offer.id.toString() + ": index: " + indexTwo.toString(),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          color: Colors.black)),
+                                ),
+                                Icon(
+                                  Icons.chevron_right_rounded,
+                                  color: Colors.black,
+                                  size: 24,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 4),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                OutlinedButton(
+                                  onPressed: () {
+
+                                    removeMatchOffer(matches[indexTwo].offer.id);
+                                    setState(() {
+                                      matches.removeAt(indexTwo);
+
+                                    });
+                                  },
+                                  child: const Text('REMOVE',
+                                      style: TextStyle(color: Colors.red)),
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                        EdgeInsetsDirectional.fromSTEB(0, 0, 0, 4),
+                                        child: Text('Company: ' + matches[indexTwo].offer.companyName,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                color: Colors.black)),
+                                      ),
+                                      Text('Salary: ' + matches[indexTwo].offer.salary.toString() + ' €',
+                                          textAlign: TextAlign.end,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              color: Colors.black)),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    }),
+                  ),
+                );
+              },
+            );
+
+
           } else {
             return const Center(
               child: CircularProgressIndicator(),
@@ -43,10 +139,12 @@ class _MatchesPageState extends State<MatchesPage>
   }
 }
 
-class MatchList extends StatelessWidget {
-  const MatchList({Key? key, required this.matches}) : super(key: key);
 
-  final List<MatchUser> matches;
+
+/*
+class MatchList extends State<MatchesList> {
+  MatchListState({Key? key, required this.matches});
+
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +188,9 @@ class MatchList extends StatelessWidget {
                       children: [
                         OutlinedButton(
                           onPressed: () {
-                            removeMatchOffer(matches[index].offer.id);
                             setState(() {
+                              removeMatchOffer(matches[index].offer.id);
+
                               matches.removeAt(index);
                             });
                           },
@@ -132,3 +231,4 @@ class MatchList extends StatelessWidget {
     );
   }
 }
+*/

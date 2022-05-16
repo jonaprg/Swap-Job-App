@@ -1,14 +1,14 @@
 import 'Offer.dart';
 import 'User.dart';
 
-class MatchUser {
+class UserMatch {
   final int id;
   final bool isFinalized;
   final bool isContracted;
   final User user;
   final Offer offer;
 
-  const MatchUser({
+  const UserMatch({
     required this.id,
     required this.isFinalized,
     required this.isContracted,
@@ -16,9 +16,9 @@ class MatchUser {
     required this.offer
   });
 
-  factory MatchUser.fromJson(Map<String, dynamic> json) {
+  factory UserMatch.fromJson(Map<String, dynamic> json) {
 
-    return MatchUser(
+    return UserMatch(
       id : json['id'] as int,
       isFinalized : json['isFinalized'] as bool,
       isContracted : json['isContracted'] as bool,

@@ -9,6 +9,9 @@ import 'package:flutter/services.dart';
 import 'package:swapjob/Screens/auth/LoginScreen.dart';
 import 'package:swapjob/Screens/auth/LoginSignUpScreen.dart';
 
+import '../Model/UserMatches.dart';
+import '../Utils/requests.dart';
+
 
 
 
@@ -20,6 +23,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int pageIndex = 0;
   late SharedPreferences sharedPreferences;
+  late Future<List<UserMatch>> itemsTemp;
 
   checkLoginStatus() async {
     sharedPreferences = await SharedPreferences.getInstance();
@@ -29,7 +33,6 @@ class _HomePageState extends State<HomePage> {
   }
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     checkLoginStatus();
   }
