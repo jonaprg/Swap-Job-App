@@ -138,8 +138,9 @@ class OfferList extends StatelessWidget {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                               ),
-                              child: Image.asset(
-                                'assets/images/df3hg_',
+                              //TODO cambiar imagen
+                              child: Image.network(
+                                offers[index].companyImage,
                               ),
                             ),
                             Expanded(
@@ -147,7 +148,7 @@ class OfferList extends StatelessWidget {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                                 child: Text(
-                                  'EMPRESA COMPANYIA',
+                                  offers[index].companyName,
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,

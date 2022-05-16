@@ -31,6 +31,7 @@ class Offer {
   });
 
   factory Offer.fromJson(Map<String, dynamic> json) {
+    print(json);
     var skillList = json['skillList'] as List;
     List<Skill> itemsList = skillList.map((i) => Skill.fromJson(i)).toList();
     var preferenceList = json['preferenceList'] as List;
@@ -50,5 +51,10 @@ class Offer {
     skillList : itemsList,
     preferenceList : itemPreference,
     );
+  }
+
+  @override
+  String toString() {
+    return 'Offer{id: $id, title: $title, description: $description, salary: $salary, isRemote: $isRemote, isVisible: $isVisible, labour: $labour, skillList: $skillList, preferenceList: $preferenceList, companyName: $companyName, companyImage: $companyImage, coordinates: $coordinates}';
   }
 }

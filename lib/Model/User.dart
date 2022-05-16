@@ -1,46 +1,58 @@
-import 'package:flutter/cupertino.dart';
+import 'Preference.dart';
+import 'Skill.dart';
 
 class User {
-  final String id;
-  List imageUrl = [];
-  final String name;
+  final int id;
+  final String firstName;
+  final String lastName;
+  final String email;
+  final int postalCode;
+  final String phone;
+  final String birthDate;
+  final bool isVisible;
+  final String description;
+  //final bool isCompanyUser;
+  final List<Skill> skill;
+  final List<Preference> preference;
 
-  /*
-  final bool isBlocked;
-  String address;
-  final Map coordinates;
-  final List sexualOrientation;
-  final String gender;
-  final String showGender;
-  final int age;
-  final String phoneNumber;
-  int maxDistance;
-  final Map ageRange;
-  final Map editInfo;
-
-  var distanceBW;*/
 
   User({
     required this.id,
-    //required this.age,
-    //required this.address,
-    //required this.isBlocked,
-    //required this.coordinates,
-    required this.name,
-    required this.imageUrl,
-    //required this.phoneNumber,
-    //required this.gender,
-    //required this.showGender,
-    //required this.ageRange,
-    //required this.maxDistance,
-    //required this.editInfo,
-    //this.distanceBW,
-    //required this.sexualOrientation,
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.postalCode,
+    required this.phone,
+    required this.birthDate,
+    required this.isVisible,
+    required this.description,
+    required this.skill,
+    required this.preference
   });
 
-  factory User.fromJson() {
-    // DateTime date = DateTime.parse(doc["user_DOB"]);
+  factory User.fromJson(Map<String, dynamic> json) {
+    var skillList = json['skillList'] as List;
+    List<Skill> itemsSkill = skillList.map((i) => Skill.fromJson(i)).toList();
+    var preferenceList = json['preferenceList'] as List;
+    List<Preference> itemPreference = preferenceList.map((i) => Preference.fromJson(i)).toList();
+
     return User(
-        id: '1', name: 'hola', imageUrl: List.generate(10, (index) => null));
+      id : json['id'] as int,
+      firstName : json['firstName'] as String,
+      lastName : json['lastName'] as String,
+      email : json['email'] as String,
+      postalCode : json['postalCode'] as int,
+      phone : json['phone'] as String,
+      birthDate : json['birthDate'] as String,
+      isVisible : json['visible'] as bool,
+      description : json['description'] as String,
+      skill : itemsSkill,
+      preference : itemPreference,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'User{id: $id, firstName: $firstName, lastName: $lastName, email: $email, postalCode: $postalCode, phone: $phone, birthDate: $birthDate, isVisible: $isVisible, description: $description, skill: $skill, preference: $preference}';
   }
 }

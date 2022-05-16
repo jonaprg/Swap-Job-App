@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swapjob/Previous/HomeScreen_Other.dart';
-import 'package:swapjob/Screens/LikesPage.dart';
+import 'package:swapjob/Screens/MatchesPage.dart';
 import 'package:swapjob/Screens/SplashScreen.dart';
 import 'package:swapjob/Previous/TabsScreen_Other.dart';
 import 'package:swapjob/Screens/auth/LoginScreen.dart';

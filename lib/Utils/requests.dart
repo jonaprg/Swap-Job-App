@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:convert' as convert;
-
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../Model/Offer.dart';
+import 'package:swapjob/Model/Matches.dart';
+import 'package:swapjob/Model/Offer.dart';
 import 'package:http/http.dart' as http;
 
 // const String baseUrl = "http://localhost"; //LOCAL
@@ -13,12 +11,26 @@ const String baseUrl = "http://api.swapjob.tk/SwapJob"; //PRODUCTION
 
 final http.Client client = http.Client();
 
+Future<List<MatchUser>> getMatchesUser() async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  var token = sharedPreferences.getString('accessToken');
+
+  final response = await client
+      .get(Uri.parse(baseUrl+'/user/matches'), headers: {
+    "Accept": "application/json",
+    'Authorization': 'Bearer $token',
+  });
+  if (response.statusCode == 200) {
+    final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
+    return parsed.map<MatchUser>((json) => MatchUser.fromJson(json)).toList();
+  } else {
+    throw Exception('Failed to load matches for user');
+  }
+}
+
 Future<List<Offer>> getOffers() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
-  var headers = {
-    'Authorization': 'Bearer $token',
-  };
 
   final response = await client
       .get(Uri.parse(baseUrl+'/offer/recommended'), headers: {
@@ -26,13 +38,9 @@ Future<List<Offer>> getOffers() async {
     'Authorization': 'Bearer $token',
   });
   if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
     final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
     return parsed.map<Offer>((json) => Offer.fromJson(json)).toList();
   } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
     throw Exception('Failed to load offers');
   }
 }

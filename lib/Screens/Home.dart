@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:swapjob/Model/Offer.dart';
-import 'package:swapjob/Screens/LikesPage.dart';
+import 'package:swapjob/Screens/MatchesPage.dart';
 import 'package:swapjob/Screens/ProfilePage.dart';
 import 'package:swapjob/Screens/ExplorePage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
     return IndexedStack(
       index: pageIndex,
       children: [
-        ExplorePage(), LikesPage(), AccountPage()]
+        ExplorePage(), MatchesPage(), AccountPage()]
     );
   }
 
