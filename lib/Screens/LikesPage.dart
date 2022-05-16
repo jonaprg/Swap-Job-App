@@ -8,12 +8,12 @@ class LikesPage extends StatefulWidget {
 }
 
 class _LikesPageState extends State<LikesPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: getBody(),
-      bottomSheet: getFooter(),
     );
   }
 
@@ -31,13 +31,6 @@ class _LikesPageState extends State<LikesPage> {
                 likes_json.length.toString() + " Likes",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              Text(
-                "Top Picks",
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black.withOpacity(0.5)),
-              ),
             ],
           ),
         ),
@@ -53,6 +46,85 @@ class _LikesPageState extends State<LikesPage> {
             spacing: 5,
             runSpacing: 5,
             children: List.generate(likes_json.length, (index) {
+              return Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Offer',
+                              style: TextStyle(fontWeight: FontWeight.normal, color: Colors.black)
+                          ),
+                        ),
+                        Icon(
+                          Icons.chevron_right_rounded,
+                          color: Colors.white,
+                          size: 24,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 4),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        OutlinedButton(
+                          onPressed: () {
+                            debugPrint('Received click');
+                          },
+                          child: const Text('REMOVE', style: TextStyle(color: Colors.red)),
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 4),
+                                child: Text(
+                                  'Localidad',
+                                    style: TextStyle(fontWeight: FontWeight.normal, color: Colors.black)
+                                ),
+                              ),
+                              Text(
+                                'Salario',
+                                textAlign: TextAlign.end,
+                                  style: TextStyle(fontWeight: FontWeight.normal, color: Colors.black)
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+
+            }),
+          ),
+        )
+      ],
+    );
+  }
+}
+
+/*
+
+
+
+
+
+
+
+
+
               return Container(
                 width: (size.width - 15) / 2,
                 height: 250,
@@ -139,39 +211,19 @@ class _LikesPageState extends State<LikesPage> {
                   ],
                 ),
               );
-            }),
-          ),
-        )
-      ],
-    );
-  }
 
-  Widget getFooter() {
-    var size = MediaQuery.of(context).size;
-    return Container(
-      width: size.width,
-      height: 90,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: Column(
-          children: [
-            Container(
-              width: size.width - 70,
-              height: 50,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  gradient: LinearGradient(colors: [Colors.yellow, Colors.yellow])),
-              child: Center(
-                child: Text("SEE WHO LIKES YOU",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold)),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ */

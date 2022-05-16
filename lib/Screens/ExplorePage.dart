@@ -15,15 +15,14 @@ class ExplorePage extends StatefulWidget {
 
 class _ExplorePageState extends State<ExplorePage>
     with TickerProviderStateMixin {
-
   late Future<List<Offer>> itemsTemp;
   int itemLength = 0;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     itemsTemp = getOffers();
-
   }
 
   @override
@@ -49,9 +48,6 @@ class _ExplorePageState extends State<ExplorePage>
       bottomSheet: getBottomSheet(context),
     );
   }
-
-
-
 
   Widget getBottomSheet(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -95,7 +91,6 @@ class _ExplorePageState extends State<ExplorePage>
 class OfferList extends StatelessWidget {
   late CardController controller;
 
-
   OfferList({Key? key, required this.offers}) : super(key: key);
 
   final List<Offer> offers;
@@ -112,6 +107,7 @@ class OfferList extends StatelessWidget {
             height: size.height,
             child: TinderSwapCard(
               totalNum: offers.length,
+              swipeEdge: 4.0,
               maxWidth: MediaQuery.of(context).size.width,
               maxHeight: MediaQuery.of(context).size.height * 0.85,
               minWidth: MediaQuery.of(context).size.width * 0.75,
@@ -148,12 +144,14 @@ class OfferList extends StatelessWidget {
                             ),
                             Expanded(
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                                 child: Text(
                                   'EMPRESA COMPANYIA',
                                   textAlign: TextAlign.start,
-                                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
                                 ),
                               ),
                             ),
@@ -163,7 +161,8 @@ class OfferList extends StatelessWidget {
                               onPressed: () async {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => InfoOffer()),
+                                  MaterialPageRoute(
+                                      builder: (context) => InfoOffer()),
                                 );
                               },
                             ),
@@ -182,79 +181,111 @@ class OfferList extends StatelessWidget {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(20, 12, 20, 12),
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    20, 12, 20, 12),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Column(
                                       mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Padding(
-                                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 0, 12),
                                           child: Text(
                                             'Empleo',
-
-                                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
                                           ),
                                         ),
                                         Padding(
-                                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 0, 12),
                                           child: Text(
                                             'Localidad',
-                                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
                                           ),
                                         ),
                                         Text(
                                           'Presencialidad',
-                                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
                                         ),
                                         Text(
                                           'Salario',
-                                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
                                         )
                                       ],
                                     ),
                                     Expanded(
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Padding(
                                             padding:
-                                            EdgeInsetsDirectional.fromSTEB(8, 0, 0, 12),
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    8, 0, 0, 12),
                                             child: Text(
                                               offers[index].title,
                                               textAlign: TextAlign.start,
-                                              style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.normal,
+                                                  color: Colors.white),
                                             ),
                                           ),
                                           Padding(
                                             padding:
-                                            EdgeInsetsDirectional.fromSTEB(8, 0, 0, 12),
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    8, 0, 0, 12),
                                             child: Text(
                                               'Barcelona',
                                               textAlign: TextAlign.start,
-                                              style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.normal,
+                                                  color: Colors.white),
                                             ),
                                           ),
                                           Padding(
-                                            padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    8, 0, 0, 0),
                                             child: Text(
-                                              (offers[index].isRemote == true) ? "Remoto" : "Presencial",
+                                              (offers[index].isRemote == true)
+                                                  ? "Remoto"
+                                                  : "Presencial",
                                               textAlign: TextAlign.start,
-                                              style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.normal,
+                                                  color: Colors.white),
                                             ),
                                           ),
                                           Padding(
-                                            padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    8, 0, 0, 0),
                                             child: Text(
                                               offers[index].salary.toString(),
                                               textAlign: TextAlign.start,
-                                              style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.normal,
+                                                  color: Colors.white),
                                             ),
                                           ),
                                         ],
@@ -279,31 +310,41 @@ class OfferList extends StatelessWidget {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(20, 12, 20, 12),
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    20, 12, 20, 12),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 0, 12),
                                       child: Text(
                                         'Requisitos',
-                                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
                                       ),
                                     ),
                                     Expanded(
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    8, 0, 0, 0),
                                             child: Text(
                                               offers[index].description,
                                               textAlign: TextAlign.start,
-                                              style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.normal,
+                                                  color: Colors.white),
                                             ),
                                           ),
                                         ],
@@ -341,19 +382,23 @@ class OfferList extends StatelessWidget {
                 ),
               ),
               cardController: controller = CardController(),
-              swipeUpdateCallback: (DragUpdateDetails details, Alignment align) {
+              swipeUpdateCallback:
+                  (DragUpdateDetails details, Alignment align) {
                 /// Get swiping card's alignment
-                if (align.x < 0) {
-                  //Card is LEFT swiping
-                } else if (align.x > 0) {
-                  //Card is RIGHT swiping
-                }
-                // print(itemsTemp.length);
               },
-              swipeCompleteCallback: (CardSwipeOrientation orientation, int index) {
+              swipeCompleteCallback:
+                  (CardSwipeOrientation orientation, int index) async {
                 /// Get orientation & index of swiped card!
-                if (index == (5 - 1)) {
-
+                if (orientation == CardSwipeOrientation.RIGHT) {
+                  bool success = await matchOffer(offers[index].id);
+                  if (success) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(const SnackBar(content: Text("Good")));
+                  }
+                  else {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(const SnackBar(content: Text("Nope")));
+                  }
                 }
               },
             ),

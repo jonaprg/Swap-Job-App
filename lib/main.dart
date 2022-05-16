@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swapjob/Previous/HomeScreen_Other.dart';
+import 'package:swapjob/Screens/LikesPage.dart';
 import 'package:swapjob/Screens/SplashScreen.dart';
 import 'package:swapjob/Previous/TabsScreen_Other.dart';
 import 'package:swapjob/Screens/auth/LoginScreen.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: const Color.fromRGBO(255, 183, 3, 1.0),
       ),
-      home : SplashScreen(),
+      home : LoginScreen(),
     );
   }
 }
