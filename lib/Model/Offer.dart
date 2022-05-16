@@ -11,6 +11,9 @@ class Offer {
   final int labour;
   final List<Skill> skillList;
   final List<Preference> preferenceList;
+  final String companyName;
+  final String companyImage;
+  final String coordinates;
 
   const Offer({
     required this.id,
@@ -21,7 +24,10 @@ class Offer {
     required this.isVisible,
     required this.labour,
     required this.skillList,
-    required this.preferenceList
+    required this.preferenceList,
+    required this.companyName,
+    required this.companyImage,
+    required this.coordinates
   });
 
   factory Offer.fromJson(Map<String, dynamic> json) {
@@ -38,6 +44,9 @@ class Offer {
     isRemote : json['isRemote'] as bool,
     isVisible : json['isVisible'] as bool,
     labour : json['labour'] as int,
+    companyName : json['companyName'] as String,
+    companyImage : json['companyImage'] as String,
+    coordinates : json['coordinates'] as String,
     skillList : itemsList,
     preferenceList : itemPreference,
     );
