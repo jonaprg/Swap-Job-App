@@ -95,7 +95,10 @@ class MatchList extends StatelessWidget {
                       children: [
                         OutlinedButton(
                           onPressed: () {
-                            debugPrint('Received click');
+                            removeMatchOffer(matches[index].offer.id);
+                            setState(() {
+                              matches.removeAt(index);
+                            });
                           },
                           child: const Text('REMOVE',
                               style: TextStyle(color: Colors.red)),

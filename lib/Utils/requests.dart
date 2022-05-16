@@ -63,6 +63,24 @@ Future<bool> matchOffer(int idOffer) async {
   return response.statusCode == 200;
 }
 
+Future<bool> removeMatchOffer(int idOffer) async {
+
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  var token = sharedPreferences.getString('accessToken');
+  var data = {"offerId": idOffer};
+  var headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $token',
+  };
+  var request = http.Request('POST', Uri.parse(baseUrl + '/removeMatchOffer'));
+  request.body = json.encode(data);
+  request.headers.addAll(headers);
+  var streamedResponse = await request.send();
+  var response = await http.Response.fromStream(streamedResponse);
+
+  return response.statusCode == 200;
+}
+
 Future<bool> performLogin(String email, String password) async {
 
   var data = {"email": email, "password": password};
