@@ -8,7 +8,7 @@ class User {
   final String email;
   final int postalCode;
   final String phone;
-  final DateTime birthDate;
+  final String birthDate;
   final bool isVisible;
   final String description;
   //final bool isCompanyUser;
@@ -43,7 +43,7 @@ class User {
       email : json['email'] as String,
       postalCode : json['postalCode'] as int,
       phone : json['phone'] as String,
-      birthDate : json['birthDate'] as DateTime,
+      birthDate : json['birthDate'] as String,
       isVisible : json['visible'] as bool,
       description : json['description'] as String,
       skill : itemsSkill,

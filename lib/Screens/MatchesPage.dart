@@ -33,6 +33,7 @@ class _MatchesPageState extends State<MatchesPage>
         future: itemsTemp,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
+            print(snapshot.error);
             return  Center(
               child: Text('An error has occurred!'),
             );
@@ -62,14 +63,8 @@ class _MatchesPageState extends State<MatchesPage>
                                           fontWeight: FontWeight.normal,
                                           color: Colors.black)),
                                 ),
-                                Expanded(
-                                  child: Text('id: ' +matches[indexTwo].offer.id.toString() + ": index: " + indexTwo.toString(),
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.black)),
-                                ),
                                 Icon(
-                                  Icons.chevron_right_rounded,
+                                  Icons.info,
                                   color: Colors.black,
                                   size: 24,
                                 ),
@@ -119,8 +114,16 @@ class _MatchesPageState extends State<MatchesPage>
                               ],
                             ),
                           ),
+                          const Divider(
+                            thickness: 1,
+                            indent: 20,
+                            endIndent: 0,
+                            color: Colors.grey,
+                          ),
                         ],
+
                       );
+
                     }),
                   ),
                 );

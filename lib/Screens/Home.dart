@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
     return IndexedStack(
       index: pageIndex,
       children: [
-        ExplorePage(), MatchesPage(), AccountPage()]
+        ExplorePage(), MatchesPage()]
     );
   }
 
