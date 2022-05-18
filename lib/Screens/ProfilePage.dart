@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:swapjob/Screens/EditProfile.dart';
+import 'package:swapjob/Utils/color.dart';
 import 'package:swapjob/Utils/requests.dart';
 
 import '../Model/User.dart';
@@ -78,7 +80,7 @@ class _ProfilePageState extends State<ProfilePage>
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              user[0].lastName,
+                                              user[0].firstName + " " + user[0].lastName,
                                               style: TextStyle(
                                                 fontFamily: 'Outfit',
                                                 color: Color(0xFF0F1113),
@@ -87,11 +89,11 @@ class _ProfilePageState extends State<ProfilePage>
                                               ),
                                             ),
                                             Text(
-                                              'phone',
+                                              "Phone: " + user[0].phone,
                                               style: TextStyle(
                                                 fontFamily: 'Outfit',
                                                 color: Color(0xFF0F1113),
-                                                fontSize: 20,
+                                                fontSize: 16,
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),
@@ -104,13 +106,13 @@ class _ProfilePageState extends State<ProfilePage>
                                                   Padding(
                                                     padding:
                                                     EdgeInsetsDirectional.fromSTEB(
-                                                        8, 8, 0, 0),
+                                                        0, 0, 0, 0),
                                                     child: Text(
-                                                      'email@gmail.commmm',
+                                                      user[0].email,
                                                       style: TextStyle(
                                                         fontFamily: 'Outfit',
                                                         color: Color(0xFF0F1113),
-                                                        fontSize: 20,
+                                                        fontSize: 16,
                                                         fontWeight: FontWeight.w500,
                                                       ),
                                                     ),
@@ -148,19 +150,14 @@ class _ProfilePageState extends State<ProfilePage>
                                                 padding: EdgeInsetsDirectional.fromSTEB(
                                                     0, 0, 12, 0),
                                                 child: Text(
-                                                  'Available',
+                                                  user[0].status.title,
                                                   style: TextStyle(
                                                     fontFamily: 'Outfit',
                                                     color: Color(0xFF0F1113),
-                                                    fontSize: 20,
+                                                    fontSize: 15,
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                                 ),
-                                              ),
-                                              Icon(
-                                                Icons.radio_button_checked_outlined,
-                                                color: Colors.white,
-                                                size: 12,
                                               ),
                                             ],
                                           ),
@@ -199,11 +196,11 @@ class _ProfilePageState extends State<ProfilePage>
                                         padding:
                                         EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                                         child: Text(
-                                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.',
+                                          user[0].description,
                                           style: TextStyle(
                                             fontFamily: 'Outfit',
                                             color: Color(0xFF0F1113),
-                                            fontSize: 20,
+                                            fontSize: 16,
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
@@ -229,7 +226,7 @@ class _ProfilePageState extends State<ProfilePage>
                                     ),
                                   ],
                                 ),
-                              ),
+                              ), //SKILL NAME
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                                 child: ListView(
@@ -356,7 +353,7 @@ class _ProfilePageState extends State<ProfilePage>
                                                                                 color: Color(
                                                                                     0xFF0F1113),
                                                                                 fontSize:
-                                                                                20,
+                                                                                16,
                                                                                 fontWeight:
                                                                                 FontWeight
                                                                                     .w500,
@@ -382,7 +379,7 @@ class _ProfilePageState extends State<ProfilePage>
                                         )),
                                   ],
                                 ),
-                              ),
+                              ), //SKILLS
                             ],
                           ),
                         ),
@@ -403,7 +400,7 @@ class _ProfilePageState extends State<ProfilePage>
                               ),
                             ],
                           ),
-                        ),
+                        ), //preference
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                           child: ListView(
@@ -511,7 +508,7 @@ class _ProfilePageState extends State<ProfilePage>
                                                                         'Outfit',
                                                                         color: Color(
                                                                             0xFF0F1113),
-                                                                        fontSize: 20,
+                                                                        fontSize: 16,
                                                                         fontWeight:
                                                                         FontWeight
                                                                             .w500,
@@ -539,6 +536,7 @@ class _ProfilePageState extends State<ProfilePage>
                             ],
                           ),
                         ),
+
                       ],
                     ),
                   ),
@@ -549,7 +547,17 @@ class _ProfilePageState extends State<ProfilePage>
                 );
               }
             }
-        )
+        ),
+        floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => EditProfilePage()),
+          );
+        },
+        backgroundColor: primaryOrangeColor,
+        child: const Icon(Icons.edit),
+        ),
     );
   }
 }

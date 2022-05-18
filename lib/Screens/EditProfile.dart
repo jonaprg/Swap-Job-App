@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 
 class EditProfilePage extends StatefulWidget {
-  /*const EditProfilePageWidget({
-    //required Key key,
-    //this.user,
-  }) : super(key: key);*/
-
-  //final UsersRecord user;
 
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
@@ -17,6 +11,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   late TextEditingController textController2;
   late TextEditingController textController3;
   late TextEditingController textController4;
+  late TextEditingController textController5;
+  late TextEditingController textController6;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -38,220 +34,320 @@ class _EditProfilePageState extends State<EditProfilePage> {
           padding: EdgeInsets.zero,
           scrollDirection: Axis.vertical,
           children: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(18, 0, 18, 0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  InkWell(
-                    onTap: () async {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      'Cancel',
-                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
-                    ),
+// Generated code for this AppBar Widget...
+            PreferredSize(
+              preferredSize: Size.fromHeight(100),
+              child: AppBar(
+                backgroundColor: Colors.white,
+                automaticallyImplyLeading: false,
+                flexibleSpace: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 14),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.arrow_back_rounded,
+                                  color: Color(0xFF090F13),
+                                  size: 30,
+                                ),
+                                onPressed: () async {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                        child: Text(
+                          'Edit Profile',
+                          style: TextStyle(
+                            fontFamily: 'Outfit',
+                            color: Color(0xFF0F1113),
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    'Edit Profile',
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      /*final usersUpdateData = createUsersRecordData(
-                        displayName: textController1.text,
-                        username: textController2.text,
-                        website: textController3.text,
-                        bio: textController4.text,
-                      );
-                      await widget.user.reference.update(usersUpdateData);*/
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      'Done',
-                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                ],
+                ),
+                actions: [],
+                elevation: 0,
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 15),
-              child: Container(
-                height: 1,
-                decoration: BoxDecoration(
-                  color: Color(0x55EEEEEE),
+              padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+              child: TextFormField(
+                controller: textController1,
+                obscureText: false,
+                decoration: InputDecoration(
+                  labelText: 'First Name',
+                  labelStyle:   TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                  hintStyle:  TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFF1F4F8),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFF1F4F8),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                ),
+                style: TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
                 ),
               ),
             ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+              child: TextFormField(
+                controller: textController2,
+                obscureText: false,
+                decoration: InputDecoration(
+                  labelText: 'First Name',
+                  labelStyle:  TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                  hintStyle:  TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFF1F4F8),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFF1F4F8),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                ),
+                style: TextStyle(
+                fontFamily: 'Outfit',
+                color: Color(0xFF0F1113),
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
+              ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+              child: TextFormField(
+                controller: textController3,
+                obscureText: false,
+                decoration: InputDecoration(
+                  labelText: 'First Name',
+                  labelStyle:  TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                  hintStyle: TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFF1F4F8),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFF1F4F8),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                ),
+                style: TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+              child: TextFormField(
+                controller: textController4,
+                obscureText: false,
+                decoration: InputDecoration(
+                  labelText: 'First Name',
+                  labelStyle:  TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                  hintStyle:  TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFF1F4F8),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFF1F4F8),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                ),
+                style: TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+              child: TextFormField(
+                controller: textController5,
+                obscureText: false,
+                decoration: InputDecoration(
+                  labelText: 'First Name',
+                  labelStyle:  TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                  hintStyle:   TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFF1F4F8),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFF1F4F8),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                ),
+                style: TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+              child: TextFormField(
+                controller: textController6,
+                obscureText: false,
+                decoration: InputDecoration(
+                  labelText: 'First Name',
+                  labelStyle:   TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                  hintStyle:   TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                  ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+              child: IconButton(
 
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(18, 0, 18, 0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 11,
-                    child: Text(
-                      'Name',
-                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 30,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        TextFormField(
-                          //controller: textController1,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            isDense: true,
-                            contentPadding:
-                            EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
-                          ),
-                          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 15),
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Color(0x55EEEEEE),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                icon: Icon(
+                  Icons.arrow_back_rounded,
+                  color: Color(0xFF090F13),
+                  size: 30,
+                ),
+                onPressed: () async {
+                  Navigator.pop(context);
+                },
               ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(18, 0, 18, 0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 11,
-                    child: Text(
-                      'Username',
-                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 30,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        TextFormField(
-                          //controller: textController2,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            isDense: true,
-
-                            contentPadding:
-                            EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
-                          ),
-                          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 15),
-                          child: Container(
-                            width: double.infinity,
-                            height: 1,
-                            decoration: BoxDecoration(
-                              color: Color(0x55EEEEEE),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(18, 0, 18, 0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 11,
-                    child: Text(
-                      'Website',
-                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 30,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        TextFormField(
-                          //controller: textController3,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            isDense: true,
-                            contentPadding:
-                            EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
-                          ),
-                          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 15),
-                          child: Container(
-                            width: double.infinity,
-                            height: 1,
-                            decoration: BoxDecoration(
-                              color: Color(0x55EEEEEE),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(18, 0, 18, 0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 11,
-                    child: Text(
-                      'Bio',
-                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 30,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        TextFormField(
-                          //controller: textController4,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            isDense: true,
-                            contentPadding:
-                            EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
-                          ),
-                          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            )
 
           ],
         ),

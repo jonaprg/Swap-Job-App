@@ -22,15 +22,11 @@ Future<List<User>> getUserProfile() async {
     'Authorization': 'Bearer $token',
   });
   if (response.statusCode == 200) {
-    final parsed2 = (jsonDecode(response.body) as Map<String, dynamic>);
+    final List parsed = json.decode("[" + response.body + "]");
+    List<User> list = parsed.map((val) =>  User.fromJson(val)).toList();
 
-    print(parsed2);
+    return list;
 
-    final parsed = json.decode(response.body).cast<Map<String, dynamic>>(); //Peta el cast
-
-    print(parsed);
-
-    return parsed.map<User>((json) => User.fromJson(json)).toList();
   } else {
     throw Exception('Failed to load matches for user');
   }
