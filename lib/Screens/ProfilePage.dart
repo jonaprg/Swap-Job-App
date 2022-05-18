@@ -3,14 +3,14 @@ import 'package:swapjob/Utils/requests.dart';
 
 import '../Model/User.dart';
 
-class AccountPage extends StatefulWidget {
-  const AccountPage();
+class ProfilePage extends StatefulWidget {
+  const ProfilePage();
 
   @override
-  _AccountPageState createState() => _AccountPageState();
+  _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _AccountPageState extends State<AccountPage>
+class _ProfilePageState extends State<ProfilePage>
     with TickerProviderStateMixin {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 

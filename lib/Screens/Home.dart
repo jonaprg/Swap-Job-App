@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:swapjob/Screens/MatchesPage.dart';
@@ -18,7 +20,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int pageIndex = 0;
   late SharedPreferences sharedPreferences;
-  late Future<List<UserMatch>> itemsTemp;
+  late Future<List<UserMatch>> itemsMatches;
+  late Future<List<Offer>> itemsOffers;
+
 
   checkLoginStatus() async {
     sharedPreferences = await SharedPreferences.getInstance();
@@ -30,6 +34,11 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     checkLoginStatus();
+    setState(() {
+      itemsMatches = getMatchesUser();
+      itemsOffers = getOffers();
+    });
+
   }
   @override
   Widget build(BuildContext context) {
@@ -44,7 +53,7 @@ class _HomePageState extends State<HomePage> {
     return IndexedStack(
       index: pageIndex,
       children: [
-        ExplorePage(), MatchesPage()]
+        ExplorePage(itemsOffers), MatchesPage(itemsMatches), ProfilePage()]
     );
   }
 
@@ -72,6 +81,8 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 setState(() {
                   pageIndex = index;
+                  itemsMatches = getMatchesUser();
+                  itemsOffers = getOffers();
                 });
               },
               icon: SvgPicture.asset(

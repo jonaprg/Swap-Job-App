@@ -3,23 +3,26 @@ import 'package:swapjob/Model/UserMatches.dart';
 import 'package:swapjob/Utils/requests.dart';
 
 class MatchesPage extends StatefulWidget {
+  late Future<List<UserMatch>> itemsMatches;
+
+  MatchesPage(this.itemsMatches);
+
   @override
   _MatchesPageState createState() => _MatchesPageState();
 }
 
 class _MatchesPageState extends State<MatchesPage>
     with TickerProviderStateMixin {
-  late Future<List<UserMatch>> itemsTemp;
   late List<UserMatch> matches;
 
   int itemLength = 0;
   @override
   void initState() {
-    super.initState();
-    // TODO: implement initState
     setState(() {
-      itemsTemp = getMatchesUser();
+      super.initState();
+      widget.itemsMatches = getMatchesUser();
     });
+
 
 
   }
@@ -29,7 +32,7 @@ class _MatchesPageState extends State<MatchesPage>
     return Scaffold(
       backgroundColor: Colors.white,
       body: FutureBuilder<List<UserMatch>>(
-        future: itemsTemp,
+        future: widget.itemsMatches,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             print(snapshot.error);
@@ -38,7 +41,6 @@ class _MatchesPageState extends State<MatchesPage>
             );
           } else if (snapshot.hasData) {
             matches = snapshot.data!;
-
             return ListView.builder(
               itemCount: 1,
               itemBuilder: (context, index) {
