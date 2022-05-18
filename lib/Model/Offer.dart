@@ -5,7 +5,7 @@ class Offer {
   final int id;
   final String title;
   final String description;
-  final int salary;
+  final double salary;
   final bool isRemote;
   final bool isVisible;
   final int labour;

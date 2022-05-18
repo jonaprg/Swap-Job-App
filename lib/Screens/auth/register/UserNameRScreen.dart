@@ -1,15 +1,11 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:swapjob/Screens/Home.dart';
-import 'package:swapjob/Utils/color.dart';
+import '/Screens/Home.dart';
+import '/Utils/color.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert' as convert;
 
-import '../../../Model/Offer.dart';
 import '../../../Utils/requests.dart';
 
 class UserNameRScreen extends StatefulWidget {

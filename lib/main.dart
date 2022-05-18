@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:swapjob/Screens/auth/LoginScreen.dart';
-
 import 'Model/User.dart';
+import 'Screens/auth/LoginSignUpScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: const Color.fromRGBO(255, 183, 3, 1.0),
       ),
-      home : LoginScreen(),
+      home: LoginSignUpScreen(),
     );
   }
 }

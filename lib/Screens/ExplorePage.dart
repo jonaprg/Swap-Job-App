@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
-import 'package:swapjob/Model/UserMatches.dart';
-import 'package:swapjob/Screens/infoOfferPage.dart';
-import 'package:swapjob/Utils/color.dart';
-import 'package:swapjob/Utils/requests.dart';
+import '/Screens/infoOfferPage.dart';
+import '/Utils/color.dart';
+import '/Utils/requests.dart';
 
 import '../Model/Offer.dart';
 import '../Utils/icons.dart';
+import '../Utils/requests.dart';
 
 class ExplorePage extends StatefulWidget {
   late Future<List<Offer>> itemsTemp;
@@ -147,7 +147,6 @@ class OfferList extends StatelessWidget {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                               ),
-                              //TODO cambiar imagen
                               child: Image.network(
                                 offers[index].companyImage,
                               ),

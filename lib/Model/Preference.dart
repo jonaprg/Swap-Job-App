@@ -2,9 +2,9 @@
 class Preference {
   final int id;
   final String title;
-  final int lowThreshold;
-  final int highThreshold;
-  final int value;
+  final double lowThreshold;
+  final double highThreshold;
+  final double value;
 
   const Preference( {
      required this.id,

@@ -1,13 +1,15 @@
 import 'dart:convert';
 import 'dart:convert' as convert;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:swapjob/Model/User.dart';
-import 'package:swapjob/Model/UserMatches.dart';
-import 'package:swapjob/Model/Offer.dart';
 import 'package:http/http.dart' as http;
 
-const String baseUrl = "http://localhost"; //LOCAL
-//const String baseUrl = "http://api.swapjob.tk/SwapJob"; //PRODUCTION
+import '../Model/Offer.dart';
+import '../Model/User.dart';
+import '../Model/UserMatches.dart';
+
+// const String baseUrl = "http://localhost"; //LOCAL
+const String baseUrl = "http://192.168.137.1"; //LOCAL MOBIL
+// const String baseUrl = "http://api.swapjob.tk/SwapJob"; //PRODUCTION
 // const String baseUrl = "http://swapjob.tk:8080/SwapJob"; //SEMI PRODUCTION
 
 final http.Client client = http.Client();

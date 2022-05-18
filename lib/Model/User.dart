@@ -1,7 +1,6 @@
-import 'package:swapjob/Model/Status.dart';
-
 import 'Preference.dart';
 import 'Skill.dart';
+import 'Status.dart';
 
 class User {
   final int id;

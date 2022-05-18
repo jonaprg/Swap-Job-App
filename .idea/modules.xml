@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Swap-Job-App.iml" filepath="$PROJECT_DIR$/.idea/Swap-Job-App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/swapjob.iml" filepath="$PROJECT_DIR$/swapjob.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/swapjobapp_android.iml" filepath="$PROJECT_DIR$/android/swapjobapp_android.iml" />
     </modules>
   </component>
 </project>

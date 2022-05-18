@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:swapjob/Screens/EditProfile.dart';
-import 'package:swapjob/Utils/color.dart';
-import 'package:swapjob/Utils/requests.dart';
+import '/Screens/EditProfile.dart';
+import '/Utils/color.dart';
+import '/Utils/requests.dart';
 
 import '../Model/User.dart';
 

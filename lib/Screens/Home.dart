@@ -1,14 +1,15 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:swapjob/Model/Offer.dart';
-import 'package:swapjob/Model/UserMatches.dart';
-import 'package:swapjob/Screens/MatchesPage.dart';
-import 'package:swapjob/Screens/ExplorePage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:swapjob/Screens/ProfilePage.dart';
-import 'package:swapjob/Screens/auth/LoginSignUpScreen.dart';
-import 'package:swapjob/Utils/requests.dart';
+import '../Model/Offer.dart';
+import '../Model/UserMatches.dart';
+import '../Utils/requests.dart';
+import 'ExplorePage.dart';
+import 'MatchesPage.dart';
+import 'ProfilePage.dart';
+import 'auth/LoginSignUpScreen.dart';
 
 
 
@@ -61,14 +62,14 @@ class _HomePageState extends State<HomePage> {
   getAppBar() {
     List bottomItems = [
       pageIndex == 0
-          ? "images/home_active_icon.svg"
-          : "images/home_icon.svg",
+          ? "assets/images/home_active_icon.svg"
+          : "assets/images/home_icon.svg",
       pageIndex == 1
-          ? "images/messages_active_icon.svg"
-          : "images/messages_icon.svg",
+          ? "assets/images/messages_active_icon.svg"
+          : "assets/images/messages_icon.svg",
       pageIndex == 2
-          ? "images/account_active_icon.svg"
-          : "images/account_icon.svg",
+          ? "assets/images/account_active_icon.svg"
+          : "assets/images/account_icon.svg",
     ];
     return AppBar(
       backgroundColor: Colors.white,

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:swapjob/Screens/auth/LoginScreen.dart';
-import 'package:swapjob/Screens/auth/register/RegisterScreen.dart';
+import '/Screens/auth/LoginScreen.dart';
+import '/Screens/auth/register/RegisterScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LoginSignUpScreen extends StatefulWidget {

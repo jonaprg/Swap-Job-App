@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:swapjob/Utils/color.dart';
-import 'package:swapjob/Utils/snackbar.dart';
+import '/Utils/color.dart';
+import '/Utils/snackbar.dart';
 
 class Gender extends StatefulWidget {
   final Map<String, dynamic> userData;
