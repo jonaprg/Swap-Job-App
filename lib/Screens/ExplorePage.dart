@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
+import 'package:swapjob/Model/UserMatches.dart';
 import 'package:swapjob/Screens/infoOfferPage.dart';
 import 'package:swapjob/Utils/color.dart';
 import 'package:swapjob/Utils/requests.dart';
@@ -9,20 +10,27 @@ import '../Model/Offer.dart';
 import '../Utils/icons.dart';
 
 class ExplorePage extends StatefulWidget {
+  late Future<List<Offer>> itemsTemp;
+
+  ExplorePage(this.itemsTemp);
+
   @override
   _ExplorePageState createState() => _ExplorePageState();
 }
 
 class _ExplorePageState extends State<ExplorePage>
     with TickerProviderStateMixin {
-  late Future<List<Offer>> itemsTemp;
   int itemLength = 0;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    itemsTemp = getOffers();
+
+    setState(() {
+      widget.itemsTemp = getOffers();
+    });
+
   }
 
   @override
@@ -30,7 +38,7 @@ class _ExplorePageState extends State<ExplorePage>
     return Scaffold(
       backgroundColor: Colors.white,
       body: FutureBuilder<List<Offer>>(
-        future: itemsTemp,
+        future: widget.itemsTemp,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             print({snapshot.error});

@@ -22,7 +22,14 @@ Future<List<User>> getUserProfile() async {
     'Authorization': 'Bearer $token',
   });
   if (response.statusCode == 200) {
-    final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
+    final parsed2 = (jsonDecode(response.body) as Map<String, dynamic>);
+
+    print(parsed2);
+
+    final parsed = json.decode(response.body).cast<Map<String, dynamic>>(); //Peta el cast
+
+    print(parsed);
+
     return parsed.map<User>((json) => User.fromJson(json)).toList();
   } else {
     throw Exception('Failed to load matches for user');
@@ -41,7 +48,6 @@ Future<List<UserMatch>> getMatchesUser() async {
   });
   if (response.statusCode == 200) {
     final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
-    print(parsed);
     return parsed.map<UserMatch>((json) => UserMatch.fromJson(json)).toList();
   } else {
     throw Exception('Failed to load matches for user');
