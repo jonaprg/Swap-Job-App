@@ -34,7 +34,7 @@ class _ExplorePageState extends State<ExplorePage>
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             print({snapshot.error});
-            return  Center(
+            return Center(
               child: Text('An error has occurred!'),
             );
           } else if (snapshot.hasData) {
@@ -396,8 +396,7 @@ class OfferList extends StatelessWidget {
                   if (success) {
                     ScaffoldMessenger.of(context)
                         .showSnackBar(const SnackBar(content: Text("Good")));
-                  }
-                  else {
+                  } else {
                     ScaffoldMessenger.of(context)
                         .showSnackBar(const SnackBar(content: Text("Nope")));
                   }

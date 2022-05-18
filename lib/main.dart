@@ -1,16 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:swapjob/Previous/HomeScreen_Other.dart';
-import 'package:swapjob/Screens/MatchesPage.dart';
-import 'package:swapjob/Screens/SplashScreen.dart';
-import 'package:swapjob/Previous/TabsScreen_Other.dart';
 import 'package:swapjob/Screens/auth/LoginScreen.dart';
-import 'package:swapjob/Screens/auth/LoginSignUpScreen.dart';
-import 'package:swapjob/Screens/auth/register/RegisterScreen.dart';
 
-import 'Model/Offer.dart';
 import 'Model/User.dart';
-import 'Screens/Home.dart';
-import 'Utils/requests.dart';
 
 void main() {
   runApp(MyApp());

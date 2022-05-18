@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:swapjob/Screens/SexualOrientation.dart';
-import 'package:swapjob/Screens/UserName.dart';
 import 'package:swapjob/Utils/color.dart';
 import 'package:swapjob/Utils/snackbar.dart';
 

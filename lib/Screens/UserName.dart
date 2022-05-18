@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:swapjob/Screens/UserDOB.dart'; BIRTHDAY SCCREEN
 import 'package:swapjob/Utils/color.dart';
 
 import 'language_programming.dart';

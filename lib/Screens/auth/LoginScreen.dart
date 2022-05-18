@@ -1,16 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert' as convert;
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:swapjob/Previous/HomeScreen_Other.dart';
-
-//import 'package:swapjob/Screens/UserDOB.dart'; BIRTHDAY SCCREEN
 import 'package:swapjob/Utils/color.dart';
-
-import '../../Model/Offer.dart';
 import '../Home.dart';
 import '../../../Utils/requests.dart';
 

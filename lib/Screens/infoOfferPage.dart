@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:swapjob/Utils/color.dart';
-import 'package:swapjob/Utils/color.dart';
 
 class InfoOffer extends StatefulWidget {
   @override

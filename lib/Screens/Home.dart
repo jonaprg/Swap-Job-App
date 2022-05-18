@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:swapjob/Model/Offer.dart';
 import 'package:swapjob/Screens/MatchesPage.dart';
-import 'package:swapjob/Screens/ProfilePage.dart';
 import 'package:swapjob/Screens/ExplorePage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/services.dart';
-import 'package:swapjob/Screens/auth/LoginScreen.dart';
 import 'package:swapjob/Screens/auth/LoginSignUpScreen.dart';
 
 import '../Model/UserMatches.dart';
-import '../Utils/requests.dart';
 
 
 
