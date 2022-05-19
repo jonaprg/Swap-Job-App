@@ -105,12 +105,15 @@ Future<bool> removeMatchOffer(int idOffer) async {
   return response.statusCode == 200;
 }
 
-Future<bool> postEditProfile(String firstName, String lastName, String postalCode, String phone, String birth, String description) async {
+Future<bool> editProfile(String firstName, String lastName, String email,
+    String postalCode, String phone, String birth, String description) async {
+
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
 
-  var data = {"firstName": firstName, "lastName": lastName, "postalCode" : postalCode,
-  "phone" : phone, "description" : description, "skillList" : [], "preferenceList" : []};
+  var data = {"firstName": firstName, "lastName": lastName, "email" : email, "postalCode" : postalCode,
+  "phone" : phone, "birthDate" : birth, "description" : description,
+    "status_id" : 0, "skillList" : [], "preferenceList" : [], "visible" : true};
   var headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token',
@@ -118,9 +121,11 @@ Future<bool> postEditProfile(String firstName, String lastName, String postalCod
 
   var request = http.Request('POST', Uri.parse(baseUrl + '/user/edit'));
   request.body = json.encode(data);
+  print(request.body);
   request.headers.addAll(headers);
   var streamedResponse = await request.send();
   var response = await http.Response.fromStream(streamedResponse);
+  print(response.body);
   print(response.statusCode);
 
   if (response.statusCode == 200) {

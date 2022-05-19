@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../Model/Offer.dart';
+import '../Utils/color.dart';
+
 class InfoOffer extends StatefulWidget {
+  final List<Offer> offers;
+  InfoOffer(this.offers);
   @override
   _InfoofferState createState() => _InfoofferState();
 }
@@ -22,7 +27,7 @@ class _InfoofferState extends State<InfoOffer> {
                   width: MediaQuery.of(context).size.width,
                   height: 220,
                   decoration: BoxDecoration(
-                    color: Color(0xFF023047),
+                    color: thirdBlueColor,
                   ),
                   child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(20, 50, 20, 0),
@@ -35,17 +40,27 @@ class _InfoofferState extends State<InfoOffer> {
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                              child: IconButton(
-                                icon: const Icon(Icons.arrow_back_ios,
-                                    color: Colors.orange, size: 16),
-                                tooltip: 'Back',
-                                onPressed: () {
-                                  setState(() {
-                                    Navigator.pop(context);
-                                  });
-                                },
+                              child: Center(
+                                child: Ink(
+                                  decoration: const ShapeDecoration(
+                                    color: Colors.lightBlue,
+                                    shape: CircleBorder(),
+                                  ),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.arrow_back_ios,
+                                        color: Colors.orange, size: 16),
+                                    tooltip: 'Back',
+                                    onPressed: () {
+                                      setState(() {
+                                        Navigator.pop(context);
+                                      });
+                                    },
+                                  ),
+                                ),
                               ),
+
                             ),
+                            SizedBox(height: 20.0),
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
@@ -53,7 +68,8 @@ class _InfoofferState extends State<InfoOffer> {
                                 'Job Detail',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                                    color: Colors.white,
+                                    fontSize: 24),
                               ),
                             ),
                           ],
@@ -64,10 +80,11 @@ class _InfoofferState extends State<InfoOffer> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Text(
-                                'Senior Designer',
+                                widget.offers[0].title,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                                    color: Colors.white,
+                                fontSize: 20),
                               ),
                             ],
                           ),
@@ -78,7 +95,8 @@ class _InfoofferState extends State<InfoOffer> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Text(
-                                'Melbourne | Full Time',
+                                widget.offers[0].isRemote == true ? "Remoto | " : "Full | "
+                                'Melbourne',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
@@ -95,7 +113,7 @@ class _InfoofferState extends State<InfoOffer> {
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                      color: Color(0xFF090F13),
+                      color: secondaryDarkBlueColor,
                       boxShadow: [
                         BoxShadow(
                           blurRadius: 4,
@@ -127,8 +145,8 @@ class _InfoofferState extends State<InfoOffer> {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                 ),
-                                child: Image.asset(
-                                  'assets/images/user_2@2x.png',
+                                child:  Image.network(
+                                  widget.offers[0].companyImage,
                                 ),
                               ),
                               Expanded(
@@ -136,7 +154,7 @@ class _InfoofferState extends State<InfoOffer> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       12, 0, 0, 0),
                                   child: Text(
-                                    'COMPANY',
+                                    widget.offers[0].companyName,
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -147,6 +165,7 @@ class _InfoofferState extends State<InfoOffer> {
                             ],
                           ),
                         ),
+                        SizedBox(height: 20),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 4),
                           child: Container(
@@ -183,17 +202,6 @@ class _InfoofferState extends State<InfoOffer> {
                                                   color: Colors.white),
                                             ),
                                           ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 12),
-                                            child: Text(
-                                              'Date',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white),
-                                            ),
-                                          ),
                                           Text(
                                             'Descripcion',
                                             style: TextStyle(
@@ -214,18 +222,7 @@ class _InfoofferState extends State<InfoOffer> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(8, 0, 0, 12),
                                               child: Text(
-                                                '\$50,000 - \$80,000',
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(8, 0, 0, 12),
-                                              child: Text(
-                                                '\$50,000 - \$80,000',
+                                                widget.offers[0].salary.toString() + " €",
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
@@ -236,7 +233,7 @@ class _InfoofferState extends State<InfoOffer> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(8, 0, 0, 0),
                                               child: Text(
-                                                'asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd',
+                                                widget.offers[0].description,
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
@@ -277,7 +274,7 @@ class _InfoofferState extends State<InfoOffer> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 0, 12),
                                         child: Text(
-                                          'Descripcion',
+                                          'Preferences',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white),
