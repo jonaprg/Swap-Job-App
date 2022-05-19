@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '/Screens/auth/LoginScreen.dart';
 import '/Screens/auth/register/RegisterScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -13,6 +14,12 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
   late String name;
   bool shouldPop = true;
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -89,7 +96,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                   height: MediaQuery.of(context).size.height * .1,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 10),
+                  padding: const EdgeInsets.only(top: 5, bottom: 10),
                   child: Material(
                     elevation: 2.0,
                     borderRadius: const BorderRadius.all(Radius.circular(15)),
@@ -103,24 +110,23 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                                 gradient: const LinearGradient(
                                     begin: Alignment.topRight,
                                     end: Alignment.bottomLeft,
-                                    colors: [
-                                      Colors.blueAccent,
-                                      Colors.blueAccent
-                                    ])),
+                                    colors: [Colors.redAccent, Colors.redAccent])),
                             height: MediaQuery.of(context).size.height * .065,
                             width: MediaQuery.of(context).size.width * .8,
                             child: const Center(
                                 child: Text(
-                              "LOG IN WITH LINKEDIN",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ))),
+                                  "SIGN UP WITH GOOGLE",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ))),
+                        onTap: () async {
+                          _googleSignIn.signIn().then((value) => print(value));
+                        },
                       ),
                     ),
                   ),
                 ),
-                Container(),
                 OutlinedButton(
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height * .065,
