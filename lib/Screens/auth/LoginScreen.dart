@@ -13,6 +13,9 @@ class _LoginState extends State<LoginScreen> {
   String email = 'pako@astapor.com';
   String password = 'P@ssw0rd';
 
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   void dispose() {
     super.dispose();
@@ -169,8 +172,6 @@ class _LoginState extends State<LoginScreen> {
     );
   }
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
 
   login(String email, String password) async {
     bool success = await performLogin("pako@astapor.com", "P@ssw0rd");

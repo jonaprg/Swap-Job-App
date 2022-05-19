@@ -7,8 +7,8 @@ import '../Model/Offer.dart';
 import '../Model/User.dart';
 import '../Model/UserMatches.dart';
 
-// const String baseUrl = "http://localhost"; //LOCAL
-const String baseUrl = "http://192.168.137.1"; //LOCAL MOBIL
+ const String baseUrl = "http://localhost"; //LOCAL
+//const String baseUrl = "http://192.168.137.1"; //LOCAL MOBIL
 // const String baseUrl = "http://api.swapjob.tk/SwapJob"; //PRODUCTION
 // const String baseUrl = "http://swapjob.tk:8080/SwapJob"; //SEMI PRODUCTION
 
@@ -104,6 +104,32 @@ Future<bool> removeMatchOffer(int idOffer) async {
 
   return response.statusCode == 200;
 }
+
+Future<bool> postEditProfile(String firstName, String lastName, String postalCode, String phone, String birth, String description) async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  var token = sharedPreferences.getString('accessToken');
+
+  var data = {"firstName": firstName, "lastName": lastName, "postalCode" : postalCode,
+  "phone" : phone, "description" : description, "skillList" : [], "preferenceList" : []};
+  var headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $token',
+  };
+
+  var request = http.Request('POST', Uri.parse(baseUrl + '/user/edit'));
+  request.body = json.encode(data);
+  request.headers.addAll(headers);
+  var streamedResponse = await request.send();
+  var response = await http.Response.fromStream(streamedResponse);
+  print(response.statusCode);
+
+  if (response.statusCode == 200) {
+    return true;
+  }
+
+  return false;
+}
+
 
 Future<bool> performLogin(String email, String password) async {
 
