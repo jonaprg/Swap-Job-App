@@ -120,7 +120,9 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                     ),
                   ),
                 ),
-                Container(),
+                Container(
+
+                ),
                 OutlinedButton(
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height * .065,
