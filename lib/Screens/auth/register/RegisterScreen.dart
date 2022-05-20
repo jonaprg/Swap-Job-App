@@ -1,13 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import '../../Home.dart';
 import '/Utils/color.dart';
-
 import 'UserNameRScreen.dart';
-
-const String baseUrl = "http://localhost"; //LOCAL
-//const String baseUrl = "http://api.swapjob.tk/SwapJob"; //PRODUCTION
+import '/Utils/requests.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -79,7 +74,6 @@ class _RegisterState extends State<RegisterScreen> {
                       hintText: "Email",
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: primaryOrangeColor)),
-
                       helperStyle: TextStyle(
                           color: secondaryDarkBlueColor, fontSize: 15),
                     ),
@@ -109,123 +103,109 @@ class _RegisterState extends State<RegisterScreen> {
               ),
               email.isNotEmpty && password.isNotEmpty
                   ? Padding(
-                padding: const EdgeInsets.only(bottom: 40),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: InkWell(
-                    child: Container(
-                        decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.circular(25),
-                            gradient: LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                colors: [
-                                  thirdBlueColor.withOpacity(.5),
-                                  thirdBlueColor.withOpacity(.8),
-                                  thirdBlueColor,
-                                  thirdBlueColor
-                                ])),
-                        height: MediaQuery.of(context).size.height * .065,
-                        width: MediaQuery.of(context).size.width * .75,
-                        child: Center(
-                            child: Text(
-                              "CONTINUE",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: textColor,
-                                  fontWeight: FontWeight.bold),
-                            ))),
-                    onTap: () {
-                      setState(() {
-                        _isLoading = true;
-                      });
-                      signup(emailController.text, passwordController.text);
-                    },
-                  ),
-                ),
-              )
-                  : Padding(
-                padding: const EdgeInsets.only(bottom: 40),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: InkWell(
-                    child: Container(
-                        decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.circular(25),
-                            color: primaryOrangeColor
+                      padding: const EdgeInsets.only(bottom: 40),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: InkWell(
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(25),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topRight,
+                                      end: Alignment.bottomLeft,
+                                      colors: [
+                                        thirdBlueColor.withOpacity(.5),
+                                        thirdBlueColor.withOpacity(.8),
+                                        thirdBlueColor,
+                                        thirdBlueColor
+                                      ])),
+                              height: MediaQuery.of(context).size.height * .065,
+                              width: MediaQuery.of(context).size.width * .75,
+                              child: Center(
+                                  child: Text(
+                                "CONTINUE",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: textColor,
+                                    fontWeight: FontWeight.bold),
+                              ))),
+                          onTap: () {
+                            setState(() {
+                              _isLoading = true;
+                            });
+                            signup(
+                                emailController.text, passwordController.text);
+                          },
                         ),
-                        height: MediaQuery.of(context).size.height * .065,
-                        width: MediaQuery.of(context).size.width * .75,
-
-                        child: Center(
-                            child: Text(
-                              "CONTINUE",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: textColor,
-                                  fontWeight: FontWeight.bold),
-                            ))),
-                    onTap: () {},
-                  ),
-                ),
-              )
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.only(bottom: 40),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: InkWell(
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(25),
+                                  color: primaryOrangeColor),
+                              height: MediaQuery.of(context).size.height * .065,
+                              width: MediaQuery.of(context).size.width * .75,
+                              child: Center(
+                                  child: Text(
+                                "CONTINUE",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: textColor,
+                                    fontWeight: FontWeight.bold),
+                              ))),
+                          onTap: () {},
+                        ),
+                      ),
+                    )
             ],
           ),
         ),
       ),
     );
   }
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   Future signup(String email, String password) async {
-    var data = {
-      "email" : email,
-      "password" : password
-    };
-    var headers = {
-      'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-      "Access-Control-Allow-Credentials": "true",
-      "Access-Control-Allow-Headers" : "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-      "Access-Control-Allow-Methods" : "POST, HEAD",
+    var response = await performSignUp(email, password);
 
-    };
-    //var response = await http.post(Uri.parse("http://api.swapjob.tk/SwapJob/auth/signin"), body: convert.jsonEncode(data));
-    var request = http.Request('POST', Uri.parse(baseUrl +'/auth/signin'));
-    request.body = json.encode(data);
-    request.headers.addAll(headers);
-    var streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
-
-    if (response.statusCode == 200) {
-      ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("The user already exists")));
-    }
-    else {
+    if (response) {
       setState(() {
         _isLoading = false;
-        userData.addAll(data);
+        userData.addAll(
+            {email: emailController.text, password: passwordController.text});
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
                 builder: (BuildContext context) => UserNameRScreen(userData)),
-                (Route<dynamic> route) => false);
+            (Route<dynamic> route) => false);
       });
-
-
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("The user already exists, login instead")));
+      login(email, password);
     }
-
-
-
-
-
-
-
-
-
-
-
   }
 
+  login(String email, String password) async {
+    bool success = await performLogin("pako@astapor.com", "P@ssw0rd");
+    if (success) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+          (Route<dynamic> route) => false);
+    } else {
+      setState(() {
+        _isLoading = false;
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("The user not exists, bad credentials")));
+      });
+    }
+  }
 }

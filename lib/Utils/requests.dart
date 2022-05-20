@@ -18,29 +18,27 @@ Future<List<User>> getUserProfile() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
 
-  final response = await client
-      .get(Uri.parse(baseUrl+'/user/getProfile'), headers: {
+  final response =
+      await client.get(Uri.parse(baseUrl + '/user/getProfile'), headers: {
     "Accept": "application/json",
     'Authorization': 'Bearer $token',
   });
   if (response.statusCode == 200) {
     final List parsed = json.decode("[" + response.body + "]");
-    List<User> list = parsed.map((val) =>  User.fromJson(val)).toList();
+    List<User> list = parsed.map((val) => User.fromJson(val)).toList();
 
     return list;
-
   } else {
     throw Exception('Failed to load matches for user');
   }
 }
 
-
 Future<List<UserMatch>> getMatchesUser() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
 
-  final response = await client
-      .get(Uri.parse(baseUrl+'/user/matches'), headers: {
+  final response =
+      await client.get(Uri.parse(baseUrl + '/user/matches'), headers: {
     "Accept": "application/json",
     'Authorization': 'Bearer $token',
   });
@@ -56,8 +54,8 @@ Future<List<Offer>> getOffers() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
 
-  final response = await client
-      .get(Uri.parse(baseUrl+'/offer/recommended'), headers: {
+  final response =
+      await client.get(Uri.parse(baseUrl + '/offer/recommended'), headers: {
     "Accept": "application/json",
     'Authorization': 'Bearer $token',
   });
@@ -70,7 +68,6 @@ Future<List<Offer>> getOffers() async {
 }
 
 Future<bool> matchOffer(int idOffer) async {
-
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
   var data = {"offerId": idOffer};
@@ -88,7 +85,6 @@ Future<bool> matchOffer(int idOffer) async {
 }
 
 Future<bool> removeMatchOffer(int idOffer) async {
-
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
   var data = {"offerId": idOffer};
@@ -106,7 +102,6 @@ Future<bool> removeMatchOffer(int idOffer) async {
 }
 
 Future<bool> performLogin(String email, String password) async {
-
   var data = {"email": email, "password": password};
   var headers = {
     'Content-Type': 'application/json',
@@ -127,5 +122,29 @@ Future<bool> performLogin(String email, String password) async {
     return true;
   }
 
+  return false;
+}
+
+Future<bool> performSignUp(String email, String password) async {
+  var data = {"email": email, "password": password};
+  var headers = {
+    'Content-Type': 'application/json',
+  };
+
+  var request = http.Request('POST', Uri.parse(baseUrl + '/auth/signin'));
+  request.body = json.encode(data);
+  request.headers.addAll(headers);
+  var streamedResponse = await request.send();
+  var response = await http.Response.fromStream(streamedResponse);
+
+  if (response.statusCode == 200) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+//createGoogleUser(email, password);
+Future<bool> createGoogleUser(String email, String password) async {
   return false;
 }

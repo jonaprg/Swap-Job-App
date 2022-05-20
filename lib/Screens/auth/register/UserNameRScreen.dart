@@ -193,24 +193,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                               "description": "string",
                               "companyUser": true
                             });
-                            /*widget.userData.addAll({
-                              "email": "asd123312@gmail.com",
-                            "password": "123",
-                            "firstName": "123",
-                            "lastName": "123",
-                            "postalCode": 123,
-                            "phone": "123",
-                            "birthDate": "2022-04-14",
-                            "description": "string",
-                            "companyUser": true
-                            });*/
                             signupWithAll(widget.userData);
-
-                            /*Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) =>
-                                  RegisterScreen(widget.userData)));*/
                           },
                         ),
                       ),
@@ -261,13 +244,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
   signupWithAll(Map data) async {
     var headers = {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      "Access-Control-Allow-Credentials": "true",
-      "Access-Control-Allow-Headers":
-          "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-      "Access-Control-Allow-Methods": "POST,GET, HEAD",
     };
-    //var response = await http.post(Uri.parse("http://api.swapjob.tk/SwapJob/auth/signin"), body: convert.jsonEncode(data));
     var request =
         http.Request('POST', Uri.parse('http://localhost/auth/signup'));
     print(data.values.elementAt(0));
