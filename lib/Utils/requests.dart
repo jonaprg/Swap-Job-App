@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:convert' as convert;
+import 'dart:ffi';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -63,8 +64,10 @@ Future<List<Offer>> getOffers() async {
     final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
     return parsed.map<Offer>((json) => Offer.fromJson(json)).toList();
   } else {
-    throw Exception('Failed to load offers');
+    print("Failed to load offers");
   }
+
+  return [];
 }
 
 Future<bool> matchOffer(int idOffer) async {
@@ -125,7 +128,7 @@ Future<bool> performLogin(String email, String password) async {
   return false;
 }
 
-Future<bool> performSignUp(String email, String password) async {
+Future<bool> userExists(String email, String password) async {
   var data = {"email": email, "password": password};
   var headers = {
     'Content-Type': 'application/json',
@@ -137,14 +140,34 @@ Future<bool> performSignUp(String email, String password) async {
   var streamedResponse = await request.send();
   var response = await http.Response.fromStream(streamedResponse);
 
-  if (response.statusCode == 200) {
-    return false;
-  } else {
-    return true;
-  }
+  return response.statusCode == 200;
 }
 
-//createGoogleUser(email, password);
-Future<bool> createGoogleUser(String email, String password) async {
-  return false;
+Future<bool> createGoogleUser(
+    String email, String password, String displayName) async {
+  var data = {
+    "email": email,
+    "password": password,
+    "firstName": displayName,
+    "lastName": "Missing",
+    "postalCode": "08193",
+    "phone": "0123456789",
+    "birthDate": "2000-01-01",
+    "description": "Missing",
+    "companyUser": false
+  };
+  var headers = {
+    'Content-Type': 'application/json',
+  };
+  var request = http.Request('POST', Uri.parse(baseUrl + '/auth/signup'));
+  request.body = json.encode(data);
+  request.headers.addAll(headers);
+  var streamedResponse = await request.send();
+  var response = await http.Response.fromStream(streamedResponse);
+
+  if (response.statusCode == 200) {
+    return true;
+  } else {
+    return false;
+  }
 }

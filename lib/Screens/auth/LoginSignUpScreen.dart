@@ -131,8 +131,11 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                             if (value != null ||
                                 value!.displayName != null &&
                                     value.displayName != "") {
-                              if (value.email != "" && value.id != "") {
-                                login(value.email, value.id);
+                              if (value.email != "" &&
+                                  value.id != "" &&
+                                  value.displayName != "") {
+                                login(
+                                    value.email, value.id, value.displayName!);
                               }
                             }
                           });
@@ -202,18 +205,32 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
     );
   }
 
-  login(String email, String password) async {
-    bool success = await createGoogleUser(email, password);
+  login(String email, String password, String displayName) async {
+    bool success = await userExists(email, password);
     if (success) {
-      success = await performLogin("pako@astapor.com", "P@ssw0rd");
+      bool success = await performLogin(email, password);
       if (success) {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (BuildContext context) => HomePage()),
-                (Route<dynamic> route) => false);
+            (Route<dynamic> route) => false);
       } else {
         setState(() {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text("The user not exists, bad credentials")));
+        });
+      }
+    } else {
+      //Create the user on google and login
+      var success = await createGoogleUser(email, password, displayName);
+      if (success) {
+        performLogin(email, password);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+            (Route<dynamic> route) => false);
+      } else {
+        setState(() {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Error on creating Google User")));
         });
       }
     }

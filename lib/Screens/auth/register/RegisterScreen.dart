@@ -175,7 +175,7 @@ class _RegisterState extends State<RegisterScreen> {
   TextEditingController passwordController = TextEditingController();
 
   Future signup(String email, String password) async {
-    var response = await performSignUp(email, password);
+    var response = await userExists(email, password);
 
     if (response) {
       setState(() {
@@ -195,7 +195,7 @@ class _RegisterState extends State<RegisterScreen> {
   }
 
   login(String email, String password) async {
-    bool success = await performLogin("pako@astapor.com", "P@ssw0rd");
+    bool success = await performLogin(email, password);
     if (success) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (BuildContext context) => HomePage()),
