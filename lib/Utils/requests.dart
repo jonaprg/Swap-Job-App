@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:convert' as convert;
+import 'dart:ffi';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,29 +19,27 @@ Future<List<User>> getUserProfile() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
 
-  final response = await client
-      .get(Uri.parse(baseUrl+'/user/getProfile'), headers: {
+  final response =
+      await client.get(Uri.parse(baseUrl + '/user/getProfile'), headers: {
     "Accept": "application/json",
     'Authorization': 'Bearer $token',
   });
   if (response.statusCode == 200) {
     final List parsed = json.decode("[" + response.body + "]");
-    List<User> list = parsed.map((val) =>  User.fromJson(val)).toList();
+    List<User> list = parsed.map((val) => User.fromJson(val)).toList();
 
     return list;
-
   } else {
     throw Exception('Failed to load matches for user');
   }
 }
 
-
 Future<List<UserMatch>> getMatchesUser() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
 
-  final response = await client
-      .get(Uri.parse(baseUrl+'/user/matches'), headers: {
+  final response =
+      await client.get(Uri.parse(baseUrl + '/user/matches'), headers: {
     "Accept": "application/json",
     'Authorization': 'Bearer $token',
   });
@@ -56,8 +55,8 @@ Future<List<Offer>> getOffers() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
 
-  final response = await client
-      .get(Uri.parse(baseUrl+'/offer/recommended'), headers: {
+  final response =
+      await client.get(Uri.parse(baseUrl + '/offer/recommended'), headers: {
     "Accept": "application/json",
     'Authorization': 'Bearer $token',
   });
@@ -65,12 +64,13 @@ Future<List<Offer>> getOffers() async {
     final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
     return parsed.map<Offer>((json) => Offer.fromJson(json)).toList();
   } else {
-    throw Exception('Failed to load offers');
+    print("Failed to load offers");
   }
+
+  return [];
 }
 
 Future<bool> matchOffer(int idOffer) async {
-
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
   var data = {"offerId": idOffer};
@@ -88,7 +88,6 @@ Future<bool> matchOffer(int idOffer) async {
 }
 
 Future<bool> removeMatchOffer(int idOffer) async {
-
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
   var data = {"offerId": idOffer};
@@ -137,7 +136,6 @@ Future<bool> editProfile(String firstName, String lastName, String email,
 
 
 Future<bool> performLogin(String email, String password) async {
-
   var data = {"email": email, "password": password};
   var headers = {
     'Content-Type': 'application/json',
@@ -159,4 +157,48 @@ Future<bool> performLogin(String email, String password) async {
   }
 
   return false;
+}
+
+Future<bool> userExists(String email, String password) async {
+  var data = {"email": email, "password": password};
+  var headers = {
+    'Content-Type': 'application/json',
+  };
+
+  var request = http.Request('POST', Uri.parse(baseUrl + '/auth/signin'));
+  request.body = json.encode(data);
+  request.headers.addAll(headers);
+  var streamedResponse = await request.send();
+  var response = await http.Response.fromStream(streamedResponse);
+
+  return response.statusCode == 200;
+}
+
+Future<bool> createGoogleUser(
+    String email, String password, String displayName) async {
+  var data = {
+    "email": email,
+    "password": password,
+    "firstName": displayName,
+    "lastName": "Missing",
+    "postalCode": "08193",
+    "phone": "0123456789",
+    "birthDate": "2000-01-01",
+    "description": "Missing",
+    "companyUser": false
+  };
+  var headers = {
+    'Content-Type': 'application/json',
+  };
+  var request = http.Request('POST', Uri.parse(baseUrl + '/auth/signup'));
+  request.body = json.encode(data);
+  request.headers.addAll(headers);
+  var streamedResponse = await request.send();
+  var response = await http.Response.fromStream(streamedResponse);
+
+  if (response.statusCode == 200) {
+    return true;
+  } else {
+    return false;
+  }
 }
