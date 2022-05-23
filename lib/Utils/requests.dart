@@ -4,10 +4,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 import '../Model/Offer.dart';
+import '../Model/Skill.dart';
 import '../Model/User.dart';
 import '../Model/UserMatches.dart';
 
- const String baseUrl = "http://localhost"; //LOCAL
+const String baseUrl = "http://localhost"; //LOCAL
 //const String baseUrl = "http://192.168.1.10"; //LOCAL MOBIL
 // const String baseUrl = "http://api.swapjob.tk/SwapJob"; //PRODUCTION
 // const String baseUrl = "http://swapjob.tk:8080/SwapJob"; //SEMI PRODUCTION
@@ -50,32 +51,48 @@ Future<List<UserMatch>> getMatchesUser() async {
   }
 }
 
-Future<bool> editProfile(String firstName, String lastName, String email,
-    String postalCode, String phone, String birth, String description, bool visible) async {
-
+Future<bool> editProfile(
+    String firstName,
+    String lastName,
+    String email,
+    String postalCode,
+    String phone,
+    String birth,
+    String description,
+    bool visible) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
 
-  var data = {"firstName": firstName, "lastName": lastName, "email" : email, "postalCode" : postalCode,
-    "phone" : phone, "birthDate" : birth, "description" : description,
-    "status_id" : 0, "skillList" : [], "preferenceList" : [], "visible" : visible};
+  var data = {
+    "firstName": firstName,
+    "lastName": lastName,
+    "email": email,
+    "postalCode": postalCode,
+    "phone": phone,
+    "birthDate": birth,
+    "description": description,
+    "status_id": 0,
+    "skillList": [],
+    "preferenceList": [],
+    "visible": visible
+  };
   var headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token',
   };
 
   var request = http.Request('POST', Uri.parse(baseUrl + '/user/edit'));
+
   request.body = json.encode(data);
+  print(request.body);
   request.headers.addAll(headers);
   var streamedResponse = await request.send();
   var response = await http.Response.fromStream(streamedResponse);
-
 
   return response.statusCode == 200;
 }
 
 Future<bool> performLogin(String email, String password) async {
-
   var data = {"email": email, "password": password};
   var headers = {
     'Content-Type': 'application/json',
@@ -91,7 +108,7 @@ Future<bool> performLogin(String email, String password) async {
 
   if (response.statusCode == 200) {
     var jsonResponse =
-    convert.jsonDecode(response.body) as Map<String, dynamic>;
+        convert.jsonDecode(response.body) as Map<String, dynamic>;
     sharedPreferences.setString('accessToken', jsonResponse['accessToken']);
     return true;
   }
@@ -103,15 +120,13 @@ Future<bool> deleteUser() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
 
-  final response = await client
-      .get(Uri.parse(baseUrl+'/user/delete'), headers: {
+  final response =
+      await client.get(Uri.parse(baseUrl + '/user/delete'), headers: {
     "Accept": "application/json",
     'Authorization': 'Bearer $token',
   });
 
   return response.statusCode == 200;
-
-
 }
 
 Future<List<Offer>> getOffers() async {
@@ -209,4 +224,23 @@ Future<bool> createGoogleUser(
   } else {
     return false;
   }
+}
+
+Future<List<Skill>> getSkills() async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  var token = sharedPreferences.getString('accessToken');
+
+  final response =
+      await client.get(Uri.parse(baseUrl + '/skill/all'), headers: {
+    "Accept": "application/json",
+    'Authorization': 'Bearer $token',
+  });
+  if (response.statusCode == 200) {
+    final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
+    return parsed.map<Skill>((json) => Skill.fromJson(json)).toList();
+  } else {
+    print("Failed to load skills");
+  }
+
+  return [];
 }

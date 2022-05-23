@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swapjobapp/Screens/auth/LoginSignUpScreen.dart';
+import 'package:swapjobapp/Screens/skillListScreen.dart';
 import '/Screens/EditProfile.dart';
 import '/Utils/color.dart';
 import '/Utils/requests.dart';
@@ -175,7 +176,7 @@ class _ProfilePageState extends State<ProfilePage>
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          170, 10, 10, 20),
+                                          50, 10, 10, 20),
 
                                       child: Column(
 
@@ -198,17 +199,10 @@ class _ProfilePageState extends State<ProfilePage>
                                                           title: new Text('Logout'),
                                                           onTap: () async {
                                                             SharedPreferences shPre = await SharedPreferences.getInstance();
-                                                            shPre.setString('accessToken', '');                                                            shPre.clear();
+                                                            shPre.remove('accessToken');
                                                             Navigator.of(context).pushAndRemoveUntil(
                                                                 MaterialPageRoute(builder: (context) => LoginSignUpScreen()),
                                                                     (route) => false);
-                                                          },
-                                                        ),
-                                                        ListTile(
-                                                          leading: new Icon(Icons.visibility_off),
-                                                          title: new Text('Visible'),
-                                                          onTap: () {
-                                                            Navigator.pop(context);
                                                           },
                                                         ),
                                                         ListTile(
@@ -333,6 +327,21 @@ class _ProfilePageState extends State<ProfilePage>
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
                               ),
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.edit,
+                                color: Color(0xFF090F13),
+                                size: 30,
+                              ),
+                              onPressed: () async {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SkillScreen()),
+                                );
+                              },
                             ),
                           ],
                         ),

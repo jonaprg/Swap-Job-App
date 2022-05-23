@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swapjobapp/Screens/skillListScreen.dart';
 import '/Utils/color.dart';
 import '../Home.dart';
 import '../../../Utils/requests.dart';
@@ -10,7 +11,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginState extends State<LoginScreen> {
   bool _isLoading = false;
-  String email = '';
+  String email = 'pako@astapor.com';
   String password = 'P@ssw0rd';
 
   TextEditingController emailController = TextEditingController();
@@ -174,7 +175,7 @@ class _LoginState extends State<LoginScreen> {
 
 
   login(String email, String password) async {
-    bool success = await performLogin(email, "P@ssw0rd");
+    bool success = await performLogin("pako@astapor.com", "P@ssw0rd");
     //bool success = await performLogin("pako@astapor.com", "P@ssw0rd");
     if (success) {
       Navigator.of(context).pushAndRemoveUntil(

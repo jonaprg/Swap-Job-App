@@ -24,9 +24,6 @@ class _MatchesPageState extends State<MatchesPage>
       super.initState();
       widget.itemsMatches = getMatchesUser();
     });
-
-
-
   }
 
   @override
@@ -78,6 +75,7 @@ class _MatchesPageState extends State<MatchesPage>
                                     );
                                   },
                                 ),
+
                               ],
                             ),
                           ),
@@ -98,6 +96,16 @@ class _MatchesPageState extends State<MatchesPage>
                                   },
                                   child: const Text('REMOVE',
                                       style: TextStyle(color: Colors.red)),
+                                ),
+                                OutlinedButton(
+                                  onPressed: () {
+
+                                    setState(() {
+
+                                    });
+                                  },
+                                  child: const Text('CONTRACTED',
+                                      style: TextStyle(color: Colors.green)),
                                 ),
                                 Expanded(
                                   child: Column(
