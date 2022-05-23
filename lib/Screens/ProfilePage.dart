@@ -198,7 +198,8 @@ class _ProfilePageState extends State<ProfilePage>
                                                           title: new Text('Logout'),
                                                           onTap: () async {
                                                             SharedPreferences shPre = await SharedPreferences.getInstance();
-                                                            shPre.setString('accessToken', '');                                                            shPre.clear();
+                                                            shPre.setString('accessToken', '');
+                                                            shPre.clear();
                                                             Navigator.of(context).pushAndRemoveUntil(
                                                                 MaterialPageRoute(builder: (context) => LoginSignUpScreen()),
                                                                     (route) => false);
