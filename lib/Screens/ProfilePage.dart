@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:swapjobapp/Screens/auth/LoginSignUpScreen.dart';
 import '/Screens/EditProfile.dart';
 import '/Utils/color.dart';
 import '/Utils/requests.dart';
@@ -22,10 +26,16 @@ class _ProfilePageState extends State<ProfilePage>
   int itemLength = 0;
   @override
   void initState() {
-    super.initState();
     setState(() {
       widget.itemsUser = getUserProfile();
     });
+    super.initState();
+
+  }
+
+  FutureOr onGoBack(dynamic value) {
+    widget.itemsUser = getUserProfile();
+    setState(() {});
   }
 
   @override
@@ -176,7 +186,6 @@ class _ProfilePageState extends State<ProfilePage>
                                         CrossAxisAlignment.start,
                                         children: [
                                           ElevatedButton(
-
                                             onPressed: () {
                                               showModalBottomSheet(
                                                   context: context,
@@ -187,8 +196,12 @@ class _ProfilePageState extends State<ProfilePage>
                                                         ListTile(
                                                           leading: new Icon(Icons.logout),
                                                           title: new Text('Logout'),
-                                                          onTap: () {
-                                                            Navigator.pop(context);
+                                                          onTap: () async {
+                                                            SharedPreferences shPre = await SharedPreferences.getInstance();
+                                                            shPre.setString('accessToken', '');                                                            shPre.clear();
+                                                            Navigator.of(context).pushAndRemoveUntil(
+                                                                MaterialPageRoute(builder: (context) => LoginSignUpScreen()),
+                                                                    (route) => false);
                                                           },
                                                         ),
                                                         ListTile(
@@ -201,8 +214,36 @@ class _ProfilePageState extends State<ProfilePage>
                                                         ListTile(
                                                           leading: new Icon(Icons.delete_forever),
                                                           title: new Text('Remove account'),
-                                                          onTap: () {
-                                                            Navigator.pop(context);
+                                                          onTap: () async {
+                                                            if(await deleteUser()) {
+                                                              SharedPreferences shPre = await SharedPreferences
+                                                                  .getInstance();
+                                                              shPre.clear();
+                                                              Navigator.of(
+                                                                  context)
+                                                                  .pushAndRemoveUntil(
+                                                                  MaterialPageRoute(
+                                                                      builder: (
+                                                                          context) =>
+                                                                          LoginSignUpScreen()),
+                                                                      (route) => false);
+                                                            } else {
+                                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                                  SnackBar(
+                                                                    content: const Text('NOT REMOVE USER, TRY AGAIN'),
+                                                                    duration: const Duration(milliseconds: 1500),
+                                                                    width: 300.0, // Width of the SnackBar.
+                                                                    padding: const EdgeInsets.symmetric(
+                                                                      horizontal:
+                                                                      10.0, // Inner padding for SnackBar content.
+                                                                    ),
+                                                                    behavior: SnackBarBehavior.floating,
+                                                                    shape: RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.circular(10.0),
+                                                                    ),
+                                                                  ),
+                                                              );
+                                                            }
                                                           },
                                                         ),
                                                       ],
@@ -218,9 +259,6 @@ class _ProfilePageState extends State<ProfilePage>
                                               semanticLabel: 'Settings',
                                             ),
                                           ),
-
-
-
                                         ],
                                       ),
                                     ),
@@ -644,10 +682,10 @@ class _ProfilePageState extends State<ProfilePage>
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => EditProfilePage(user)),
-          );
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => EditProfilePage(user)),
+            ).then((onGoBack));
         },
         backgroundColor: primaryOrangeColor,
         child: const Icon(Icons.edit),

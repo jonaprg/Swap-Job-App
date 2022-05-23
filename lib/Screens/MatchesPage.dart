@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:swapjobapp/Screens/infoMatchPage.dart';
 import '/Model/UserMatches.dart';
 import '/Utils/requests.dart';
+import 'infoOfferPage.dart';
 
 class MatchesPage extends StatefulWidget {
   late Future<List<UserMatch>> itemsMatches;
@@ -64,10 +66,17 @@ class _MatchesPageState extends State<MatchesPage>
                                           fontWeight: FontWeight.normal,
                                           color: Colors.black)),
                                 ),
-                                Icon(
-                                  Icons.info,
-                                  color: Colors.black,
-                                  size: 24,
+                                IconButton(
+                                  icon: const Icon(Icons.info_rounded),
+                                  tooltip: 'Information about the offer',
+                                  onPressed: () async {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              InfoMatchOffer(matches[indexTwo])),
+                                    );
+                                  },
                                 ),
                               ],
                             ),

@@ -372,6 +372,53 @@ class _EditProfilePageState extends State<EditProfilePage> {
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
               child: TextFormField(
+                controller: birthDateController,
+                obscureText: false,
+                keyboardType: TextInputType.datetime,
+                decoration: InputDecoration(
+                  labelText: 'Birth date | YYYY-MM-DD',
+                  labelStyle: TextStyle(
+                    fontFamily: 'Outfit',
+                    color: Color(0xFF0F1113),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  hintStyle: TextStyle(
+                    fontFamily: 'Outfit',
+                    color: Color(0xFF0F1113),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFF1F4F8),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFF1F4F8),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                ),
+                style: TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+              child: TextFormField(
                 controller: descriptionController,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -394,14 +441,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   textStyle: const TextStyle(fontSize: 20),
                 ),
                 onPressed: () {
-                    editUserProfile(
-                        firstNameController.text,
-                        lastNameController.text,
-                        emailController.text,
-                        postalCodeController.text,
-                        phoneController.text,
-                        birthDateController.text,
-                        descriptionController.text);
+                  editUserProfile(
+                    firstNameController.text,
+                    lastNameController.text,
+                    emailController.text,
+                    postalCodeController.text,
+                    phoneController.text,
+                    birthDateController.text,
+                    descriptionController.text, true);
                 },
                 child: const Text('DONE'),
               ),
@@ -413,13 +460,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   editUserProfile(String firstName, String lastName, String email,
-      String postalCode, String phone, String birth, String description) async {
+      String postalCode, String phone, String birth, String description, bool visible) async {
     bool success = await editProfile(
-        firstName, lastName, email, postalCode, phone, birth, description);
+        firstName, lastName, email, postalCode, phone, birth, description, visible);
     if (success) {
-      setState(() {
-        Navigator.pop(context);
-      });
+        Navigator.pop(context, true);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

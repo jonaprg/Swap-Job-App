@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:convert' as convert;
-import 'dart:ffi';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -49,6 +48,70 @@ Future<List<UserMatch>> getMatchesUser() async {
   } else {
     throw Exception('Failed to load matches for user');
   }
+}
+
+Future<bool> editProfile(String firstName, String lastName, String email,
+    String postalCode, String phone, String birth, String description, bool visible) async {
+
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  var token = sharedPreferences.getString('accessToken');
+
+  var data = {"firstName": firstName, "lastName": lastName, "email" : email, "postalCode" : postalCode,
+    "phone" : phone, "birthDate" : birth, "description" : description,
+    "status_id" : 0, "skillList" : [], "preferenceList" : [], "visible" : visible};
+  var headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $token',
+  };
+
+  var request = http.Request('POST', Uri.parse(baseUrl + '/user/edit'));
+  request.body = json.encode(data);
+  request.headers.addAll(headers);
+  var streamedResponse = await request.send();
+  var response = await http.Response.fromStream(streamedResponse);
+
+
+  return response.statusCode == 200;
+}
+
+Future<bool> performLogin(String email, String password) async {
+
+  var data = {"email": email, "password": password};
+  var headers = {
+    'Content-Type': 'application/json',
+  };
+
+  var request = http.Request('POST', Uri.parse(baseUrl + '/auth/signin'));
+  request.body = json.encode(data);
+  request.headers.addAll(headers);
+  var streamedResponse = await request.send();
+  var response = await http.Response.fromStream(streamedResponse);
+
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+  if (response.statusCode == 200) {
+    var jsonResponse =
+    convert.jsonDecode(response.body) as Map<String, dynamic>;
+    sharedPreferences.setString('accessToken', jsonResponse['accessToken']);
+    return true;
+  }
+
+  return false;
+}
+
+Future<bool> deleteUser() async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  var token = sharedPreferences.getString('accessToken');
+
+  final response = await client
+      .get(Uri.parse(baseUrl+'/user/delete'), headers: {
+    "Accept": "application/json",
+    'Authorization': 'Bearer $token',
+  });
+
+  return response.statusCode == 200;
+
+
 }
 
 Future<List<Offer>> getOffers() async {
@@ -102,61 +165,6 @@ Future<bool> removeMatchOffer(int idOffer) async {
   var response = await http.Response.fromStream(streamedResponse);
 
   return response.statusCode == 200;
-}
-
-Future<bool> editProfile(String firstName, String lastName, String email,
-    String postalCode, String phone, String birth, String description) async {
-
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  var token = sharedPreferences.getString('accessToken');
-
-  var data = {"firstName": firstName, "lastName": lastName, "email" : email, "postalCode" : postalCode,
-  "phone" : phone, "birthDate" : birth, "description" : description,
-    "status_id" : 0, "skillList" : [], "preferenceList" : [], "visible" : true};
-  var headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer $token',
-  };
-
-  var request = http.Request('POST', Uri.parse(baseUrl + '/user/edit'));
-  request.body = json.encode(data);
-  print(request.body);
-  request.headers.addAll(headers);
-  var streamedResponse = await request.send();
-  var response = await http.Response.fromStream(streamedResponse);
-  print(response.body);
-  print(response.statusCode);
-
-  if (response.statusCode == 200) {
-    return true;
-  }
-
-  return false;
-}
-
-
-Future<bool> performLogin(String email, String password) async {
-  var data = {"email": email, "password": password};
-  var headers = {
-    'Content-Type': 'application/json',
-  };
-
-  var request = http.Request('POST', Uri.parse(baseUrl + '/auth/signin'));
-  request.body = json.encode(data);
-  request.headers.addAll(headers);
-  var streamedResponse = await request.send();
-  var response = await http.Response.fromStream(streamedResponse);
-
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-  if (response.statusCode == 200) {
-    var jsonResponse =
-        convert.jsonDecode(response.body) as Map<String, dynamic>;
-    sharedPreferences.setString('accessToken', jsonResponse['accessToken']);
-    return true;
-  }
-
-  return false;
 }
 
 Future<bool> userExists(String email, String password) async {
