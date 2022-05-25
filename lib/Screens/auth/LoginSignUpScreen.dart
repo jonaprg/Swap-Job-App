@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import '../../Utils/requests.dart';
+import '../Home.dart';
 import '/Screens/auth/LoginScreen.dart';
 import '/Screens/auth/register/RegisterScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -13,6 +16,13 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
   late String name;
   bool shouldPop = true;
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -89,7 +99,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                   height: MediaQuery.of(context).size.height * .1,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 10),
+                  padding: const EdgeInsets.only(top: 5, bottom: 10),
                   child: Material(
                     elevation: 2.0,
                     borderRadius: const BorderRadius.all(Radius.circular(15)),
@@ -104,24 +114,35 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                                     begin: Alignment.topRight,
                                     end: Alignment.bottomLeft,
                                     colors: [
-                                      Colors.blueAccent,
-                                      Colors.blueAccent
+                                      Colors.redAccent,
+                                      Colors.redAccent
                                     ])),
                             height: MediaQuery.of(context).size.height * .065,
                             width: MediaQuery.of(context).size.width * .8,
                             child: const Center(
                                 child: Text(
-                              "LOG IN WITH LINKEDIN",
+                              "SIGN UP WITH GOOGLE",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
                             ))),
+                        onTap: () async {
+                          _googleSignIn.signIn().then((value) {
+                            if (value != null ||
+                                value!.displayName != null &&
+                                    value.displayName != "") {
+                              if (value.email != "" &&
+                                  value.id != "" &&
+                                  value.displayName != "") {
+                                loginWithGoogle(
+                                    value.email, value.id, value.displayName!);
+                              }
+                            }
+                          });
+                        },
                       ),
                     ),
                   ),
-                ),
-                Container(
-
                 ),
                 OutlinedButton(
                   child: SizedBox(
@@ -134,8 +155,10 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                                 fontWeight: FontWeight.bold))),
                   ),
                   onPressed: () {
-                    Navigator.push(context,
-                        CupertinoPageRoute(builder: (context) => LoginScreen()));
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => LoginScreen()));
                   },
                 ),
                 Padding(
@@ -165,8 +188,10 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                             ))),
                         onTap: () async {
                           bool updateNumber = false;
-                          Navigator.push(context,
-                              CupertinoPageRoute(builder: (context) => RegisterScreen()));
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => RegisterScreen()));
                         },
                       ),
                     ),
@@ -178,6 +203,37 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
         ),
       ),
     );
+  }
+
+  loginWithGoogle(String email, String password, String displayName) async {
+    bool success = await userExists(email);
+    if (success) {
+      bool success = await performLogin(email, password);
+      if (success) {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+            (Route<dynamic> route) => false);
+      } else {
+        setState(() {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("The user not exists, bad credentials")));
+        });
+      }
+    } else {
+      //Create the user on google and login
+      var success = await createGoogleUser(email, password, displayName);
+      if (success) {
+        performLogin(email, password);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+            (Route<dynamic> route) => false);
+      } else {
+        setState(() {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Error on creating Google User")));
+        });
+      }
+    }
   }
 }
 

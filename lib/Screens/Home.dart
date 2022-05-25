@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Model/Offer.dart';
+import '../Model/User.dart';
 import '../Model/UserMatches.dart';
 import '../Utils/requests.dart';
 import 'ExplorePage.dart';
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   late SharedPreferences sharedPreferences;
   late Future<List<UserMatch>> itemsMatches;
   late Future<List<Offer>> itemsOffers;
+  late Future<List<User>> itemUser;
 
 
   checkLoginStatus() async {
@@ -39,6 +41,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       itemsMatches = getMatchesUser();
       itemsOffers = getOffers();
+      itemUser = getUserProfile();
     });
 
   }
@@ -55,7 +58,7 @@ class _HomePageState extends State<HomePage> {
     return IndexedStack(
       index: pageIndex,
       children: [
-        ExplorePage(itemsOffers), MatchesPage(itemsMatches), ProfilePage()]
+        ExplorePage(itemsOffers), MatchesPage(itemsMatches), ProfilePage(itemUser)]
     );
   }
 
@@ -85,6 +88,8 @@ class _HomePageState extends State<HomePage> {
                   pageIndex = index;
                   itemsMatches = getMatchesUser();
                   itemsOffers = getOffers();
+                  itemUser = getUserProfile();
+
                 });
               },
               icon: SvgPicture.asset(

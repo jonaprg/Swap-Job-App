@@ -30,7 +30,6 @@ class _ExplorePageState extends State<ExplorePage>
     setState(() {
       widget.itemsTemp = getOffers();
     });
-
   }
 
   @override
@@ -166,18 +165,21 @@ class OfferList extends StatelessWidget {
                             ),
                             IconButton(
                               icon: const Icon(Icons.info_rounded),
+                              color: Colors.white,
                               tooltip: 'Information about the offer',
                               onPressed: () async {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => InfoOffer()),
+                                      builder: (context) =>
+                                          InfoOffer(offers[index])),
                                 );
                               },
                             ),
                           ],
                         ),
                       ),
+                      SizedBox(height: 20),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 4),
                         child: Container(
@@ -401,12 +403,37 @@ class OfferList extends StatelessWidget {
                 if (orientation == CardSwipeOrientation.RIGHT) {
                   bool success = await matchOffer(offers[index].id);
                   if (success) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(const SnackBar(content: Text("Good")));
-                  } else {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(const SnackBar(content: Text("Nope")));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Text('YOU LIKED IT'),
+                        duration: const Duration(milliseconds: 1500),
+                        width: 300.0, // Width of the SnackBar.
+                        padding: const EdgeInsets.symmetric(
+                          horizontal:
+                              10.0, // Inner padding for SnackBar content.
+                        ),
+                        behavior: SnackBarBehavior.floating,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+                    );
                   }
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: const Text('YOU DISLIKED IT'),
+                      duration: const Duration(milliseconds: 1500),
+                      width: 280.0, // Width of the SnackBar.
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, // Inner padding for SnackBar content.
+                      ),
+                      behavior: SnackBarBehavior.floating,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                  );
                 }
               },
             ),

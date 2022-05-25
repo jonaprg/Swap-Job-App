@@ -1,13 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import '../../Home.dart';
 import '/Utils/color.dart';
-
 import 'UserNameRScreen.dart';
-
-const String baseUrl = "http://localhost"; //LOCAL
-//const String baseUrl = "http://api.swapjob.tk/SwapJob"; //PRODUCTION
+import '/Utils/requests.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -17,9 +12,11 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterState extends State<RegisterScreen> {
   Map<String, dynamic> userData = {}; //user personal info
   bool _isLoading = false;
-  String email = '';
-  String password = '';
-
+  String email = 'a';
+  String password = 'a';
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  bool _isObscure = true;
   @override
   void dispose() {
     super.dispose();
@@ -75,11 +72,12 @@ class _RegisterState extends State<RegisterScreen> {
                   TextFormField(
                     controller: emailController,
                     style: const TextStyle(fontSize: 23),
+                    keyboardType: TextInputType.emailAddress,
+
                     decoration: InputDecoration(
                       hintText: "Email",
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: primaryOrangeColor)),
-
                       helperStyle: TextStyle(
                           color: secondaryDarkBlueColor, fontSize: 15),
                     ),
@@ -92,10 +90,22 @@ class _RegisterState extends State<RegisterScreen> {
                   const SizedBox(height: 30.0),
                   TextFormField(
                     controller: passwordController,
-                    obscureText: true,
+                    obscureText: _isObscure,
+                    enableSuggestions: false,
+                    autocorrect: false,
                     style: const TextStyle(fontSize: 23),
                     decoration: InputDecoration(
                       hintText: "Password",
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isObscure ? Icons.visibility : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isObscure = !_isObscure;
+                          });
+                        },
+                      ),
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: primaryOrangeColor)),
                     ),
@@ -109,123 +119,91 @@ class _RegisterState extends State<RegisterScreen> {
               ),
               email.isNotEmpty && password.isNotEmpty
                   ? Padding(
-                padding: const EdgeInsets.only(bottom: 40),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: InkWell(
-                    child: Container(
-                        decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.circular(25),
-                            gradient: LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                colors: [
-                                  thirdBlueColor.withOpacity(.5),
-                                  thirdBlueColor.withOpacity(.8),
-                                  thirdBlueColor,
-                                  thirdBlueColor
-                                ])),
-                        height: MediaQuery.of(context).size.height * .065,
-                        width: MediaQuery.of(context).size.width * .75,
-                        child: Center(
-                            child: Text(
-                              "CONTINUE",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: textColor,
-                                  fontWeight: FontWeight.bold),
-                            ))),
-                    onTap: () {
-                      setState(() {
-                        _isLoading = true;
-                      });
-                      signup(emailController.text, passwordController.text);
-                    },
-                  ),
-                ),
-              )
-                  : Padding(
-                padding: const EdgeInsets.only(bottom: 40),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: InkWell(
-                    child: Container(
-                        decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.circular(25),
-                            color: primaryOrangeColor
+                      padding: const EdgeInsets.only(bottom: 40),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: InkWell(
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(25),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topRight,
+                                      end: Alignment.bottomLeft,
+                                      colors: [
+                                        thirdBlueColor.withOpacity(.5),
+                                        thirdBlueColor.withOpacity(.8),
+                                        thirdBlueColor,
+                                        thirdBlueColor
+                                      ])),
+                              height: MediaQuery.of(context).size.height * .065,
+                              width: MediaQuery.of(context).size.width * .75,
+                              child: Center(
+                                  child: Text(
+                                "CONTINUE",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: textColor,
+                                    fontWeight: FontWeight.bold),
+                              ))),
+                          onTap: () {
+                            setState(() {
+                              _isLoading = true;
+                            });
+                            //signup(emailController.text, passwordController.text);
+                            signup(emailController.text, passwordController.text);
+                          },
                         ),
-                        height: MediaQuery.of(context).size.height * .065,
-                        width: MediaQuery.of(context).size.width * .75,
-
-                        child: Center(
-                            child: Text(
-                              "CONTINUE",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: textColor,
-                                  fontWeight: FontWeight.bold),
-                            ))),
-                    onTap: () {},
-                  ),
-                ),
-              )
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.only(bottom: 40),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: InkWell(
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(25),
+                                  color: primaryOrangeColor),
+                              height: MediaQuery.of(context).size.height * .065,
+                              width: MediaQuery.of(context).size.width * .75,
+                              child: Center(
+                                  child: Text(
+                                "CONTINUE",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: textColor,
+                                    fontWeight: FontWeight.bold),
+                              ))),
+                          onTap: () {},
+                        ),
+                      ),
+                    )
             ],
           ),
         ),
       ),
     );
   }
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+
   Future signup(String email, String password) async {
-    var data = {
-      "email" : email,
-      "password" : password
-    };
-    var headers = {
-      'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-      "Access-Control-Allow-Credentials": "true",
-      "Access-Control-Allow-Headers" : "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-      "Access-Control-Allow-Methods" : "POST, HEAD",
-
-    };
-    //var response = await http.post(Uri.parse("http://api.swapjob.tk/SwapJob/auth/signin"), body: convert.jsonEncode(data));
-    var request = http.Request('POST', Uri.parse(baseUrl +'/auth/signin'));
-    request.body = json.encode(data);
-    request.headers.addAll(headers);
-    var streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
-
-    if (response.statusCode == 200) {
-      ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("The user already exists")));
-    }
-    else {
+    var response = await userExists(email);
+    if (!response) {
       setState(() {
         _isLoading = false;
-        userData.addAll(data);
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-                builder: (BuildContext context) => UserNameRScreen(userData)),
-                (Route<dynamic> route) => false);
+        userData.addAll(
+            {'email': email, 'password': password});
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => UserNameRScreen(userData)),
+        );
       });
-
-
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("The user already exists, try again or go to login")));
     }
-
-
-
-
-
-
-
-
-
-
-
   }
+
 
 }

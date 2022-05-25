@@ -4,14 +4,14 @@ import 'package:swapjobapp/Model/UserMatches.dart';
 import '../Model/Offer.dart';
 import '../Utils/color.dart';
 
-class InfoOffer extends StatefulWidget {
-  final Offer offer;
-  InfoOffer(this.offer);
+class InfoMatchOffer extends StatefulWidget {
+  final UserMatch match;
+  InfoMatchOffer(this.match);
   @override
-  _InfState createState() => _InfState();
+  _InfoMatchOfferState createState() => _InfoMatchOfferState();
 }
 
-class _InfState extends State<InfoOffer> {
+class _InfoMatchOfferState extends State<InfoMatchOffer> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -81,7 +81,7 @@ class _InfState extends State<InfoOffer> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Text(
-                                widget.offer.title,
+                                widget.match.offer.title,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
@@ -96,7 +96,7 @@ class _InfState extends State<InfoOffer> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Text(
-                                widget.offer.isRemote == true ? "Remoto | " : "Full | "
+                                widget.match.offer.isRemote == true ? "Remoto | " : "Full | "
                                 'Melbourne',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -147,7 +147,7 @@ class _InfState extends State<InfoOffer> {
                                   shape: BoxShape.circle,
                                 ),
                                 child:  Image.network(
-                                  widget.offer.companyImage,
+                                  widget.match.offer.companyImage,
                                 ),
                               ),
                               Expanded(
@@ -155,7 +155,7 @@ class _InfState extends State<InfoOffer> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       12, 0, 0, 0),
                                   child: Text(
-                                    widget.offer.companyName,
+                                    widget.match.offer.companyName,
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -223,7 +223,7 @@ class _InfState extends State<InfoOffer> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(8, 0, 0, 12),
                                               child: Text(
-                                                widget.offer.salary.toString() + " €",
+                                                widget.match.offer.salary.toString() + " €",
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
@@ -234,7 +234,7 @@ class _InfState extends State<InfoOffer> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(8, 0, 0, 0),
                                               child: Text(
-                                                widget.offer.description,
+                                                widget.match.offer.description,
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,

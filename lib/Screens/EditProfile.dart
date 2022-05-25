@@ -1,27 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:swapjobapp/Utils/color.dart';
+import 'package:swapjobapp/Utils/requests.dart';
+
+import '../Model/User.dart';
 
 class EditProfilePage extends StatefulWidget {
-
+  late List<User> user;
+  EditProfilePage(this.user);
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  late TextEditingController textController1;
-  late TextEditingController textController2;
-  late TextEditingController textController3;
-  late TextEditingController textController4;
-  late TextEditingController textController5;
-  late TextEditingController textController6;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  late TextEditingController firstNameController;
+  late TextEditingController lastNameController;
+  late TextEditingController postalCodeController;
+  late TextEditingController phoneController;
+  late TextEditingController birthDateController;
+  late TextEditingController descriptionController;
+  late TextEditingController emailController;
+  late bool visible;
 
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
-    /*textController1 = TextEditingController(text: widget.user.displayName);
-    textController2 = TextEditingController(text: widget.user.username);
-    textController3 = TextEditingController(text: widget.user.website);
-    textController4 = TextEditingController(text: widget.user.bio);*/
+
+    setState(() {
+      firstNameController = TextEditingController(text: widget.user[0].firstName);
+      lastNameController = TextEditingController(text: widget.user[0].lastName);
+      postalCodeController = TextEditingController(text: widget.user[0].postalCode.toString());
+      phoneController = TextEditingController(text: widget.user[0].phone);
+      birthDateController = TextEditingController(text:
+                              widget.user[0].birthDate.substring(0,10));
+      descriptionController = TextEditingController(text: widget.user[0].description);
+      emailController = TextEditingController(text: widget.user[0].email);
+      visible = widget.user[0].isVisible;
+    });
   }
 
   @override
@@ -34,7 +49,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
           padding: EdgeInsets.zero,
           scrollDirection: Axis.vertical,
           children: [
-// Generated code for this AppBar Widget...
             PreferredSize(
               preferredSize: Size.fromHeight(100),
               child: AppBar(
@@ -53,7 +67,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                               child: IconButton(
                                 icon: Icon(
                                   Icons.arrow_back_rounded,
@@ -90,22 +105,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
               child: TextFormField(
-                controller: textController1,
+                controller: firstNameController,
                 obscureText: false,
                 decoration: InputDecoration(
                   labelText: 'First Name',
-                  labelStyle:   TextStyle(
-                  fontFamily: 'Outfit',
-                  color: Color(0xFF0F1113),
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                ),
-                  hintStyle:  TextStyle(
-                  fontFamily: 'Outfit',
-                  color: Color(0xFF0F1113),
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                ),
+                  labelStyle: TextStyle(
+                    fontFamily: 'Outfit',
+                    color: Color(0xFF0F1113),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Color(0xFFF1F4F8),
@@ -135,67 +144,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
               child: TextFormField(
-                controller: textController2,
+                controller: lastNameController,
                 obscureText: false,
                 decoration: InputDecoration(
-                  labelText: 'First Name',
-                  labelStyle:  TextStyle(
-                  fontFamily: 'Outfit',
-                  color: Color(0xFF0F1113),
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                ),
-                  hintStyle:  TextStyle(
-                  fontFamily: 'Outfit',
-                  color: Color(0xFF0F1113),
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFFF1F4F8),
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
+                  labelText: 'Last Name',
+                  labelStyle: TextStyle(
+                    fontFamily: 'Outfit',
+                    color: Color(0xFF0F1113),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFFF1F4F8),
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
-                ),
-                style: TextStyle(
-                fontFamily: 'Outfit',
-                color: Color(0xFF0F1113),
-                fontSize: 14,
-                fontWeight: FontWeight.normal,
-              ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
-              child: TextFormField(
-                controller: textController3,
-                obscureText: false,
-                decoration: InputDecoration(
-                  labelText: 'First Name',
-                  labelStyle:  TextStyle(
-                  fontFamily: 'Outfit',
-                  color: Color(0xFF0F1113),
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                ),
                   hintStyle: TextStyle(
-                  fontFamily: 'Outfit',
-                  color: Color(0xFF0F1113),
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                ),
+                    fontFamily: 'Outfit',
+                    color: Color(0xFF0F1113),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Color(0xFFF1F4F8),
@@ -225,22 +189,24 @@ class _EditProfilePageState extends State<EditProfilePage> {
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
               child: TextFormField(
-                controller: textController4,
+                controller: emailController,
                 obscureText: false,
+                keyboardType: TextInputType.emailAddress,
+
                 decoration: InputDecoration(
-                  labelText: 'First Name',
-                  labelStyle:  TextStyle(
-                  fontFamily: 'Outfit',
-                  color: Color(0xFF0F1113),
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                ),
-                  hintStyle:  TextStyle(
-                  fontFamily: 'Outfit',
-                  color: Color(0xFF0F1113),
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                ),
+                  labelText: 'Email',
+                  labelStyle: TextStyle(
+                    fontFamily: 'Outfit',
+                    color: Color(0xFF0F1113),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  hintStyle: TextStyle(
+                    fontFamily: 'Outfit',
+                    color: Color(0xFF0F1113),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Color(0xFFF1F4F8),
@@ -270,22 +236,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
               child: TextFormField(
-                controller: textController5,
+                controller: postalCodeController,
                 obscureText: false,
                 decoration: InputDecoration(
-                  labelText: 'First Name',
-                  labelStyle:  TextStyle(
-                  fontFamily: 'Outfit',
-                  color: Color(0xFF0F1113),
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                ),
-                  hintStyle:   TextStyle(
-                  fontFamily: 'Outfit',
-                  color: Color(0xFF0F1113),
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                ),
+                  labelText: 'Postal Code',
+                  labelStyle: TextStyle(
+                    fontFamily: 'Outfit',
+                    color: Color(0xFF0F1113),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  hintStyle: TextStyle(
+                    fontFamily: 'Outfit',
+                    color: Color(0xFF0F1113),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Color(0xFFF1F4F8),
@@ -315,43 +281,186 @@ class _EditProfilePageState extends State<EditProfilePage> {
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
               child: TextFormField(
-                controller: textController6,
+                controller: phoneController,
+                obscureText: false,
+                keyboardType: TextInputType.phone,
+
+                decoration: InputDecoration(
+                  labelText: 'Phone',
+                  labelStyle: TextStyle(
+                    fontFamily: 'Outfit',
+                    color: Color(0xFF0F1113),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  hintStyle: TextStyle(
+                    fontFamily: 'Outfit',
+                    color: Color(0xFF0F1113),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFF1F4F8),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFF1F4F8),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                ),
+                style: TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+              child: TextFormField(
+                controller: birthDateController,
+                obscureText: false,
+                keyboardType: TextInputType.datetime,
+                decoration: InputDecoration(
+                  labelText: 'Birth date | YYYY-MM-DD',
+                  labelStyle: TextStyle(
+                    fontFamily: 'Outfit',
+                    color: Color(0xFF0F1113),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  hintStyle: TextStyle(
+                    fontFamily: 'Outfit',
+                    color: Color(0xFF0F1113),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFF1F4F8),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFF1F4F8),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                ),
+                style: TextStyle(
+                  fontFamily: 'Outfit',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ),
+            // Generated code for this SwitchListTile Widget...
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+              child: SwitchListTile.adaptive(
+                value: visible,
+                onChanged: (newValue) => setState(() => visible = newValue),
+                title: Text(
+                  'Visible',
+                  style: TextStyle(
+                    fontFamily: 'Outfit',
+                    color: Color(0xFF0F1113),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                activeColor: Color(0xFF4B39EF),
+                activeTrackColor: Color(0x8A4B39EF),
+                dense: false,
+                controlAffinity: ListTileControlAffinity.trailing,
+                contentPadding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+              ),
+            ),
+
+
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+              child: TextFormField(
+                controller: descriptionController,
                 obscureText: false,
                 decoration: InputDecoration(
-                  labelText: 'First Name',
-                  labelStyle:   TextStyle(
-                  fontFamily: 'Outfit',
-                  color: Color(0xFF0F1113),
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                ),
-                  hintStyle:   TextStyle(
-                  fontFamily: 'Outfit',
-                  color: Color(0xFF0F1113),
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                ),
+                  labelText: 'Description',
+                  labelStyle: TextStyle(
+                    fontFamily: 'Outfit',
+                    color: Color(0xFF0F1113),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
                   ),
+                ),
               ),
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-              child: IconButton(
-
-                icon: Icon(
-                  Icons.arrow_back_rounded,
-                  color: Color(0xFF090F13),
-                  size: 30,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(16.0),
+                  primary: primaryOrangeColor,
+                  textStyle: const TextStyle(fontSize: 20),
                 ),
-                onPressed: () async {
-                  Navigator.pop(context);
+                onPressed: () {
+
+                  editUserProfile(
+                    firstNameController.text,
+                    lastNameController.text,
+                    emailController.text,
+                    postalCodeController.text,
+                    phoneController.text,
+                    birthDateController.text,
+                    descriptionController.text, visible);
                 },
+                child: const Text('DONE'),
               ),
             )
-
           ],
         ),
       ),
     );
+  }
+
+  editUserProfile(String firstName, String lastName, String email,
+      String postalCode, String phone, String birth, String description, bool visible) async {
+    bool success = await editProfile(
+        firstName, lastName, email, postalCode, phone, birth, description, visible);
+    if (success) {
+        Navigator.pop(context);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+
+          content: const Text('Bad credentials, sorry. Check again'),
+          duration: const Duration(milliseconds: 1500),
+          width: 280.0, // Width of the SnackBar.
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8.0, // Inner padding for SnackBar content.
+          ),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+        ),
+      );
+    }
   }
 }

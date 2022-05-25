@@ -23,4 +23,10 @@ class Preference {
     value : json['value'],
     );
   }
+  Map<String, dynamic> toJson() => {
+    'title' : title,
+    'lowThreshold' : lowThreshold,
+    'highThreshold' : highThreshold,
+    'value' : value,
+  };
 }

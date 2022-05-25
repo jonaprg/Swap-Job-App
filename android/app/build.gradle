@@ -58,9 +58,12 @@ android {
         }
     }
 
-    android{
-        defaultConfig{
-            minSdkVersion 19
+    signingConfigs {
+        debug {
+            keyAlias 'androiddebugkey'
+            keyPassword 'P@ssw0rd'
+            storeFile file('/key.jks')
+            storePassword 'P@ssw0rd'
         }
     }
 }
