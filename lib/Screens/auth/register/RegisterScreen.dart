@@ -151,7 +151,7 @@ class _RegisterState extends State<RegisterScreen> {
                               _isLoading = true;
                             });
                             //signup(emailController.text, passwordController.text);
-                            signup("jona123@gmail.com", "jona");
+                            signup(emailController.text, passwordController.text);
                           },
                         ),
                       ),
@@ -188,8 +188,7 @@ class _RegisterState extends State<RegisterScreen> {
   }
 
   Future signup(String email, String password) async {
-    var response = await userExists(email, password);
-    print(response);
+    var response = await userExists(email);
     if (!response) {
       setState(() {
         _isLoading = false;

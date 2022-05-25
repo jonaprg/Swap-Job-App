@@ -206,7 +206,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
   }
 
   loginWithGoogle(String email, String password, String displayName) async {
-    bool success = await userExists(email, password);
+    bool success = await userExists(email);
     if (success) {
       bool success = await performLogin(email, password);
       if (success) {

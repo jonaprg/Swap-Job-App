@@ -182,19 +182,19 @@ Future<bool> removeMatchOffer(int idOffer) async {
   return response.statusCode == 200;
 }
 
-Future<bool> userExists(String email, String password) async {
-  var data = {"email": email, "password": password};
+Future<bool> userExists(String email) async {
+
   var headers = {
     'Content-Type': 'application/json',
   };
 
-  var request = http.Request('POST', Uri.parse(baseUrl + '/auth/signin'));
-  request.body = json.encode(data);
+  var request = http.Request('POST', Uri.parse(baseUrl + '/auth/checkEmail'));
+  request.body = email;
   request.headers.addAll(headers);
   var streamedResponse = await request.send();
   var response = await http.Response.fromStream(streamedResponse);
-
-  return response.statusCode == 200;
+  print(response.body);
+  return response.body == 'true' ? true : false;
 }
 
 Future<bool> createGoogleUser(

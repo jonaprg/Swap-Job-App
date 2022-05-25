@@ -16,4 +16,9 @@ class Skill {
     description : json['description'],
     );
   }
+
+  @override
+  String toString() {
+    return 'Skill{id: $id, title: $title, description: $description}';
+  }
 }
