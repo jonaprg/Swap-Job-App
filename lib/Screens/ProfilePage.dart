@@ -317,7 +317,7 @@ class _ProfilePageState extends State<ProfilePage>
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
+                          MainAxisAlignment.start,
                           children: [
                             Text(
                               'Skill',
@@ -332,7 +332,7 @@ class _ProfilePageState extends State<ProfilePage>
                               icon: Icon(
                                 Icons.edit,
                                 color: Color(0xFF090F13),
-                                size: 30,
+                                size: 20,
                               ),
                               onPressed: () async {
                                 Navigator.push(
@@ -511,7 +511,7 @@ class _ProfilePageState extends State<ProfilePage>
                         padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
                               'Preference',
@@ -521,6 +521,21 @@ class _ProfilePageState extends State<ProfilePage>
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
                               ),
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.edit,
+                                color: Color(0xFF090F13),
+                                size: 20,
+                              ),
+                              onPressed: () async {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SkillScreen()),
+                                );
+                              },
                             ),
                           ],
                         ),

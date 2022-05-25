@@ -12,9 +12,11 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterState extends State<RegisterScreen> {
   Map<String, dynamic> userData = {}; //user personal info
   bool _isLoading = false;
-  String email = '';
-  String password = '';
-
+  String email = 'a';
+  String password = 'a';
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  bool _isObscure = true;
   @override
   void dispose() {
     super.dispose();
@@ -70,6 +72,8 @@ class _RegisterState extends State<RegisterScreen> {
                   TextFormField(
                     controller: emailController,
                     style: const TextStyle(fontSize: 23),
+                    keyboardType: TextInputType.emailAddress,
+
                     decoration: InputDecoration(
                       hintText: "Email",
                       focusedBorder: UnderlineInputBorder(
@@ -86,10 +90,22 @@ class _RegisterState extends State<RegisterScreen> {
                   const SizedBox(height: 30.0),
                   TextFormField(
                     controller: passwordController,
-                    obscureText: true,
+                    obscureText: _isObscure,
+                    enableSuggestions: false,
+                    autocorrect: false,
                     style: const TextStyle(fontSize: 23),
                     decoration: InputDecoration(
                       hintText: "Password",
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isObscure ? Icons.visibility : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isObscure = !_isObscure;
+                          });
+                        },
+                      ),
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: primaryOrangeColor)),
                     ),
@@ -134,8 +150,8 @@ class _RegisterState extends State<RegisterScreen> {
                             setState(() {
                               _isLoading = true;
                             });
-                            signup(
-                                emailController.text, passwordController.text);
+                            //signup(emailController.text, passwordController.text);
+                            signup("jona123@gmail.com", "jona");
                           },
                         ),
                       ),
@@ -171,41 +187,24 @@ class _RegisterState extends State<RegisterScreen> {
     );
   }
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
   Future signup(String email, String password) async {
     var response = await userExists(email, password);
-
-    if (response) {
+    print(response);
+    if (!response) {
       setState(() {
         _isLoading = false;
         userData.addAll(
-            {email: emailController.text, password: passwordController.text});
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-                builder: (BuildContext context) => UserNameRScreen(userData)),
-            (Route<dynamic> route) => false);
+            {'email': email, 'password': password});
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => UserNameRScreen(userData)),
+        );
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("The user already exists, login instead")));
-      login(email, password);
+          content: Text("The user already exists, try again or go to login")));
     }
   }
 
-  login(String email, String password) async {
-    bool success = await performLogin(email, password);
-    if (success) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (BuildContext context) => HomePage()),
-          (Route<dynamic> route) => false);
-    } else {
-      setState(() {
-        _isLoading = false;
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("The user not exists, bad credentials")));
-      });
-    }
-  }
+
 }

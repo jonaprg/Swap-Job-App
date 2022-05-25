@@ -2,11 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:swapjobapp/Screens/skillListScreen.dart';
 import '/Screens/Home.dart';
 import '/Utils/color.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../Utils/requests.dart';
+import 'QuestionSkillScreen.dart';
 
 class UserNameRScreen extends StatefulWidget {
   Map<String, dynamic> userData;
@@ -19,11 +21,12 @@ class UserNameRScreen extends StatefulWidget {
 
 class _UserNameRScreenState extends State<UserNameRScreen> {
   DateTime currentDate = DateTime.now();
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController(text: 'jona');
+  TextEditingController lastNameController = TextEditingController(text: 'jona');
   TextEditingController postalCodeController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController birthDateController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +37,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
         duration: Duration(milliseconds: 50),
         child: Padding(
           padding: const EdgeInsets.only(top: 10.0),
-          child: FloatingActionButton(
-            elevation: 10,
+
             child: IconButton(
               color: secondaryDarkBlueColor,
               icon: Icon(Icons.arrow_back_ios),
@@ -43,11 +45,6 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                 Navigator.pop(context);
               },
             ),
-            backgroundColor: Colors.white38,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
@@ -106,6 +103,8 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                   const SizedBox(height: 30.0),
                   TextFormField(
                     controller: postalCodeController,
+                    keyboardType: TextInputType.number,
+
                     style: const TextStyle(fontSize: 23),
                     decoration: InputDecoration(
                       hintText: "Postal Code",
@@ -121,6 +120,8 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                   const SizedBox(height: 30.0),
                   TextFormField(
                     controller: phoneController,
+                    keyboardType: TextInputType.phone,
+
                     style: const TextStyle(fontSize: 23),
                     decoration: InputDecoration(
                       hintText: "Phone",
@@ -134,7 +135,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                     },
                   ),
                   const SizedBox(height: 30.0),
-                  Column(
+                  /*Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Text(DateFormat('yyyy-MM-dd').format(currentDate)),
@@ -146,6 +147,37 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         child: Text('Select birthday date'),
                       ),
                     ],
+                  ),*/
+                  TextFormField(
+                    controller: birthDateController,
+                    style: const TextStyle(fontSize: 23),
+                    decoration: InputDecoration(
+                      hintText: "BirthDate | YYYY-MM-DD",
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primaryOrangeColor)),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        value = birthDateController.text;
+                      });
+                    },
+                  ),
+                  TextFormField(
+                    controller: descriptionController,
+                    minLines: 1,
+                    maxLines: 5,
+                    keyboardType: TextInputType.multiline,
+                    style: const TextStyle(fontSize: 23),
+                    decoration: InputDecoration(
+                      hintText: "Description",
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primaryOrangeColor)),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        value = descriptionController.text;
+                      });
+                    },
                   ),
                 ]),
               ),
@@ -180,20 +212,31 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                                     fontWeight: FontWeight.bold),
                               ))),
                           onTap: () {
-                            print(currentDate);
-                            print(firstNameController.text);
-                            widget.userData.addAll({
+                            /*widget.userData.addAll({
                               "firstName": firstNameController.text,
                               "lastName": lastNameController.text,
                               "postalCode":
                                   int.parse(postalCodeController.text),
                               "phone": phoneController.text,
-                              "birthDate":
-                                  DateFormat('yyyy-MM-dd').format(currentDate),
+                              "birthDate": birthDateController.text,
+                              "description": descriptionController.text,
+                              "companyUser": true
+                            });*/
+                            widget.userData.addAll({
+                              "firstName": "string",
+                              "lastName": "string",
+                              "postalCode": 0,
+                              "phone": "string",
+                              "birthDate": "1997-11-05",
                               "description": "string",
                               "companyUser": true
+
                             });
-                            signupWithAll(widget.userData);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => QuestionSkillScreen(widget.userData)),
+                            );
+                            //signupWithAll(widget.userData);
                           },
                         ),
                       ),
@@ -229,40 +272,23 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
     );
   }
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
-        context: context,
-        initialDate: currentDate,
-        firstDate: DateTime(1920),
-        lastDate: DateTime(2050));
-    if (pickedDate != null && pickedDate != currentDate)
-      setState(() {
-        currentDate = pickedDate;
-      });
-  }
-
   signupWithAll(Map data) async {
     var headers = {
       'Content-Type': 'application/json',
     };
     var request =
         http.Request('POST', Uri.parse('http://localhost/auth/signup'));
-    print(data.values.elementAt(0));
-    print(data.values.elementAt(1));
+
     request.body = json.encode(data);
     request.headers.addAll(headers);
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
 
-    print(response.statusCode);
-    print(response.body);
     if (response.statusCode == 200) {
       bool success = await performLogin(
           data.values.elementAt(0), data.values.elementAt(1));
       if (success) {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (BuildContext context) => HomePage()),
-            (Route<dynamic> route) => false);
+
       } else {
         setState(() {
           ScaffoldMessenger.of(context)

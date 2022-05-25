@@ -233,7 +233,6 @@ Future<List<Skill>> getSkills() async {
   final response =
       await client.get(Uri.parse(baseUrl + '/skill/all'), headers: {
     "Accept": "application/json",
-    'Authorization': 'Bearer $token',
   });
   if (response.statusCode == 200) {
     final parsed = json.decode(response.body).cast<Map<String, dynamic>>();

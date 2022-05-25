@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tags/flutter_tags.dart';
+import 'package:swapjobapp/Model/Skill.dart';
+import 'package:swapjobapp/Screens/auth/register/QuestionPreferenceScreen.dart';
+import 'package:swapjobapp/Utils/color.dart';
+import 'package:swapjobapp/Utils/requests.dart';
 
-import '../Model/Skill.dart';
-import '../Utils/color.dart';
-import '../Utils/requests.dart';
 
 
-class SkillScreen extends StatefulWidget {
-  const SkillScreen();
-
+class QuestionSkillScreen extends StatefulWidget {
+  const QuestionSkillScreen(this.userData);
+  final Map<String, dynamic> userData;
   @override
   _SkillScreenState createState() => _SkillScreenState();
 }
 
-class _SkillScreenState extends State<SkillScreen>
+class _SkillScreenState extends State<QuestionSkillScreen>
     with SingleTickerProviderStateMixin {
   final List<Skill> _tags = [];
   final TextEditingController _tagTextEditingController =
@@ -30,6 +31,8 @@ class _SkillScreenState extends State<SkillScreen>
 
   @override
   void initState() {
+    print(widget.userData);
+
     super.initState();
     setState(() => {
       _tagsFutureToSelect = getSkills()
@@ -110,21 +113,6 @@ class _SkillScreenState extends State<SkillScreen>
           size: 25.0,
         ),
         _tagsWidget(),
-        Padding(
-          padding:
-          EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-          child: TextButton(
-            style: TextButton.styleFrom(
-            padding: const EdgeInsets.all(16.0),
-            primary: primaryOrangeColor,
-            textStyle: const TextStyle(fontSize: 20),
-            ),
-            onPressed: () {
-
-            },
-            child: const Text('CONFIMAR'),
-          ),
-        ),
       ],
     );
   }
@@ -173,7 +161,7 @@ class _SkillScreenState extends State<SkillScreen>
                   vertical: 10.0,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.deepOrangeAccent,
+                  color: thirdBlueColor,
                   borderRadius: BorderRadius.circular(100.0),
                 ),
                 child: Text(
@@ -217,7 +205,7 @@ class _SkillScreenState extends State<SkillScreen>
                   EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                   child: IconButton(
                     icon: Icon(
-                      Icons.arrow_back_rounded,
+                      Icons.arrow_back_ios,
                       color: Color(0xFF090F13),
                       size: 30,
                     ),
@@ -232,11 +220,12 @@ class _SkillScreenState extends State<SkillScreen>
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Tags',
+              '¿Que habilidades te desarollas mejor?',
               style: TextStyle(
                 fontSize: 20.0,
                 color: Colors.black,
               ),
+
             ),
           ),
           _tags.length > 0
@@ -255,6 +244,47 @@ class _SkillScreenState extends State<SkillScreen>
           ])
               : Container(),
           _displayTagWidget(),
+          Column(children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 40),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: InkWell(
+                child: Container(
+                    decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(25),
+                        gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [
+                              thirdBlueColor.withOpacity(.5),
+                              thirdBlueColor.withOpacity(.8),
+                              thirdBlueColor,
+                              thirdBlueColor
+                            ])),
+                    height: MediaQuery.of(context).size.height * .065,
+                    width: MediaQuery.of(context).size.width * .75,
+                    child: Center(
+                        child: Text(
+                          "CONTINUE",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: textColor,
+                              fontWeight: FontWeight.bold),
+                        ))),
+                onTap: () {
+                  setState(() {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => QuestionPreferenceScreen(widget.userData, _tags)),
+                    );
+                  });
+                },
+              ),
+            ),
+          ),
+          ]),
         ],
       ),
     );

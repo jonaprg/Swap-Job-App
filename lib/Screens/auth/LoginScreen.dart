@@ -17,8 +17,8 @@ class _LoginState extends State<LoginScreen> {
   bool _userWantsBiometrics = true;
 
   bool _isLoading = false;
-  String email = '';
-  String password = '';
+  String email = 'pako@astapor.com';
+  String password = 'P@ssw0rd';
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -156,6 +156,8 @@ class _LoginState extends State<LoginScreen> {
                       });
                       if (_isBiometricAvailable && _userWantsBiometrics) {
                         showAlertDialog(context);
+                      } else {
+                        login(emailController.text, passwordController.text);
                       }
                     },
                   ),
@@ -193,8 +195,8 @@ class _LoginState extends State<LoginScreen> {
   }
 
   login(String email, String password) async {
-    bool success = await performLogin(email, "P@ssw0rd");
-    //bool success = await performLogin("pako@astapor.com", "P@ssw0rd");
+    //bool success = await performLogin(email, "P@ssw0rd");
+    bool success = await performLogin("pako@astapor.com", "P@ssw0rd");
     if (success) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (BuildContext context) => HomePage()),
@@ -207,6 +209,7 @@ class _LoginState extends State<LoginScreen> {
       });
     }
   }
+
 
   void checkFingerPrint() {
     SharedPreferences.getInstance().then((prefs) async {
