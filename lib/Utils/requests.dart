@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:convert' as convert;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:swapjobapp/Model/Preference.dart';
 
 import '../Model/Offer.dart';
 import '../Model/Skill.dart';
@@ -242,4 +243,38 @@ Future<List<Skill>> getSkills() async {
   }
 
   return [];
+}
+
+Future<bool> requestSetSkillsUser(List<int> ids) async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  var token = sharedPreferences.getString('accessToken');
+  var headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $token',
+  };
+  var request = http.Request('POST', Uri.parse(baseUrl + '/skill/update'));
+
+  request.body = json.encode(ids);
+  request.headers.addAll(headers);
+  var streamedResponse = await request.send();
+  var response = await http.Response.fromStream(streamedResponse);
+  return response.statusCode == 200;
+}
+
+Future<bool> requestSetPreferenceUser(var preferences) async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  var token = sharedPreferences.getString('accessToken');
+  var headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $token',
+  };
+  var request = http.Request('POST', Uri.parse(baseUrl + '/preference/update'));
+
+  request.body = json.encode(preferences);
+  request.headers.addAll(headers);
+  var streamedResponse = await request.send();
+  var response = await http.Response.fromStream(streamedResponse);
+  print(response.body);
+  print(response.statusCode);
+  return response.statusCode == 200;
 }

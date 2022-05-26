@@ -4,7 +4,7 @@ import 'package:flutter_tindercard/flutter_tindercard.dart';
 import '/Screens/infoOfferPage.dart';
 import '/Utils/color.dart';
 import '/Utils/requests.dart';
-
+import 'package:geocode/geocode.dart';
 import '../Model/Offer.dart';
 import '../Utils/icons.dart';
 import '../Utils/requests.dart';
@@ -53,45 +53,6 @@ class _ExplorePageState extends State<ExplorePage>
           }
         },
       ),
-      bottomSheet: getBottomSheet(context),
-    );
-  }
-
-  Widget getBottomSheet(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    return Container(
-      width: size.width,
-      height: 120,
-      decoration: const BoxDecoration(color: Colors.white),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: List.generate(item_icons.length, (index) {
-            return Container(
-              width: item_icons[index]['size'],
-              height: item_icons[index]['size'],
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.1),
-                      spreadRadius: 5,
-                      blurRadius: 10,
-                      // changes position of shadow
-                    ),
-                  ]),
-              child: Center(
-                child: SvgPicture.asset(
-                  item_icons[index]['icon'],
-                  width: item_icons[index]['icon_size'],
-                ),
-              ),
-            );
-          }),
-        ),
-      ),
     );
   }
 }
@@ -100,15 +61,16 @@ class OfferList extends StatelessWidget {
   late CardController controller;
 
   OfferList({Key? key, required this.offers}) : super(key: key);
+  late GeoCode geoCode = GeoCode();
 
   final List<Offer> offers;
-
+  String value = "";
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return ListView.builder(
       itemCount: 1,
-      itemBuilder: (context, index) {
+      itemBuilder: (contextItem, indexOfferItem) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 120),
           child: SizedBox(
@@ -116,11 +78,11 @@ class OfferList extends StatelessWidget {
             child: TinderSwapCard(
               totalNum: offers.length,
               swipeEdge: 4.0,
-              maxWidth: MediaQuery.of(context).size.width,
-              maxHeight: MediaQuery.of(context).size.height * 0.85,
-              minWidth: MediaQuery.of(context).size.width * 0.75,
-              minHeight: MediaQuery.of(context).size.height * 0.75,
-              cardBuilder: (context, index) => Container(
+              maxWidth: MediaQuery.of(contextItem).size.width,
+              maxHeight: MediaQuery.of(contextItem).size.height,
+              minWidth: MediaQuery.of(contextItem).size.width * 0.75,
+              minHeight: MediaQuery.of(contextItem).size.height * 0.75,
+              cardBuilder: (contextCard, indexOffer) => Container(
                 decoration: BoxDecoration(
                     color: secondaryDarkBlueColor,
                     borderRadius: BorderRadius.circular(10),
@@ -128,8 +90,7 @@ class OfferList extends StatelessWidget {
                       BoxShadow(
                           color: Colors.white, blurRadius: 5, spreadRadius: 2),
                     ]),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
+                child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -147,7 +108,7 @@ class OfferList extends StatelessWidget {
                                 shape: BoxShape.circle,
                               ),
                               child: Image.network(
-                                offers[index].companyImage,
+                                offers[indexOffer].companyImage,
                               ),
                             ),
                             Expanded(
@@ -155,7 +116,7 @@ class OfferList extends StatelessWidget {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                                 child: Text(
-                                  offers[index].companyName,
+                                  offers[indexOffer].companyName,
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -172,7 +133,7 @@ class OfferList extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          InfoOffer(offers[index])),
+                                          InfoOffer(offers[indexOffer])),
                                 );
                               },
                             ),
@@ -221,23 +182,22 @@ class OfferList extends StatelessWidget {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0, 0, 0, 12),
                                           child: Text(
-                                            'Localidad',
+                                            'Presencialidad',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white),
                                           ),
                                         ),
-                                        Text(
-                                          'Presencialidad',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
-                                        ),
-                                        Text(
-                                          'Salario',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 0, 12),
+                                          child: Text(
+                                            'Salario',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          ),
                                         )
                                       ],
                                     ),
@@ -254,7 +214,7 @@ class OfferList extends StatelessWidget {
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     8, 0, 0, 12),
                                             child: Text(
-                                              offers[index].title,
+                                              offers[indexOffer].title,
                                               textAlign: TextAlign.start,
                                               style: TextStyle(
                                                   fontWeight: FontWeight.normal,
@@ -266,19 +226,8 @@ class OfferList extends StatelessWidget {
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     8, 0, 0, 12),
                                             child: Text(
-                                              'Barcelona',
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8, 0, 0, 0),
-                                            child: Text(
-                                              (offers[index].isRemote == true)
+                                              (offers[indexOffer].isRemote ==
+                                                      true)
                                                   ? "Remoto"
                                                   : "Presencial",
                                               textAlign: TextAlign.start,
@@ -290,9 +239,11 @@ class OfferList extends StatelessWidget {
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    8, 0, 0, 0),
+                                                    8, 0, 0, 12),
                                             child: Text(
-                                              offers[index].salary.toString(),
+                                              offers[indexOffer]
+                                                  .salary
+                                                  .toString(),
                                               textAlign: TextAlign.start,
                                               style: TextStyle(
                                                   fontWeight: FontWeight.normal,
@@ -332,7 +283,7 @@ class OfferList extends StatelessWidget {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 12),
                                       child: Text(
-                                        'Requisitos',
+                                        'Descripcion',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white),
@@ -351,7 +302,7 @@ class OfferList extends StatelessWidget {
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     8, 0, 0, 0),
                                             child: Text(
-                                              offers[index].description,
+                                              offers[indexOffer].description,
                                               textAlign: TextAlign.start,
                                               style: TextStyle(
                                                   fontWeight: FontWeight.normal,
@@ -362,6 +313,74 @@ class OfferList extends StatelessWidget {
                                       ),
                                     ),
                                   ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 4),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF1E2429),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    20, 12, 20, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 0, 12),
+                                      child: Text(
+                                        'Habilidades',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(0, 0),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 0, 10),
+                                  child: Wrap(
+                                    spacing: 20,
+                                    runSpacing: 0,
+                                    alignment: WrapAlignment.start,
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.start,
+                                    direction: Axis.horizontal,
+                                    runAlignment: WrapAlignment.start,
+                                    verticalDirection: VerticalDirection.down,
+                                    clipBehavior: Clip.none,
+                                    children: offers[indexOffer]
+                                        .skillList
+                                        .asMap()
+                                        .keys
+                                        .toList()
+                                        .map((indexOfferSkill) {
+                                      return Text(
+                                          offers[indexOffer]
+                                              .skillList[indexOfferSkill]
+                                              .title,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              color: Colors.white));
+                                    }).toList(),
+                                  ),
                                 ),
                               ),
                             ],
@@ -398,10 +417,10 @@ class OfferList extends StatelessWidget {
                 /// Get swiping card's alignment
               },
               swipeCompleteCallback:
-                  (CardSwipeOrientation orientation, int index) async {
-                /// Get orientation & index of swiped card!
+                  (CardSwipeOrientation orientation, int indexOffer) async {
+                /// Get orientation & indexOffer of swiped card!
                 if (orientation == CardSwipeOrientation.RIGHT) {
-                  bool success = await matchOffer(offers[index].id);
+                  bool success = await matchOffer(offers[indexOffer].id);
                   if (success) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

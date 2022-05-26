@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:swapjobapp/Screens/skillListScreen.dart';
 import '/Screens/Home.dart';
 import '/Utils/color.dart';
 import 'package:http/http.dart' as http;

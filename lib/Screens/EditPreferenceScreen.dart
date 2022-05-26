@@ -3,32 +3,56 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:swapjobapp/Model/Skill.dart';
+import '../Model/Preference.dart';
 import '/Screens/Home.dart';
 import '/Utils/color.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../Utils/requests.dart';
-import 'QuestionSkillScreen.dart';
 
-class QuestionPreferenceScreen extends StatefulWidget {
-  Map<String, dynamic> userData;
-  List<Skill> tags = [];
-  List<int> skillId = [];
+class EditPreferenceScreen extends StatefulWidget {
+  List<Preference> userPreferences = [];
 
-  QuestionPreferenceScreen(this.userData, this.tags);
+  EditPreferenceScreen(this.userPreferences);
 
   @override
-  _QuestionPreferenceScreenState createState() =>
-      _QuestionPreferenceScreenState();
+  _EditPreferenceScreenState createState() =>
+      _EditPreferenceScreenState();
 }
 
-class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
+class _EditPreferenceScreenState extends State<EditPreferenceScreen> {
+
+  /*late RangeValues _currentDistanceValues;
+  late RangeValues _currentSalaryValues;
+  late RangeValues _currentLabourValues;
+  late double _currentRemoteValues;
+   */
+
   RangeValues _currentDistanceValues = const RangeValues(0, 10);
   RangeValues _currentSalaryValues = const RangeValues(0, 20);
   RangeValues _currentLabourValues = const RangeValues(20, 40);
   double _currentRemoteValues = 0;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  late Map<String, dynamic> user = {};
+
+  @override
+  void initState() {
+
+    super.initState();
+
+    setState(() {
+    if(widget.userPreferences.isNotEmpty) {
+      _currentDistanceValues = RangeValues(widget.userPreferences[0].lowThreshold, widget.userPreferences[0].highThreshold);
+      _currentSalaryValues = RangeValues(widget.userPreferences[1].lowThreshold, widget.userPreferences[1].highThreshold);
+      _currentLabourValues = RangeValues(widget.userPreferences[2].lowThreshold, widget.userPreferences[2].highThreshold);
+      _currentRemoteValues = widget.userPreferences[3].value;
+    }
+    _currentDistanceValues = const RangeValues(0, 20);
+    _currentSalaryValues = const RangeValues(10000, 20000);
+    _currentLabourValues = const RangeValues(20, 25);
+    _currentRemoteValues = 0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -247,49 +271,34 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                               fontWeight: FontWeight.bold),
                         ))),
                     onTap: () {
-                      for (Skill item in widget.tags) {
-                        widget.skillId.add(item.id);
-                      }
-                      user.addAll({
-                        'email': widget.userData["email"],
-                        'password': widget.userData["password"],
-                        'firstName': widget.userData["firstName"],
-                        'lastName': widget.userData["lastName"],
-                        'postalCode': widget.userData["postalCode"],
-                        'phone': widget.userData["phone"],
-                        'birthDate': widget.userData["birthDate"],
-                        'description': widget.userData["description"],
-                        'companyUser': true,
-                        'skillIdList': widget.skillId,
-                        'preferenceIdList': [
-                          {
-                            'title': 'distance',
-                            'lowThreshold': _currentDistanceValues.start.truncate(),
-                            'highThreshold': _currentDistanceValues.end.truncate(),
-                            'value': 0,
-                          },
-                          {
-                            'title': 'salary',
-                            'lowThreshold': _currentSalaryValues.start.truncate(),
-                            'highThreshold': _currentSalaryValues.end.truncate(),
-                            'value': 0,
-                          },
-                          {
-                            'title': 'labour',
-                            'lowThreshold': _currentLabourValues.start.truncate(),
-                            'highThreshold': _currentLabourValues.end.truncate(),
-                            'value': 0,
-                          },
-                          {
-                            'title': 'remote',
-                            'lowThreshold': 0,
-                            'highThreshold': 0,
-                            'value': _currentRemoteValues,
-                          },
-                        ],
-                      });
+                      var preferencesData = [
+                        {
+                          'title': 'distance',
+                          'lowThreshold': _currentDistanceValues.start.truncate(),
+                          'highThreshold': _currentDistanceValues.end.truncate(),
+                          'value': 0,
+                        },
+                        {
+                          'title': 'salary',
+                          'lowThreshold': _currentSalaryValues.start.truncate(),
+                          'highThreshold': _currentSalaryValues.end.truncate(),
+                          'value': 0,
+                        },
+                        {
+                          'title': 'labour',
+                          'lowThreshold': _currentLabourValues.start,
+                          'highThreshold': _currentLabourValues.end,
+                          'value': 0,
+                        },
+                        {
+                          'title': 'remote',
+                          'lowThreshold': 0,
+                          'highThreshold': 0,
+                          'value': _currentRemoteValues,
+                        },
+                      ];
+                      setPreferenceUser(preferencesData);
                       setState(() {});
-                      signUp(user);
                     },
                   ),
                 ),
@@ -300,36 +309,26 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
       ),
     );
   }
-
-  signUp(Map data) async {
-    var headers = {
-      'Content-Type': 'application/json',
-    };
-    var request =
-        http.Request('POST', Uri.parse('http://localhost/auth/signup'));
-
-    request.body = json.encode(data);
-    request.headers.addAll(headers);
-    var streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
-    if (response.statusCode == 200) {
-      bool success = await performLogin(
-          data.values.elementAt(0), data.values.elementAt(1));
-      if (success) {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (BuildContext context) => HomePage()),
-                (Route<dynamic> route) => false);
-      } else {
-        setState(() {
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Not login, try again!")));
-        });
-      }
+  setPreferenceUser(var preferenceUser) async {
+    bool success = await requestSetPreferenceUser(preferenceUser);
+    if (success) {
+      Navigator.pop(context);
     } else {
-      setState(() {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Error, retry again")));
-      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+
+          content: const Text('Sorry. Try again! Edit correctly preference/s'),
+          duration: const Duration(milliseconds: 1500),
+          width: 280.0, // Width of the SnackBar.
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8.0, // Inner padding for SnackBar content.
+          ),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+        ),
+      );
     }
   }
 }

@@ -195,7 +195,7 @@ class _LoginState extends State<LoginScreen> {
   }
 
   login(String email, String password) async {
-    //bool success = await performLogin(email, "P@ssw0rd");
+    //bool success = await performLogin(email, password);
     bool success = await performLogin("pako@astapor.com", "P@ssw0rd");
     if (success) {
       Navigator.of(context).pushAndRemoveUntil(
