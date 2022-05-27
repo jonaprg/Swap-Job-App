@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swapjobapp/Screens/infoMatchPage.dart';
+import 'package:swapjobapp/Screens/InfoMatchPage.dart';
 import '/Model/UserMatches.dart';
 import '/Utils/requests.dart';
 import 'infoOfferPage.dart';
@@ -35,7 +35,7 @@ class _MatchesPageState extends State<MatchesPage>
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             print(snapshot.error);
-            return  Center(
+            return const Center(
               child: Text('An error has occurred!'),
             );
           } else if (snapshot.hasData) {
@@ -53,12 +53,14 @@ class _MatchesPageState extends State<MatchesPage>
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Expanded(
-                                  child: Text('Offer: ' +matches[indexTwo].offer.title,
+                                  child: Text(
+                                      'Offer: ' + matches[indexTwo].offer.title,
                                       style: TextStyle(
                                           fontWeight: FontWeight.normal,
                                           color: Colors.black)),
@@ -70,42 +72,32 @@ class _MatchesPageState extends State<MatchesPage>
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              InfoMatchOffer(matches[indexTwo])),
+                                          builder: (context) => InfoMatchOffer(
+                                              matches[indexTwo])),
                                     );
                                   },
                                 ),
-
                               ],
                             ),
                           ),
+                          matches[indexTwo].isFinalized == false ?
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 4),
+                            padding:
+                                const EdgeInsetsDirectional.fromSTEB(16, 4, 16, 4),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 OutlinedButton(
                                   onPressed: () {
-
-                                    removeMatchOffer(matches[indexTwo].offer.id);
+                                    removeMatchOffer(
+                                        matches[indexTwo].offer.id);
                                     setState(() {
                                       matches.removeAt(indexTwo);
-
                                     });
                                   },
                                   child: const Text('REMOVE',
                                       style: TextStyle(color: Colors.red)),
-                                ),
-                                OutlinedButton(
-                                  onPressed: () {
-
-                                    setState(() {
-
-                                    });
-                                  },
-                                  child: const Text('CONTRACTED',
-                                      style: TextStyle(color: Colors.green)),
                                 ),
                                 Expanded(
                                   child: Column(
@@ -114,14 +106,24 @@ class _MatchesPageState extends State<MatchesPage>
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Padding(
-                                        padding:
-                                        EdgeInsetsDirectional.fromSTEB(0, 0, 0, 4),
-                                        child: Text('Company: ' + matches[indexTwo].offer.companyName,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 4),
+                                        child: Text(
+                                            'Company: ' +
+                                                matches[indexTwo]
+                                                    .offer
+                                                    .companyName,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.normal,
                                                 color: Colors.black)),
                                       ),
-                                      Text('Salary: ' + matches[indexTwo].offer.salary.toString() + ' €',
+                                      Text(
+                                          'Salary: ' +
+                                              matches[indexTwo]
+                                                  .offer
+                                                  .salary
+                                                  .toString() +
+                                              ' €',
                                           textAlign: TextAlign.end,
                                           style: TextStyle(
                                               fontWeight: FontWeight.normal,
@@ -131,6 +133,23 @@ class _MatchesPageState extends State<MatchesPage>
                                 ),
                               ],
                             ),
+                          ) :
+
+                          Padding(padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 4),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              OutlinedButton(
+                                onPressed: () {
+                                  setState(() {});
+                                },
+                                child: const Text("CONTRACTED"),
+                                    //style:
+                                    //TextStyle(color: Colors.green)),
+                              ),
+                            ],
+                          ),
                           ),
                           const Divider(
                             thickness: 1,
@@ -139,16 +158,12 @@ class _MatchesPageState extends State<MatchesPage>
                             color: Colors.grey,
                           ),
                         ],
-
                       );
-
                     }),
                   ),
                 );
               },
             );
-
-
           } else {
             return const Center(
               child: CircularProgressIndicator(),

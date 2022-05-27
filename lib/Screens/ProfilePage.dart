@@ -545,7 +545,7 @@ class _ProfilePageState extends State<ProfilePage>
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFDBDCE1),
+                                  color: primaryOrangeColor,
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Column(
@@ -563,7 +563,7 @@ class _ProfilePageState extends State<ProfilePage>
                                         child: Text("Preferencias vacias",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.normal,
-                                                color: Colors.white)),
+                                                color: Colors.black)),
                                       ),
                                     ),
                                   ],

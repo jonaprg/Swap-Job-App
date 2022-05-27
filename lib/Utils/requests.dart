@@ -261,7 +261,7 @@ Future<bool> requestSetSkillsUser(List<int> ids) async {
   return response.statusCode == 200;
 }
 
-Future<bool> requestSetPreferenceUser(var preferences) async {
+Future<bool> requestSetPreferenceUser(List<Preference> preferences) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
   var headers = {

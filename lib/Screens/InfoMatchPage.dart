@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:geocode/geocode.dart';
 import 'package:swapjobapp/Model/UserMatches.dart';
 
 import '../Model/Offer.dart';
 import '../Utils/color.dart';
 
 class InfoMatchOffer extends StatefulWidget {
-  final UserMatch match;
-  InfoMatchOffer(this.match);
+  final UserMatch offerMatch;
+  InfoMatchOffer(this.offerMatch);
   @override
   _InfoMatchOfferState createState() => _InfoMatchOfferState();
 }
@@ -59,7 +60,6 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                                   ),
                                 ),
                               ),
-
                             ),
                             SizedBox(height: 20.0),
                             Padding(
@@ -81,28 +81,37 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Text(
-                                widget.match.offer.title,
+                                widget.offerMatch.offer.title,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
-                                fontSize: 20),
+                                    fontSize: 20),
                               ),
                             ],
                           ),
                         ),
+
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                widget.match.offer.isRemote == true ? "Remoto | " : "Full | "
-                                'Melbourne',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ],
+                          padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 12),
+                          child: FutureBuilder<String>(
+                            future: getLocation(widget.offerMatch.offer),
+                            initialData: "",
+                            builder: (BuildContext contextLocation,
+                                snapshotLocation) {
+                              String value = snapshotLocation.data!;
+                              return Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Text(
+                              widget.offerMatch.offer.isRemote == true ? "Remoto | " : "Full | " + value.toString(),
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.white),
+                                  )
+                                ],
+                              );
+                            },
                           ),
                         ),
                       ],
@@ -113,6 +122,7 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                   padding: EdgeInsetsDirectional.fromSTEB(0, 190, 0, 0),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
                     decoration: BoxDecoration(
                       color: secondaryDarkBlueColor,
                       boxShadow: [
@@ -146,8 +156,8 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                 ),
-                                child:  Image.network(
-                                  widget.match.offer.companyImage,
+                                child: Image.network(
+                                  widget.offerMatch.offer.companyImage,
                                 ),
                               ),
                               Expanded(
@@ -155,7 +165,7 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       12, 0, 0, 0),
                                   child: Text(
-                                    widget.match.offer.companyName,
+                                    widget.offerMatch.offer.companyName,
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -223,7 +233,8 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(8, 0, 0, 12),
                                               child: Text(
-                                                widget.match.offer.salary.toString() + " €",
+                                                widget.offerMatch.offer.salary.toString() +
+                                                    " €",
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
@@ -234,7 +245,7 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(8, 0, 0, 0),
                                               child: Text(
-                                                widget.match.offer.description,
+                                                widget.offerMatch.offer.description,
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
@@ -264,7 +275,7 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      20, 12, 20, 12),
+                                      20, 12, 20, 0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -275,35 +286,43 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 0, 12),
                                         child: Text(
-                                          'Preferences',
+                                          'Habilidades',
                                           style: TextStyle(
-                                              fontWeight: FontWeight.bold,
+                                              fontWeight: FontWeight.normal,
                                               color: Colors.white),
                                         ),
                                       ),
-                                      Expanded(
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(8, 0, 0, 0),
-                                              child: Text(
-                                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n',
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
                                     ],
+                                  ),
+                                ),
+                                Align(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 10),
+                                    child: Wrap(
+                                      spacing: 20,
+                                      runSpacing: 0,
+                                      alignment: WrapAlignment.start,
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.start,
+                                      direction: Axis.horizontal,
+                                      runAlignment: WrapAlignment.start,
+                                      verticalDirection: VerticalDirection.down,
+                                      clipBehavior: Clip.none,
+                                      children: widget.offerMatch.offer.skillList
+                                          .asMap()
+                                          .keys
+                                          .toList()
+                                          .map((indexSkill) {
+                                        return Text(
+                                            widget.offerMatch.offer.skillList[indexSkill]
+                                                .title,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                color: Colors.white));
+                                      }).toList(),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -311,28 +330,9 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                           ),
                         ),
                         Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(20, 12, 20, 12),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  'Requisitos',
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(24, 4, 24, 4),
+                          padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 4),
                           child: Container(
-                            width: double.infinity,
+                            width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                               color: Color(0xFF1E2429),
                               borderRadius: BorderRadius.circular(8),
@@ -342,34 +342,54 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 8, 20, 8),
+                                      20, 12, 20, 0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Expanded(
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(8, 0, 0, 0),
-                                              child: Text(
-                                                'Tell me about a time you made a mistake. How did you handle it?\nTell me about a time you made a mistake. How did you handle it?\nTell me about a time you made a mistake. How did you handle it?\nTell me about a time you made a mistake. How did you handle it?\nTell me about a time you made a mistake. How did you handle it?',
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                          ],
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 12),
+                                        child: Text(
+                                          'Preferencias',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              color: Colors.white),
                                         ),
                                       ),
                                     ],
+                                  ),
+                                ),
+                                Align(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 10),
+                                    child: Wrap(
+                                      spacing: 20,
+                                      runSpacing: 0,
+                                      alignment: WrapAlignment.start,
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.start,
+                                      direction: Axis.horizontal,
+                                      runAlignment: WrapAlignment.start,
+                                      verticalDirection: VerticalDirection.down,
+                                      clipBehavior: Clip.none,
+                                      children: widget.offerMatch.offer.preferenceList
+                                          .asMap()
+                                          .keys
+                                          .toList()
+                                          .map((indexPrefe) {
+                                        return Text(
+                                            widget.offerMatch.offer.skillList[indexPrefe]
+                                                .title,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                color: Colors.white));
+                                      }).toList(),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -396,5 +416,25 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
         ),
       ),
     );
+  }
+
+  Future<String> getLocation(Offer offers) async {
+    GeoCode geoCode = GeoCode();
+
+    String replaced =
+        offers.coordinates.replaceAll('(', "").replaceAll(")", "");
+
+    final splitted = replaced.split(',');
+    print(splitted);
+    try {
+      Address address = await geoCode.reverseGeocoding(
+          latitude: double.parse(splitted[0]),
+          longitude: double.parse(splitted[1].trim()));
+      return address.city.toString();
+    } catch (e) {
+      print(e);
+    }
+
+    return "";
   }
 }
