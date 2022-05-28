@@ -190,23 +190,25 @@ class _SkillScreenState extends State<QuestionSkillScreen>
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                      color: Color(0xFF090F13),
-                      size: 30,
+                  padding: EdgeInsetsDirectional.fromSTEB(2, 10, 2, 2),
+                  child: Center(
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_back_ios,
+                          color: Colors.orange, size: 20),
+                      tooltip: 'Back',
+                      onPressed: () {
+                        setState(() {
+                          Navigator.pop(context);
+                        });
+                      },
                     ),
-                    onPressed: () async {
-                      Navigator.pop(context);
-                    },
                   ),
                 ),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Text(
               '¿Que habilidades te desarollas mejor?',
               style: TextStyle(
@@ -214,6 +216,13 @@ class _SkillScreenState extends State<QuestionSkillScreen>
                 color: Colors.black,
               ),
             ),
+          ),
+          const Padding(
+            child: Text(
+              "STEP 3 OF 4",
+              style: TextStyle(fontSize: 15),
+            ),
+            padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
           ),
           _tags.length > 0
               ? Column(children: [

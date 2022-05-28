@@ -244,10 +244,10 @@ class _EditSkillScreenState extends State<EditSkillScreen>
                               begin: Alignment.topRight,
                               end: Alignment.bottomLeft,
                               colors: [
-                                thirdBlueColor.withOpacity(.5),
-                                thirdBlueColor.withOpacity(.8),
-                                thirdBlueColor,
-                                thirdBlueColor
+                                primaryOrangeColor.withOpacity(.5),
+                                primaryOrangeColor.withOpacity(.8),
+                                primaryOrangeColor,
+                                primaryOrangeColor
                               ])),
                       height: MediaQuery.of(context).size.height * .065,
                       width: MediaQuery.of(context).size.width * .75,

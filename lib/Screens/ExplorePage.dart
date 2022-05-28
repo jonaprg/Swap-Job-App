@@ -6,7 +6,6 @@ import '/Utils/color.dart';
 import '/Utils/requests.dart';
 import 'package:geocode/geocode.dart';
 import '../Model/Offer.dart';
-import '../Utils/icons.dart';
 import '../Utils/requests.dart';
 
 class ExplorePage extends StatefulWidget {
@@ -42,7 +41,7 @@ class _ExplorePageState extends State<ExplorePage>
           if (snapshot.hasError) {
             print({snapshot.error});
             return Center(
-              child: Text('An error has occurred!'),
+              child: Text('OFFERS EMPTY'),
             );
           } else if (snapshot.hasData) {
             return OfferList(offers: snapshot.data!);
@@ -72,14 +71,14 @@ class OfferList extends StatelessWidget {
       itemCount: 1,
       itemBuilder: (contextItem, indexOfferItem) {
         return Padding(
-          padding: const EdgeInsets.only(bottom: 120),
+          padding: const EdgeInsets.only(bottom: 0),
           child: SizedBox(
             height: size.height,
             child: TinderSwapCard(
               totalNum: offers.length,
               swipeEdge: 4.0,
-              maxWidth: MediaQuery.of(contextItem).size.width,
-              maxHeight: MediaQuery.of(contextItem).size.height,
+              maxWidth: MediaQuery.of(contextItem).size.width ,
+              maxHeight: MediaQuery.of(contextItem).size.height ,
               minWidth: MediaQuery.of(contextItem).size.width * 0.75,
               minHeight: MediaQuery.of(contextItem).size.height * 0.75,
               cardBuilder: (contextCard, indexOffer) => Container(
@@ -95,7 +94,7 @@ class OfferList extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 12, 20, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,

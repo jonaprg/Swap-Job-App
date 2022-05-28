@@ -112,7 +112,7 @@ class _EditPreferenceScreenState extends State<EditPreferenceScreen> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                       child: RangeSlider(
-                        activeColor: Color(0xFF4B39EF),
+                        activeColor: Color(0xffffb703),
                         inactiveColor: Color(0xFFF1F4F8),
                         max: 100,
                         values: _currentDistanceValues,
@@ -151,7 +151,7 @@ class _EditPreferenceScreenState extends State<EditPreferenceScreen> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                       child: RangeSlider(
-                        activeColor: Color(0xFF4B39EF),
+                        activeColor: Color(0xffffb703),
                         inactiveColor: Color(0xFFF1F4F8),
                         max: 50000,
                         values: _currentSalaryValues,
@@ -191,7 +191,7 @@ class _EditPreferenceScreenState extends State<EditPreferenceScreen> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                       child: RangeSlider(
-                        activeColor: Color(0xFF4B39EF),
+                        activeColor: Color(0xffffb703),
                         inactiveColor: Color(0xFFF1F4F8),
                         max: 40,
                         min: 20,
@@ -237,7 +237,7 @@ class _EditPreferenceScreenState extends State<EditPreferenceScreen> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                       child: Slider(
-                        activeColor: Color(0xFF4B39EF),
+                        activeColor: Color(0xffffb703),
                         inactiveColor: Color(0xFFF1F4F8),
                         min: 0,
                         max: 1,
@@ -265,16 +265,16 @@ class _EditPreferenceScreenState extends State<EditPreferenceScreen> {
                                 begin: Alignment.topRight,
                                 end: Alignment.bottomLeft,
                                 colors: [
-                                  thirdBlueColor.withOpacity(.5),
-                                  thirdBlueColor.withOpacity(.8),
-                                  thirdBlueColor,
-                                  thirdBlueColor
+                                  primaryOrangeColor.withOpacity(.5),
+                                  primaryOrangeColor.withOpacity(.8),
+                                  primaryOrangeColor,
+                                  primaryOrangeColor
                                 ])),
                         height: MediaQuery.of(context).size.height * .065,
                         width: MediaQuery.of(context).size.width * .75,
                         child: Center(
                             child: Text(
-                          "REGISTER",
+                          "EDIT PREFERENCES",
                           style: TextStyle(
                               fontSize: 15,
                               color: textColor,

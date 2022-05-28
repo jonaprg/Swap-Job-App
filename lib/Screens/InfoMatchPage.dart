@@ -76,7 +76,7 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(8, 8, 0, 2),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -87,12 +87,20 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                                     color: Colors.white,
                                     fontSize: 20),
                               ),
+                              Text(
+                                widget.offerMatch.isFinalized == true
+                                    ? " | Finalized"
+                                    : "",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.white,
+                                    fontSize: 16),
+                              )
                             ],
                           ),
                         ),
-
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 12),
+                          padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 10),
                           child: FutureBuilder<String>(
                             future: getLocation(widget.offerMatch.offer),
                             initialData: "",
@@ -103,7 +111,9 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                              widget.offerMatch.offer.isRemote == true ? "Remoto | " : "Full | " + value.toString(),
+                                    widget.offerMatch.offer.isRemote == true
+                                        ? "Remote | "
+                                        : "Full | " + value.toString(),
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                         fontWeight: FontWeight.normal,
@@ -233,11 +243,13 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(8, 0, 0, 12),
                                               child: Text(
-                                                widget.offerMatch.offer.salary.toString() +
+                                                widget.offerMatch.offer.salary
+                                                        .toString() +
                                                     " €",
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
+                                                    fontWeight:
+                                                        FontWeight.normal,
                                                     color: Colors.white),
                                               ),
                                             ),
@@ -245,10 +257,12 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(8, 0, 0, 0),
                                               child: Text(
-                                                widget.offerMatch.offer.description,
+                                                widget.offerMatch.offer
+                                                    .description,
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
+                                                    fontWeight:
+                                                        FontWeight.normal,
                                                     color: Colors.white),
                                               ),
                                             ),
@@ -288,7 +302,7 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                                         child: Text(
                                           'Habilidades',
                                           style: TextStyle(
-                                              fontWeight: FontWeight.normal,
+                                              fontWeight: FontWeight.bold,
                                               color: Colors.white),
                                         ),
                                       ),
@@ -310,14 +324,15 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                                       runAlignment: WrapAlignment.start,
                                       verticalDirection: VerticalDirection.down,
                                       clipBehavior: Clip.none,
-                                      children: widget.offerMatch.offer.skillList
+                                      children: widget
+                                          .offerMatch.offer.skillList
                                           .asMap()
                                           .keys
                                           .toList()
                                           .map((indexSkill) {
                                         return Text(
-                                            widget.offerMatch.offer.skillList[indexSkill]
-                                                .title,
+                                            widget.offerMatch.offer
+                                                .skillList[indexSkill].title,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.normal,
                                                 color: Colors.white));
@@ -355,43 +370,64 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                                         child: Text(
                                           'Preferencias',
                                           style: TextStyle(
-                                              fontWeight: FontWeight.normal,
+                                              fontWeight: FontWeight.bold,
                                               color: Colors.white),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                Align(
-                                  alignment: AlignmentDirectional(0, 0),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 10),
-                                    child: Wrap(
-                                      spacing: 20,
-                                      runSpacing: 0,
-                                      alignment: WrapAlignment.start,
-                                      crossAxisAlignment:
-                                          WrapCrossAlignment.start,
-                                      direction: Axis.horizontal,
-                                      runAlignment: WrapAlignment.start,
-                                      verticalDirection: VerticalDirection.down,
-                                      clipBehavior: Clip.none,
-                                      children: widget.offerMatch.offer.preferenceList
-                                          .asMap()
-                                          .keys
-                                          .toList()
-                                          .map((indexPrefe) {
-                                        return Text(
-                                            widget.offerMatch.offer.skillList[indexPrefe]
-                                                .title,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.normal,
-                                                color: Colors.white));
-                                      }).toList(),
-                                    ),
-                                  ),
-                                ),
+                                widget.offerMatch.offer.preferenceList.isNotEmpty
+                                    ? Align(
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 0, 10),
+                                          child: Wrap(
+                                            spacing: 20,
+                                            runSpacing: 0,
+                                            alignment: WrapAlignment.start,
+                                            crossAxisAlignment:
+                                                WrapCrossAlignment.start,
+                                            direction: Axis.horizontal,
+                                            runAlignment: WrapAlignment.start,
+                                            verticalDirection:
+                                                VerticalDirection.down,
+                                            clipBehavior: Clip.none,
+                                            children: widget
+                                                .offerMatch.offer.preferenceList
+                                                .asMap()
+                                                .keys
+                                                .toList()
+                                                .map((indexPrefe) {
+                                              return Text(
+                                                  widget
+                                                      .offerMatch
+                                                      .offer
+                                                      .skillList[indexPrefe]
+                                                      .title,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      color: Colors.white));
+                                            }).toList(),
+                                          ),
+                                        ),
+                                      )
+                                    : const Align(
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 0, 10),
+                                          child: Text(
+                                              "Not preferences",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.normal,
+                                                  color: Colors.white)),
+                                        ),
+                                      ),
                               ],
                             ),
                           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swapjobapp/Screens/InfoMatchPage.dart';
+import 'package:swapjobapp/Utils/color.dart';
 import '/Model/UserMatches.dart';
 import '/Utils/requests.dart';
 import 'infoOfferPage.dart';
@@ -49,115 +50,181 @@ class _MatchesPageState extends State<MatchesPage>
                     spacing: 5,
                     runSpacing: 5,
                     children: List.generate(matches.length, (indexTwo) {
-                      return Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                      'Offer: ' + matches[indexTwo].offer.title,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.black)),
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.info_rounded),
-                                  tooltip: 'Information about the offer',
-                                  onPressed: () async {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => InfoMatchOffer(
-                                              matches[indexTwo])),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                          matches[indexTwo].isFinalized == false ?
-                          Padding(
-                            padding:
-                                const EdgeInsetsDirectional.fromSTEB(16, 4, 16, 4),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                OutlinedButton(
-                                  onPressed: () {
-                                    removeMatchOffer(
-                                        matches[indexTwo].offer.id);
-                                    setState(() {
-                                      matches.removeAt(indexTwo);
-                                    });
-                                  },
-                                  child: const Text('REMOVE',
-                                      style: TextStyle(color: Colors.red)),
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 4),
-                                        child: Text(
-                                            'Company: ' +
-                                                matches[indexTwo]
-                                                    .offer
-                                                    .companyName,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.normal,
-                                                color: Colors.black)),
+                      return SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                              child: ListView(
+                                padding: EdgeInsets.zero,
+                                primary: false,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        16, 0, 16, 8),
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 3,
+                                            color: Color(0x411D2429),
+                                            offset: Offset(0, 1),
+                                          )
+                                        ],
+                                        borderRadius: BorderRadius.circular(8),
                                       ),
-                                      Text(
-                                          'Salary: ' +
-                                              matches[indexTwo]
-                                                  .offer
-                                                  .salary
-                                                  .toString() +
-                                              ' €',
-                                          textAlign: TextAlign.end,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.normal,
-                                              color: Colors.black)),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ) :
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 8, 8, 8),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(8, 8, 4, 0),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      matches[indexTwo]
+                                                          .offer
+                                                          .title,
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black,
+                                                          fontSize: 18),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 4, 8, 0),
+                                                      child: Text(
+                                                        matches[indexTwo]
+                                                            .offer
+                                                            .companyName,
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w300,
+                                                            color: Colors.black,
+                                                            fontSize: 15),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 4, 8, 0),
+                                                      child: Text(
+                                                        matches[indexTwo]
+                                                                .offer
+                                                                .salary
+                                                                .toString() +
+                                                            "€",
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w300,
+                                                            color: Colors.black,
+                                                            fontSize: 15),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                0, 0, 0, 0),
+                                                    child: IconButton(
+                                                      icon: const Icon(
+                                                          Icons.info_outline_rounded),
+                                                      tooltip:
+                                                          'Information about the offer',
+                                                      onPressed: () async {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  InfoMatchOffer(
+                                                                      matches[
+                                                                          indexTwo])),
+                                                        );
+                                                      },
+                                                    )),
+                                                matches[indexTwo].isFinalized == false ?
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 10, 0, 0),
+                                                  child: OutlinedButton(
+                                                    onPressed: () {
+                                                      removeMatchOffer(
+                                                          matches[indexTwo]
+                                                              .offer
+                                                              .id);
+                                                      setState(() {
+                                                        matches
+                                                            .removeAt(indexTwo);
+                                                      });
+                                                    },
+                                                    child: const Text('DISLIKE',
+                                                        style: TextStyle(
+                                                            color: Colors.red)),
+                                                  ),
+                                                ) :
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 10, 0, 0),
+                                                  child: OutlinedButton(
+                                                    onPressed: () {
 
-                          Padding(padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 4),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              OutlinedButton(
-                                onPressed: () {
-                                  setState(() {});
-                                },
-                                child: const Text("CONTRACTED"),
-                                    //style:
-                                    //TextStyle(color: Colors.green)),
+                                                      setState(() {
+
+                                                      });
+                                                    },
+                                                    child: const Text('CONTRACTED',
+                                                        style: TextStyle(
+                                                            color: Colors.blueAccent)),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                          ),
-                          const Divider(
-                            thickness: 1,
-                            indent: 20,
-                            endIndent: 0,
-                            color: Colors.grey,
-                          ),
-                        ],
+                            ),
+                          ],
+                        ),
                       );
                     }),
                   ),

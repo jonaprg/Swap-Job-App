@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swapjobapp/Screens/auth/LoginSignUpScreen.dart';
@@ -13,7 +13,7 @@ import 'EditSkillScreen.dart';
 
 class ProfilePage extends StatefulWidget {
   late Future<List<User>> itemsUser;
-  ProfilePage(this.itemsUser);
+  ProfilePage(this.itemsUser, {Key? key}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -43,14 +43,13 @@ class _ProfilePageState extends State<ProfilePage>
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF1F4F8),
+      backgroundColor: const Color(0xFFF1F4F8),
       body: FutureBuilder<List<User>>(
           future: widget.itemsUser,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              print({snapshot.error});
-              return Center(
-                child: Text("Error snapshot of Profile"),
+              return const Center(
+                child: Text("Empty Profile"),
               );
             } else if (snapshot.hasData) {
               user = snapshot.data!;
@@ -66,7 +65,7 @@ class _ProfilePageState extends State<ProfilePage>
                           children: [
                             Container(
                               width: double.infinity,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.white,
                                 boxShadow: [
                                   BoxShadow(
@@ -77,14 +76,14 @@ class _ProfilePageState extends State<ProfilePage>
                                 ],
                               ),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     16, 8, 16, 16),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           16, 0, 0, 8),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -97,20 +96,20 @@ class _ProfilePageState extends State<ProfilePage>
                                             user[0].firstName +
                                                 " " +
                                                 user[0].lastName,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontFamily: 'Outfit',
                                               color: Color(0xFF0F1113),
                                               fontSize: 20,
-                                              fontWeight: FontWeight.w500,
+                                              fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                           Text(
-                                            "Phone: " + user[0].phone,
-                                            style: TextStyle(
+                                            user[0].phone,
+                                            style: const TextStyle(
                                               fontFamily: 'Outfit',
                                               color: Color(0xFF0F1113),
                                               fontSize: 16,
-                                              fontWeight: FontWeight.w500,
+                                              fontWeight: FontWeight.normal,
                                             ),
                                           ),
                                           Padding(
@@ -125,161 +124,56 @@ class _ProfilePageState extends State<ProfilePage>
                                                       .fromSTEB(0, 0, 0, 0),
                                                   child: Text(
                                                     user[0].email,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                       fontFamily: 'Outfit',
                                                       color: Color(0xFF0F1113),
                                                       fontSize: 16,
                                                       fontWeight:
-                                                          FontWeight.w500,
+                                                          FontWeight.normal,
                                                     ),
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 32,
-                                      constraints: BoxConstraints(
-                                        maxHeight: 32,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: primaryOrangeColor,
-                                        borderRadius: BorderRadius.circular(30),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8, 0, 8, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Row(children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 0, 0),
-                                                child: Text(
-                                                  user[0].status.title,
-                                                  style: TextStyle(
-                                                    fontFamily: 'Outfit',
-                                                    color: Color(0xFF0F1113),
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.w500,
+                                          Padding(
+                                            padding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0, 0, 10, 0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                const Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 0),
+                                                  child: Text(
+                                                    "Status: ",
+                                                    style: const TextStyle(
+                                                      fontFamily: 'Outfit',
+                                                      color: Color(0xFF0F1113),
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                      FontWeight.bold,
+                                                    ),
                                                   ),
+
                                                 ),
-                                              ),
-                                            ]),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          50, 10, 10, 20),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              showModalBottomSheet(
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      children: <Widget>[
-                                                        ListTile(
-                                                          leading: new Icon(
-                                                              Icons.logout),
-                                                          title: new Text(
-                                                              'Logout'),
-                                                          onTap: () async {
-                                                            SharedPreferences
-                                                                shPre =
-                                                                await SharedPreferences
-                                                                    .getInstance();
-                                                            shPre.remove(
-                                                                'accessToken');
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pushAndRemoveUntil(
-                                                                    MaterialPageRoute(
-                                                                        builder:
-                                                                            (context) =>
-                                                                                LoginSignUpScreen()),
-                                                                    (route) =>
-                                                                        false);
-                                                          },
-                                                        ),
-                                                        ListTile(
-                                                          leading: new Icon(Icons
-                                                              .delete_forever),
-                                                          title: new Text(
-                                                              'Remove account'),
-                                                          onTap: () async {
-                                                            if (await deleteUser()) {
-                                                              SharedPreferences
-                                                                  shPre =
-                                                                  await SharedPreferences
-                                                                      .getInstance();
-                                                              shPre.clear();
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pushAndRemoveUntil(
-                                                                      MaterialPageRoute(
-                                                                          builder: (context) =>
-                                                                              LoginSignUpScreen()),
-                                                                      (route) =>
-                                                                          false);
-                                                            } else {
-                                                              ScaffoldMessenger
-                                                                      .of(context)
-                                                                  .showSnackBar(
-                                                                SnackBar(
-                                                                  content:
-                                                                      const Text(
-                                                                          'NOT REMOVE USER, TRY AGAIN'),
-                                                                  duration: const Duration(
-                                                                      milliseconds:
-                                                                          1500),
-                                                                  width:
-                                                                      300.0, // Width of the SnackBar.
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .symmetric(
-                                                                    horizontal:
-                                                                        10.0, // Inner padding for SnackBar content.
-                                                                  ),
-                                                                  behavior:
-                                                                      SnackBarBehavior
-                                                                          .floating,
-                                                                  shape:
-                                                                      RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10.0),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            }
-                                                          },
-                                                        ),
-                                                      ],
-                                                    );
-                                                  });
-                                            },
-                                            child: Icon(
-                                              Icons.settings,
-                                              color: Colors.white,
-                                              size: 24.0,
-                                              semanticLabel: 'Settings',
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 0),
+                                                  child: Text(
+                                                    user[0].status.title,
+                                                    style: const TextStyle(
+                                                      fontFamily: 'Outfit',
+                                                      color: Color(0xFF0F1113),
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                      FontWeight.normal,
+                                                    ),
+                                                  ),
+
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ],
@@ -296,7 +190,7 @@ class _ProfilePageState extends State<ProfilePage>
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: [
+                                children: const [
                                   Text(
                                     'Description',
                                     style: TextStyle(
@@ -323,7 +217,7 @@ class _ProfilePageState extends State<ProfilePage>
                                           0, 0, 0, 10),
                                       child: Text(
                                         user[0].description,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontFamily: 'Outfit',
                                           color: Color(0xFF0F1113),
                                           fontSize: 16,
@@ -344,7 +238,7 @@ class _ProfilePageState extends State<ProfilePage>
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'Skill',
                               style: TextStyle(
                                 fontFamily: 'Outfit',
@@ -431,7 +325,7 @@ class _ProfilePageState extends State<ProfilePage>
                           ),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
-                            children: [
+                            children: const [
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     20, 12, 20, 0),
@@ -458,7 +352,7 @@ class _ProfilePageState extends State<ProfilePage>
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'Preference',
                               style: TextStyle(
                                 fontFamily: 'Outfit',
@@ -468,7 +362,7 @@ class _ProfilePageState extends State<ProfilePage>
                               ),
                             ),
                             IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.edit,
                                 color: Color(0xFF090F13),
                                 size: 20,
@@ -497,7 +391,7 @@ class _ProfilePageState extends State<ProfilePage>
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Padding(
+                                    const Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           20, 12, 20, 0),
                                     ),
@@ -527,7 +421,7 @@ class _ProfilePageState extends State<ProfilePage>
                                                 user[0]
                                                     .preference[indexUserSkill]
                                                     .title,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontWeight:
                                                         FontWeight.normal,
                                                     color: Colors.white));
@@ -550,7 +444,7 @@ class _ProfilePageState extends State<ProfilePage>
                                 ),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
-                                  children: [
+                                  children: const [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           20, 12, 20, 0),
@@ -580,16 +474,97 @@ class _ProfilePageState extends State<ProfilePage>
               );
             }
           }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => EditProfilePage(user)),
-          ).then((onGoBack));
-        },
-        backgroundColor: primaryOrangeColor,
-        child: const Icon(Icons.edit),
-      ),
+      floatingActionButton: SpeedDial(
+          icon: Icons.settings,
+          backgroundColor: primaryOrangeColor,
+          children: [
+            SpeedDialChild(
+              child: const Icon(Icons.edit),
+              label: 'Edit',
+              backgroundColor: Colors.amberAccent,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => EditProfilePage(user)),
+                ).then((onGoBack));
+              },
+            ),
+            SpeedDialChild(
+              child: const Icon(Icons.logout),
+              label: 'Logout',
+              backgroundColor: Colors.amberAccent,
+              onTap: ()
+                async {
+                  SharedPreferences
+                  shPre =
+                      await SharedPreferences
+                      .getInstance();
+                  shPre.remove(
+                      'accessToken');
+                  Navigator.of(
+                      context)
+                      .pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder:
+                              (context) =>
+                              LoginSignUpScreen()),
+                          (route) =>
+                      false);
+                }
+            ),
+            SpeedDialChild(
+              child: const Icon(Icons.delete_forever),
+              label: 'Delete account',
+              backgroundColor: Colors.amberAccent,
+                onTap: () async {
+                  if (await deleteUser()) {
+                    SharedPreferences
+                    shPre =
+                    await SharedPreferences
+                        .getInstance();
+                    shPre.clear();
+                    Navigator.of(
+                        context)
+                        .pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                LoginSignUpScreen()),
+                            (route) =>
+                        false);
+                  } else {
+                    ScaffoldMessenger
+                        .of(context)
+                        .showSnackBar(
+                      SnackBar(
+                        content:
+                        const Text(
+                            'NOT REMOVE USER, TRY AGAIN'),
+                        duration: const Duration(
+                            milliseconds:
+                            1500),
+                        width:
+                        300.0, // Width of the SnackBar.
+                        padding:
+                        const EdgeInsets
+                            .symmetric(
+                          horizontal:
+                          10.0, // Inner padding for SnackBar content.
+                        ),
+                        behavior:
+                        SnackBarBehavior
+                            .floating,
+                        shape:
+                        RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.circular(
+                              10.0),
+                        ),
+                      ),
+                    );
+                  }
+                }
+            ),
+          ]),
     );
   }
 }

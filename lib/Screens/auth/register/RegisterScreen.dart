@@ -31,20 +31,16 @@ class _RegisterState extends State<RegisterScreen> {
         duration: const Duration(milliseconds: 50),
         child: Padding(
           padding: const EdgeInsets.only(top: 10.0),
-          child: FloatingActionButton(
-            elevation: 10,
             child: IconButton(
-              color: Colors.white,
-              icon: const Icon(Icons.arrow_back_ios),
+              icon: const Icon(Icons.arrow_back_ios,
+                  color: Colors.orange, size: 20),
+              tooltip: 'Back',
               onPressed: () {
-                Navigator.pop(context);
+                setState(() {
+                  Navigator.pop(context);
+                });
               },
             ),
-            backgroundColor: primaryOrangeColor,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
@@ -59,10 +55,17 @@ class _RegisterState extends State<RegisterScreen> {
                 children: const <Widget>[
                   Padding(
                     child: Text(
-                      "SIGN UP",
-                      style: TextStyle(fontSize: 40),
+                      "Create Account",
+                      style: TextStyle(fontSize: 30),
                     ),
                     padding: EdgeInsets.only(left: 50, top: 120),
+                  ),
+                  Padding(
+                    child: Text(
+                      " | STEP 1 OF 4",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    padding: EdgeInsetsDirectional.fromSTEB(255, 130, 0, 0),
                   ),
                 ],
               ),

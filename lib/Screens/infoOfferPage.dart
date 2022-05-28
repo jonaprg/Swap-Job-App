@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:geocode/geocode.dart';
-import 'package:swapjobapp/Model/UserMatches.dart';
 
 import '../Model/Offer.dart';
 import '../Utils/color.dart';
@@ -45,7 +44,7 @@ class _InfState extends State<InfoOffer> {
                               child: Center(
                                 child: Ink(
                                   decoration: const ShapeDecoration(
-                                    color: Colors.lightBlue,
+                                    color: Color(0xff023047),
                                     shape: CircleBorder(),
                                   ),
                                   child: IconButton(
@@ -237,7 +236,7 @@ class _InfState extends State<InfoOffer> {
                                                     " €",
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
+                                                    fontWeight: FontWeight.normal,
                                                     color: Colors.white),
                                               ),
                                             ),
@@ -248,7 +247,7 @@ class _InfState extends State<InfoOffer> {
                                                 widget.offer.description,
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
+                                                    fontWeight: FontWeight.normal,
                                                     color: Colors.white),
                                               ),
                                             ),
@@ -288,7 +287,7 @@ class _InfState extends State<InfoOffer> {
                                         child: Text(
                                           'Habilidades',
                                           style: TextStyle(
-                                              fontWeight: FontWeight.normal,
+                                              fontWeight: FontWeight.bold,
                                               color: Colors.white),
                                         ),
                                       ),
@@ -355,41 +354,61 @@ class _InfState extends State<InfoOffer> {
                                         child: Text(
                                           'Preferencias',
                                           style: TextStyle(
-                                              fontWeight: FontWeight.normal,
+                                              fontWeight: FontWeight.bold,
                                               color: Colors.white),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                Align(
+                                widget.offer.preferenceList.isNotEmpty
+                                    ? Align(
                                   alignment: AlignmentDirectional(0, 0),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding:
+                                    EdgeInsetsDirectional.fromSTEB(
                                         0, 0, 0, 10),
                                     child: Wrap(
                                       spacing: 20,
                                       runSpacing: 0,
                                       alignment: WrapAlignment.start,
                                       crossAxisAlignment:
-                                          WrapCrossAlignment.start,
+                                      WrapCrossAlignment.start,
                                       direction: Axis.horizontal,
                                       runAlignment: WrapAlignment.start,
-                                      verticalDirection: VerticalDirection.down,
+                                      verticalDirection:
+                                      VerticalDirection.down,
                                       clipBehavior: Clip.none,
-                                      children: widget.offer.preferenceList
+                                      children: widget
+                                          .offer.preferenceList
                                           .asMap()
                                           .keys
                                           .toList()
                                           .map((indexPrefe) {
                                         return Text(
-                                            widget.offer.skillList[indexPrefe]
+                                            widget
+                                                .offer
+                                                .preferenceList[indexPrefe]
                                                 .title,
                                             style: TextStyle(
-                                                fontWeight: FontWeight.normal,
+                                                fontWeight:
+                                                FontWeight.normal,
                                                 color: Colors.white));
                                       }).toList(),
                                     ),
+                                  ),
+                                )
+                                    : const Align(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: Padding(
+                                    padding:
+                                    EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 10),
+                                    child: Text(
+                                        "Not preferences",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.white)),
                                   ),
                                 ),
                               ],

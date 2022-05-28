@@ -44,11 +44,11 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
+                    padding: EdgeInsetsDirectional.fromSTEB(2, 10, 2, 2),
                     child: Center(
                       child: IconButton(
                         icon: const Icon(Icons.arrow_back_ios,
-                            color: Colors.orange, size: 16),
+                            color: Colors.orange, size: 20),
                         tooltip: 'Back',
                         onPressed: () {
                           setState(() {
@@ -65,9 +65,16 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                       'Que preferencias quieres?',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 24),
+                          color: Colors.black,
+                          fontSize: 20),
                     ),
+                  ),
+                  const Padding(
+                    child: Text(
+                      " | STEP 4 OF 4",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                   ),
                 ],
               ),
@@ -82,10 +89,9 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    _currentDistanceValues.end.truncate().toString(),
-                    style:
-                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.w900),
-                  ),
+                    _currentDistanceValues.start.truncate().toString() + " km to " +
+                        _currentDistanceValues.end.truncate().toString() +" km",
+                  )
                 ],
               ),
               Row(
@@ -95,7 +101,7 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                       child: RangeSlider(
-                        activeColor: Color(0xFF4B39EF),
+                        activeColor:  Color(0xffffb703),
                         inactiveColor: Color(0xFFF1F4F8),
                         max: 100,
                         values: _currentDistanceValues,
@@ -115,11 +121,15 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    'Salary',
+                    'Salary | ',
                     style: TextStyle(
                         fontSize: 16,
                         color: textColor,
                         fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    _currentSalaryValues.start.truncate().toString()
+                        +"€ to "+ _currentSalaryValues.end.truncate().toString() +"€",
                   ),
                 ],
               ),
@@ -130,7 +140,7 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                       child: RangeSlider(
-                        activeColor: Color(0xFF4B39EF),
+                        activeColor:  Color(0xffffb703),
                         inactiveColor: Color(0xFFF1F4F8),
                         max: 50000,
                         values: _currentSalaryValues,
@@ -151,11 +161,15 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    'Labour',
+                    'Labour | ',
                     style: TextStyle(
                         fontSize: 16,
                         color: textColor,
                         fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    _currentLabourValues.start.toString() + "hours to "
+                        + _currentLabourValues.end.toString() + "hours ",
                   ),
                 ],
               ),
@@ -166,7 +180,7 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                       child: RangeSlider(
-                        activeColor: Color(0xFF4B39EF),
+                        activeColor:  Color(0xffffb703),
                         inactiveColor: Color(0xFFF1F4F8),
                         max: 40,
                         min: 20,
@@ -188,12 +202,20 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    'Remote',
+                    'Remote | ',
                     style: TextStyle(
                         fontSize: 16,
                         color: textColor,
                         fontWeight: FontWeight.bold),
                   ),
+                  Text((() {
+                    if(_currentRemoteValues == 0){
+                      return "Presencial";
+                    }else if(_currentRemoteValues == 0.5) {
+                      return "Lo que quieran";
+                    }
+                    return "Remoto";
+                  })()),
                 ],
               ),
               Row(
@@ -203,7 +225,7 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                       child: Slider(
-                        activeColor: Color(0xFF4B39EF),
+                        activeColor:  Color(0xffffb703),
                         inactiveColor: Color(0xFFF1F4F8),
                         min: 0,
                         max: 1,

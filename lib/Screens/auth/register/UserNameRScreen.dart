@@ -33,17 +33,19 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
       backgroundColor: Colors.white,
       floatingActionButton: AnimatedOpacity(
         opacity: 1.0,
-        duration: Duration(milliseconds: 50),
+        duration: const Duration(milliseconds: 50),
         child: Padding(
           padding: const EdgeInsets.only(top: 10.0),
-
-            child: IconButton(
-              color: secondaryDarkBlueColor,
-              icon: Icon(Icons.arrow_back_ios),
-              onPressed: () {
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back_ios,
+                color: Colors.orange, size: 20),
+            tooltip: 'Back',
+            onPressed: () {
+              setState(() {
                 Navigator.pop(context);
-              },
-            ),
+              });
+            },
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
@@ -55,129 +57,343 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Stack(
-                children: <Widget>[
+                children: const <Widget>[
                   Padding(
                     child: Text(
                       "Create Account",
-                      style: TextStyle(fontSize: 40),
+                      style: TextStyle(fontSize: 30),
                     ),
                     padding: EdgeInsets.only(left: 50, top: 120),
+                  ),
+                  Padding(
+                    child: Text(
+                      " | STEP 2 OF 4",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    padding: EdgeInsetsDirectional.fromSTEB(255, 130, 0, 0),
                   ),
                 ],
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50),
                 child: Column(children: <Widget>[
-                  TextFormField(
-                    controller: firstNameController,
-                    style: const TextStyle(fontSize: 23),
-                    decoration: InputDecoration(
-                      hintText: "First name",
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryOrangeColor)),
-                      helperStyle: TextStyle(
-                          color: secondaryDarkBlueColor, fontSize: 15),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        value = firstNameController.text;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 30.0),
-                  TextFormField(
-                    controller: lastNameController,
-                    style: const TextStyle(fontSize: 23),
-                    decoration: InputDecoration(
-                      hintText: "Last name",
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryOrangeColor)),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        value = lastNameController.text;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 30.0),
-                  TextFormField(
-                    controller: postalCodeController,
-                    keyboardType: TextInputType.number,
 
-                    style: const TextStyle(fontSize: 23),
-                    decoration: InputDecoration(
-                      hintText: "Postal Code",
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryOrangeColor)),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+                    child: TextFormField(
+                      controller: firstNameController,
+                      obscureText: false,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        labelText: 'First Name',
+                        labelStyle: TextStyle(
+                          fontFamily: 'Outfit',
+                          color: Color(0xFF0F1113),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        hintStyle: TextStyle(
+                          fontFamily: 'Outfit',
+                          color: Color(0xFF0F1113),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFF1F4F8),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFF1F4F8),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                      ),
+                      style: TextStyle(
+                        fontFamily: 'Outfit',
+                        color: Color(0xFF0F1113),
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          value = firstNameController.text;
+                        });
+                      }
                     ),
-                    onChanged: (value) {
-                      setState(() {
-                        value = postalCodeController.text;
-                      });
-                    },
                   ),
-                  const SizedBox(height: 30.0),
-                  TextFormField(
-                    controller: phoneController,
-                    keyboardType: TextInputType.phone,
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+                    child: TextFormField(
+                        controller: lastNameController,
+                        obscureText: false,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          labelText: 'Last Name',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Outfit',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          hintStyle: TextStyle(
+                            fontFamily: 'Outfit',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                        ),
+                        style: TextStyle(
+                          fontFamily: 'Outfit',
+                          color: Color(0xFF0F1113),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            value = lastNameController.text;
+                          });
+                        }
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+                    child: TextFormField(
+                        controller: postalCodeController,
+                        obscureText: false,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'Postal Code',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Outfit',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          hintText: 'Only 5 digits',
+                          hintStyle: TextStyle(
+                            fontFamily: 'Outfit',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                        ),
+                        style: TextStyle(
+                          fontFamily: 'Outfit',
+                          color: Color(0xFF0F1113),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            value = postalCodeController.text;
+                          });
+                        }
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+                    child: TextFormField(
+                        controller: phoneController,
+                        obscureText: false,
+                        keyboardType: TextInputType.phone,
+                        decoration: InputDecoration(
+                          labelText: 'Phone',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Outfit',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          hintText: 'Only 9 digits.',
+                          hintStyle: TextStyle(
+                            fontFamily: 'Outfit',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                        ),
+                        style: TextStyle(
+                          fontFamily: 'Outfit',
+                          color: Color(0xFF0F1113),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            value = phoneController.text;
+                          });
+                        }
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+                    child: TextFormField(
+                        controller: birthDateController,
+                        obscureText: false,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'BirthDate | YYYY-MM-DD',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Outfit',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          hintStyle: TextStyle(
+                            fontFamily: 'Outfit',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                        ),
+                        style: TextStyle(
+                          fontFamily: 'Outfit',
+                          color: Color(0xFF0F1113),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            value = birthDateController.text;
+                          });
+                        }
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+                    child: TextFormField(
+                        controller: descriptionController,
+                        obscureText: false,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          labelText: 'Description',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Outfit',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          hintStyle: TextStyle(
+                            fontFamily: 'Outfit',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                        ),
+                        style: TextStyle(
+                          fontFamily: 'Outfit',
+                          color: Color(0xFF0F1113),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            value = descriptionController.text;
+                          });
+                        }
+                    ),
+                  ),
 
-                    style: const TextStyle(fontSize: 23),
-                    decoration: InputDecoration(
-                      hintText: "Phone",
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryOrangeColor)),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        value = phoneController.text;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 30.0),
-                  /*Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text(DateFormat('yyyy-MM-dd').format(currentDate)),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      RaisedButton(
-                        onPressed: () => _selectDate(context),
-                        child: Text('Select birthday date'),
-                      ),
-                    ],
-                  ),*/
-                  TextFormField(
-                    controller: birthDateController,
-                    style: const TextStyle(fontSize: 23),
-                    decoration: InputDecoration(
-                      hintText: "BirthDate | YYYY-MM-DD",
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryOrangeColor)),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        value = birthDateController.text;
-                      });
-                    },
-                  ),
-                  TextFormField(
-                    controller: descriptionController,
-                    minLines: 1,
-                    maxLines: 5,
-                    keyboardType: TextInputType.multiline,
-                    style: const TextStyle(fontSize: 23),
-                    decoration: InputDecoration(
-                      hintText: "Description",
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryOrangeColor)),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        value = descriptionController.text;
-                      });
-                    },
-                  ),
+
+
+
+
+
+
+
                 ]),
               ),
               firstNameController.text.isNotEmpty &&

@@ -52,13 +52,16 @@ class _LoginState extends State<LoginScreen> {
           child: FloatingActionButton(
             elevation: 10,
             child: IconButton(
-              color: Colors.white,
-              icon: const Icon(Icons.arrow_back_ios),
+              icon: const Icon(Icons.arrow_back_ios,
+                  color: Colors.orange, size: 16),
+              tooltip: 'Back',
               onPressed: () {
-                Navigator.pop(context);
+                setState(() {
+                  Navigator.pop(context);
+                });
               },
             ),
-            backgroundColor: primaryOrangeColor,
+            backgroundColor: Colors.white,
             onPressed: () {
               Navigator.pop(context);
             },
@@ -78,7 +81,7 @@ class _LoginState extends State<LoginScreen> {
                   Padding(
                     child: Text(
                       "LOG IN",
-                      style: TextStyle(fontSize: 40),
+                      style: TextStyle(fontSize: 40, fontFamily: 'MavenPro'),
                     ),
                     padding: EdgeInsets.only(left: 50, top: 120),
                   ),
