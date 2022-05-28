@@ -7,7 +7,9 @@ import 'package:swapjobapp/Utils/requests.dart';
 
 class EditSkillScreen extends StatefulWidget {
   const EditSkillScreen(this.userSkill);
+
   final List<Skill> userSkill;
+
   @override
   _EditSkillScreenState createState() => _EditSkillScreenState();
 }
@@ -123,6 +125,7 @@ class _EditSkillScreenState extends State<EditSkillScreen>
                   tagModel: tagModel,
                   onTap: () => _addTags(tagModel),
                   action: 'Add',
+                  removable: false,
                 ))
             .toList(),
       ),
@@ -133,6 +136,7 @@ class _EditSkillScreenState extends State<EditSkillScreen>
     tagModel,
     onTap,
     action,
+    removable,
   }) {
     return InkWell(
         onTap: onTap,
@@ -167,14 +171,15 @@ class _EditSkillScreenState extends State<EditSkillScreen>
                 backgroundColor: Colors.orange.shade600,
                 radius: 8.0,
                 child: Icon(
-                  Icons.clear,
+                  removable ? Icons.clear : Icons.add,
                   size: 10.0,
                   color: Colors.white,
                 ),
               ),
             )
           ],
-        ));
+        )
+    );
   }
 
   Widget _tagsWidget() {
@@ -223,6 +228,7 @@ class _EditSkillScreenState extends State<EditSkillScreen>
                               tagModel: tagModel,
                               onTap: () => _removeTag(tagModel),
                               action: 'Remove',
+                              removable: true,
                             ))
                         .toSet()
                         .toList(),
@@ -264,10 +270,7 @@ class _EditSkillScreenState extends State<EditSkillScreen>
                       _skillId.add(item.id);
                     }
                     setSkillUser(_skillId);
-                    setState(() {
-
-                    });
-
+                    setState(() {});
                   },
                 ),
               ),
@@ -277,6 +280,7 @@ class _EditSkillScreenState extends State<EditSkillScreen>
       ),
     );
   }
+
   setSkillUser(List<int> skillUser) async {
     bool success = await requestSetSkillsUser(skillUser);
     if (success) {
@@ -284,10 +288,10 @@ class _EditSkillScreenState extends State<EditSkillScreen>
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-
           content: const Text('Sorry. Try again! Take the skill/s'),
           duration: const Duration(milliseconds: 1500),
-          width: 280.0, // Width of the SnackBar.
+          width: 280.0,
+          // Width of the SnackBar.
           padding: const EdgeInsets.symmetric(
             horizontal: 8.0, // Inner padding for SnackBar content.
           ),
