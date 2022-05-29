@@ -7,7 +7,9 @@ import 'package:swapjobapp/Utils/requests.dart';
 
 class QuestionSkillScreen extends StatefulWidget {
   const QuestionSkillScreen(this.userData);
+
   final Map<String, dynamic> userData;
+
   @override
   _SkillScreenState createState() => _SkillScreenState();
 }
@@ -29,7 +31,6 @@ class _SkillScreenState extends State<QuestionSkillScreen>
 
   @override
   void initState() {
-
     super.initState();
     setState(() => {_tagsFutureToSelect = getSkills()});
   }
@@ -124,17 +125,14 @@ class _SkillScreenState extends State<QuestionSkillScreen>
                   tagModel: tagModel,
                   onTap: () => _addTags(tagModel),
                   action: 'Add',
+                  removable: false,
                 ))
             .toList(),
       ),
     ]);
   }
 
-  Widget tagChip({
-    tagModel,
-    onTap,
-    action,
-  }) {
+  Widget tagChip({tagModel, onTap, action, removable}) {
     return InkWell(
         onTap: onTap,
         child: Stack(
@@ -168,7 +166,7 @@ class _SkillScreenState extends State<QuestionSkillScreen>
                 backgroundColor: Colors.orange.shade600,
                 radius: 8.0,
                 child: Icon(
-                  Icons.clear,
+                  removable ? Icons.close : Icons.add,
                   size: 10.0,
                   color: Colors.white,
                 ),
@@ -230,10 +228,10 @@ class _SkillScreenState extends State<QuestionSkillScreen>
                     alignment: WrapAlignment.start,
                     children: _tags
                         .map((tagModel) => tagChip(
-                              tagModel: tagModel,
-                              onTap: () => _removeTag(tagModel),
-                              action: 'Remove',
-                            ))
+                            tagModel: tagModel,
+                            onTap: () => _removeTag(tagModel),
+                            action: 'Remove',
+                            removable: true))
                         .toSet()
                         .toList(),
                   ),
