@@ -31,6 +31,7 @@ class _ProfilePageState extends State<ProfilePage>
     setState(() {
       widget.itemsUser = getUserProfile();
     });
+
     super.initState();
   }
 
@@ -53,6 +54,7 @@ class _ProfilePageState extends State<ProfilePage>
               );
             } else if (snapshot.hasData) {
               user = snapshot.data!;
+
               return SafeArea(
                 child: GestureDetector(
                   onTap: () => FocusScope.of(context).unfocus(),
@@ -176,6 +178,31 @@ class _ProfilePageState extends State<ProfilePage>
                                               ],
                                             ),
                                           ),
+                                          Padding(
+                                            padding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0, 0, 10, 0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 0),
+                                                  child: Text(
+                                                    user[0].birthDate.toString().substring(0, 10),
+                                                    style: const TextStyle(
+                                                      fontFamily: 'Outfit',
+                                                      color: Color(0xFF0F1113),
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                      FontWeight.bold,
+                                                    ),
+                                                  ),
+
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -192,7 +219,7 @@ class _ProfilePageState extends State<ProfilePage>
                                     MainAxisAlignment.spaceBetween,
                                 children: const [
                                   Text(
-                                    'Description',
+                                    'Descripción',
                                     style: TextStyle(
                                       fontFamily: 'Outfit',
                                       color: Color(0xFF0F1113),
@@ -239,7 +266,7 @@ class _ProfilePageState extends State<ProfilePage>
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             const Text(
-                              'Skill',
+                              'Habilidades',
                               style: TextStyle(
                                 fontFamily: 'Outfit',
                                 color: Color(0xFF0F1113),
@@ -320,7 +347,7 @@ class _ProfilePageState extends State<ProfilePage>
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                            color: Color(0xFFDBDCE1),
+                            color: primaryOrangeColor,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Column(
@@ -335,10 +362,10 @@ class _ProfilePageState extends State<ProfilePage>
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 10),
-                                  child: Text("Habilidades vacias",
+                                  child: Text("No hay habilidades",
                                       style: TextStyle(
                                           fontWeight: FontWeight.normal,
-                                          color: Colors.white)),
+                                          color: Colors.black)),
                                 ),
                               ),
                             ],
@@ -353,7 +380,7 @@ class _ProfilePageState extends State<ProfilePage>
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             const Text(
-                              'Preference',
+                              'Preferencias',
                               style: TextStyle(
                                 fontFamily: 'Outfit',
                                 color: Color(0xFF0F1113),
@@ -454,7 +481,7 @@ class _ProfilePageState extends State<ProfilePage>
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 0, 10),
-                                        child: Text("Preferencias vacias",
+                                        child: Text("No hay preferencias",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.normal,
                                                 color: Colors.black)),

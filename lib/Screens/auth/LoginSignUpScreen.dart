@@ -51,7 +51,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                     child: Container(
                       child: Column(),
                       width: double.infinity,
-                      height: 205,
+                      height: 200,
                       decoration: BoxDecoration(
                           gradient: LinearGradient(colors: [
                         Theme.of(context).primaryColor,
@@ -64,7 +64,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                     child: Container(
                       child: Column(),
                       width: double.infinity,
-                      height: 350,
+                      height: 360,
                       decoration: BoxDecoration(
                           gradient: LinearGradient(colors: [
                         Theme.of(context).primaryColor,
@@ -84,7 +84,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                             fontSize: 35),
                       )),
                       width: double.infinity,
-                      height: 200,
+                      height: 220,
                       decoration: BoxDecoration(
                           gradient: LinearGradient(colors: [
                         Theme.of(context).primaryColor,

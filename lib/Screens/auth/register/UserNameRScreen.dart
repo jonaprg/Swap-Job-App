@@ -20,8 +20,8 @@ class UserNameRScreen extends StatefulWidget {
 
 class _UserNameRScreenState extends State<UserNameRScreen> {
   DateTime currentDate = DateTime.now();
-  TextEditingController firstNameController = TextEditingController(text: 'jona');
-  TextEditingController lastNameController = TextEditingController(text: 'jona');
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
   TextEditingController postalCodeController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController birthDateController = TextEditingController();
@@ -60,14 +60,14 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                 children: const <Widget>[
                   Padding(
                     child: Text(
-                      "Create Account",
+                      "Crear cuenta",
                       style: TextStyle(fontSize: 30),
                     ),
                     padding: EdgeInsets.only(left: 50, top: 120),
                   ),
                   Padding(
                     child: Text(
-                      " | STEP 2 OF 4",
+                      " | PASO 2 DE 4",
                       style: TextStyle(fontSize: 15),
                     ),
                     padding: EdgeInsetsDirectional.fromSTEB(255, 130, 0, 0),
@@ -85,15 +85,15 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                       obscureText: false,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                        labelText: 'First Name',
+                        labelText: 'Nombre',
                         labelStyle: TextStyle(
-                          fontFamily: 'Outfit',
+                          fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
                         ),
                         hintStyle: TextStyle(
-                          fontFamily: 'Outfit',
+                          fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -117,7 +117,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                       ),
                       style: TextStyle(
-                        fontFamily: 'Outfit',
+                        fontFamily: 'Maven',
                         color: Color(0xFF0F1113),
                         fontSize: 14,
                         fontWeight: FontWeight.normal,
@@ -136,15 +136,15 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         obscureText: false,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
-                          labelText: 'Last Name',
+                          labelText: 'Apellido/s',
                           labelStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
                           hintStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
@@ -168,7 +168,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                           contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                         ),
                         style: TextStyle(
-                          fontFamily: 'Outfit',
+                          fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -187,16 +187,16 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         obscureText: false,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          labelText: 'Postal Code',
+                          labelText: 'Código postal',
                           labelStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
                           hintText: 'Only 5 digits',
                           hintStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
@@ -220,7 +220,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                           contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                         ),
                         style: TextStyle(
-                          fontFamily: 'Outfit',
+                          fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -239,16 +239,16 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         obscureText: false,
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
-                          labelText: 'Phone',
+                          labelText: 'Móvil',
                           labelStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
                           hintText: 'Only 9 digits.',
                           hintStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
@@ -272,7 +272,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                           contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                         ),
                         style: TextStyle(
-                          fontFamily: 'Outfit',
+                          fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -291,15 +291,15 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         obscureText: false,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          labelText: 'BirthDate | YYYY-MM-DD',
+                          labelText: 'Fecha de nacimiento | YYYY-MM-DD',
                           labelStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
                           hintStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
@@ -323,7 +323,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                           contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                         ),
                         style: TextStyle(
-                          fontFamily: 'Outfit',
+                          fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -342,15 +342,15 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         obscureText: false,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
-                          labelText: 'Description',
+                          labelText: 'Descripción',
                           labelStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
                           hintStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
@@ -374,7 +374,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                           contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                         ),
                         style: TextStyle(
-                          fontFamily: 'Outfit',
+                          fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -397,7 +397,9 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                 ]),
               ),
               firstNameController.text.isNotEmpty &&
-                      lastNameController.text.isNotEmpty
+                      lastNameController.text.isNotEmpty && phoneController.text.isNotEmpty
+              && postalCodeController.text.isNotEmpty && descriptionController.text.isNotEmpty
+              && birthDateController.text.isNotEmpty
                   ? Padding(
                       padding: const EdgeInsets.only(bottom: 40),
                       child: Align(
@@ -420,14 +422,14 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                               width: MediaQuery.of(context).size.width * .75,
                               child: Center(
                                   child: Text(
-                                "CONTINUE",
+                                "CONTINUAR",
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: textColor,
                                     fontWeight: FontWeight.bold),
                               ))),
                           onTap: () {
-                            /*widget.userData.addAll({
+                            widget.userData.addAll({
                               "firstName": firstNameController.text,
                               "lastName": lastNameController.text,
                               "postalCode":
@@ -435,8 +437,9 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                               "phone": phoneController.text,
                               "birthDate": birthDateController.text,
                               "description": descriptionController.text,
-                              "companyUser": true
-                            });*/
+                              "companyUser": false
+                            });
+                            /*
                             widget.userData.addAll({
                               "firstName": "string",
                               "lastName": "string",
@@ -446,12 +449,11 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                               "description": "string",
                               "companyUser": true
 
-                            });
+                            }); */
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => QuestionSkillScreen(widget.userData)),
                             );
-                            //signupWithAll(widget.userData);
                           },
                         ),
                       ),
@@ -470,7 +472,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                               width: MediaQuery.of(context).size.width * .75,
                               child: Center(
                                   child: Text(
-                                "CONTINUE",
+                                "CONTINUAR",
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: secondaryDarkBlueColor,
@@ -485,36 +487,5 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
         ),
       ),
     );
-  }
-
-  signupWithAll(Map data) async {
-    var headers = {
-      'Content-Type': 'application/json',
-    };
-    var request =
-        http.Request('POST', Uri.parse('http://localhost/auth/signup'));
-
-    request.body = json.encode(data);
-    request.headers.addAll(headers);
-    var streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
-
-    if (response.statusCode == 200) {
-      bool success = await performLogin(
-          data.values.elementAt(0), data.values.elementAt(1));
-      if (success) {
-
-      } else {
-        setState(() {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text("Server error")));
-        });
-      }
-    } else {
-      setState(() {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Error, retry again")));
-      });
-    }
   }
 }

@@ -9,7 +9,7 @@ import '../Model/Skill.dart';
 import '../Model/User.dart';
 import '../Model/UserMatches.dart';
 
-// const String baseUrl = "http://localhost"; //LOCAL
+//const String baseUrl = "http://localhost"; //LOCAL
 //const String baseUrl = "http://192.168.1.10"; //LOCAL MOBIL
 const String baseUrl = "http://api.swapjob.tk/SwapJob"; //PRODUCTION
 // const String baseUrl = "http://swapjob.tk:8080/SwapJob"; //SEMI PRODUCTION
@@ -60,7 +60,8 @@ Future<bool> editProfile(
     String phone,
     String birth,
     String description,
-    bool visible) async {
+    bool visible,
+    String status) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
 
@@ -73,8 +74,6 @@ Future<bool> editProfile(
     "birthDate": birth,
     "description": description,
     "status_id": 0,
-    "skillList": [],
-    "preferenceList": [],
     "visible": visible
   };
   var headers = {
@@ -276,5 +275,19 @@ Future<bool> requestSetPreferenceUser(List<Preference> preferences) async {
   var response = await http.Response.fromStream(streamedResponse);
   print(response.body);
   print(response.statusCode);
+  return response.statusCode == 200;
+}
+
+Future<bool> register(Map data) async {
+  var headers = {
+    'Content-Type': 'application/json',
+  };
+  var request =
+  http.Request('POST', Uri.parse(baseUrl + '/auth/signup'));
+
+  request.body = json.encode(data);
+  request.headers.addAll(headers);
+  var streamedResponse = await request.send();
+  var response = await http.Response.fromStream(streamedResponse);
   return response.statusCode == 200;
 }

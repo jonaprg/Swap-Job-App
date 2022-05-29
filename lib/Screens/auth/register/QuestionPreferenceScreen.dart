@@ -24,7 +24,7 @@ class QuestionPreferenceScreen extends StatefulWidget {
 
 class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
   RangeValues _currentDistanceValues = const RangeValues(0, 10);
-  RangeValues _currentSalaryValues = const RangeValues(0, 20);
+  RangeValues _currentSalaryValues = const RangeValues(0, 24000);
   RangeValues _currentLabourValues = const RangeValues(20, 40);
   double _currentRemoteValues = 0;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -71,7 +71,7 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                   ),
                   const Padding(
                     child: Text(
-                      " | STEP 4 OF 4",
+                      " | PASO 4 DE 4",
                       style: TextStyle(fontSize: 15),
                     ),
                     padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
@@ -82,14 +82,14 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    'Distance | ',
+                    'Distancia | ',
                     style: TextStyle(
                         fontSize: 16,
                         color: textColor,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    _currentDistanceValues.start.truncate().toString() + " km to " +
+                    _currentDistanceValues.start.truncate().toString() + " km a " +
                         _currentDistanceValues.end.truncate().toString() +" km",
                   )
                 ],
@@ -121,7 +121,7 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    'Salary | ',
+                    'Salario | ',
                     style: TextStyle(
                         fontSize: 16,
                         color: textColor,
@@ -129,7 +129,7 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                   ),
                   Text(
                     _currentSalaryValues.start.truncate().toString()
-                        +"€ to "+ _currentSalaryValues.end.truncate().toString() +"€",
+                        +"€ a "+ _currentSalaryValues.end.truncate().toString() +"€",
                   ),
                 ],
               ),
@@ -161,15 +161,15 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    'Labour | ',
+                    'Horas de trabajo | ',
                     style: TextStyle(
                         fontSize: 16,
                         color: textColor,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    _currentLabourValues.start.toString() + "hours to "
-                        + _currentLabourValues.end.toString() + "hours ",
+                    _currentLabourValues.start.toString() + "h a "
+                        + _currentLabourValues.end.toString() + "h ",
                   ),
                 ],
               ),
@@ -202,7 +202,7 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    'Remote | ',
+                    'Presencialidad | ',
                     style: TextStyle(
                         fontSize: 16,
                         color: textColor,
@@ -262,7 +262,7 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                         width: MediaQuery.of(context).size.width * .75,
                         child: Center(
                             child: Text(
-                          "REGISTER",
+                          "REGISTRAR",
                           style: TextStyle(
                               fontSize: 15,
                               color: textColor,
@@ -324,20 +324,11 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
   }
 
   signUp(Map data) async {
-    var headers = {
-      'Content-Type': 'application/json',
-    };
-    var request =
-        http.Request('POST', Uri.parse('http://localhost/auth/signup'));
-
-    request.body = json.encode(data);
-    request.headers.addAll(headers);
-    var streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
-    if (response.statusCode == 200) {
-      bool success = await performLogin(
+    bool successSingUp = await register(data);
+    if (successSingUp) {
+      bool successSignIn = await performLogin(
           data.values.elementAt(0), data.values.elementAt(1));
-      if (success) {
+      if (successSignIn) {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (BuildContext context) => HomePage()),
                 (Route<dynamic> route) => false);

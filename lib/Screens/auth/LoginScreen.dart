@@ -15,10 +15,10 @@ class _LoginState extends State<LoginScreen> {
 
   bool _isBiometricAvailable = false;
   bool _userWantsBiometrics = true;
-
+  bool _isObscure = false;
   bool _isLoading = false;
-  String email = 'pako@astapor.com';
-  String password = 'P@ssw0rd';
+  String email = '';
+  String password = '';
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -80,7 +80,7 @@ class _LoginState extends State<LoginScreen> {
                 children: const <Widget>[
                   Padding(
                     child: Text(
-                      "LOG IN",
+                      "INICIAR SESIÓN ",
                       style: TextStyle(fontSize: 40, fontFamily: 'MavenPro'),
                     ),
                     padding: EdgeInsets.only(left: 50, top: 120),
@@ -94,7 +94,7 @@ class _LoginState extends State<LoginScreen> {
                     controller: emailController,
                     style: const TextStyle(fontSize: 23),
                     decoration: InputDecoration(
-                      hintText: "Email",
+                      hintText: "Correo",
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: primaryOrangeColor)),
                       helperStyle: TextStyle(
@@ -109,10 +109,22 @@ class _LoginState extends State<LoginScreen> {
                   const SizedBox(height: 30.0),
                   TextFormField(
                     controller: passwordController,
-                    obscureText: true,
+                    obscureText: _isObscure,
+                    enableSuggestions: false,
+                    autocorrect: false,
                     style: const TextStyle(fontSize: 23),
                     decoration: InputDecoration(
-                      hintText: "Password",
+                      hintText: "Contraseña",
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isObscure ? Icons.visibility : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isObscure = !_isObscure;
+                          });
+                        },
+                      ),
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: primaryOrangeColor)),
                     ),
@@ -121,7 +133,7 @@ class _LoginState extends State<LoginScreen> {
                         password = value;
                       });
                     },
-                  )
+                  ),
                 ]),
               ),
               email.isNotEmpty && password.isNotEmpty
@@ -180,7 +192,7 @@ class _LoginState extends State<LoginScreen> {
                         width: MediaQuery.of(context).size.width * .75,
                         child: Center(
                             child: Text(
-                              "CONTINUE",
+                              "INICIAR SESIÓN",
                               style: TextStyle(
                                   fontSize: 15,
                                   color: textColor,
@@ -198,8 +210,8 @@ class _LoginState extends State<LoginScreen> {
   }
 
   login(String email, String password) async {
-    //bool success = await performLogin(email, password);
-    bool success = await performLogin("pako@astapor.com", "P@ssw0rd");
+    bool success = await performLogin(email, password);
+    //bool success = await performLogin("pako@astapor.com", "P@ssw0rd");
     if (success) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (BuildContext context) => HomePage()),

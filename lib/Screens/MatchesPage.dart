@@ -120,7 +120,7 @@ class _MatchesPageState extends State<MatchesPage>
                                                             TextAlign.start,
                                                         style: TextStyle(
                                                             fontWeight:
-                                                                FontWeight.w300,
+                                                                FontWeight.w400,
                                                             color: Colors.black,
                                                             fontSize: 15),
                                                       ),
@@ -140,7 +140,7 @@ class _MatchesPageState extends State<MatchesPage>
                                                             TextAlign.start,
                                                         style: TextStyle(
                                                             fontWeight:
-                                                                FontWeight.w300,
+                                                                FontWeight.w400,
                                                             color: Colors.black,
                                                             fontSize: 15),
                                                       ),
@@ -166,7 +166,7 @@ class _MatchesPageState extends State<MatchesPage>
                                                       icon: const Icon(
                                                           Icons.info_outline_rounded),
                                                       tooltip:
-                                                          'Information about the offer',
+                                                          'Información sobre la oferta',
                                                       onPressed: () async {
                                                         Navigator.push(
                                                           context,
@@ -193,7 +193,7 @@ class _MatchesPageState extends State<MatchesPage>
                                                             .removeAt(indexTwo);
                                                       });
                                                     },
-                                                    child: const Text('DISLIKE',
+                                                    child: const Text('NO ME GUSTA',
                                                         style: TextStyle(
                                                             color: Colors.red)),
                                                   ),
@@ -208,7 +208,7 @@ class _MatchesPageState extends State<MatchesPage>
 
                                                       });
                                                     },
-                                                    child: const Text('CONTRACTED',
+                                                    child: const Text('CONTRACTADO',
                                                         style: TextStyle(
                                                             color: Colors.blueAccent)),
                                                   ),
