@@ -444,12 +444,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
 
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+              padding: EdgeInsetsDirectional.fromSTEB(40, 0, 20, 16),
               child: DropdownButton<String>(
                 value: statusController.text,
+                hint:Text("Take status!"),
+                isExpanded: true,
                 icon: const Icon(Icons.arrow_drop_down),
                 elevation: 10,
                 style: const TextStyle(color: Colors.black),
+
                 onChanged: (String? newValue) {
                   setState(() {
                     statusController.text = newValue!;
@@ -503,7 +506,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           postalCodeController.text,
                           phoneController.text,
                           birthDateController.text,
-                          descriptionController.text, visible);
+                          descriptionController.text, visible, statusController.text);
                     }
                 ),
               ),
@@ -515,9 +518,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   editUserProfile(String firstName, String lastName, String email,
-      String postalCode, String phone, String birth, String description, bool visible) async {
+      String postalCode, String phone, String birth, String description,
+      bool visible, String status) async {
     bool success = await editProfile(
-        firstName, lastName, email, postalCode, phone, birth, description, visible);
+        firstName, lastName, email, postalCode, phone, birth, description
+        , visible, status);
     if (success) {
         Navigator.pop(context);
     } else {

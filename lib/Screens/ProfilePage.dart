@@ -31,6 +31,7 @@ class _ProfilePageState extends State<ProfilePage>
     setState(() {
       widget.itemsUser = getUserProfile();
     });
+
     super.initState();
   }
 
@@ -53,6 +54,7 @@ class _ProfilePageState extends State<ProfilePage>
               );
             } else if (snapshot.hasData) {
               user = snapshot.data!;
+
               return SafeArea(
                 child: GestureDetector(
                   onTap: () => FocusScope.of(context).unfocus(),
@@ -169,6 +171,31 @@ class _ProfilePageState extends State<ProfilePage>
                                                       fontSize: 16,
                                                       fontWeight:
                                                       FontWeight.normal,
+                                                    ),
+                                                  ),
+
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0, 0, 10, 0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 0),
+                                                  child: Text(
+                                                    user[0].birthDate.toString().substring(0, 10),
+                                                    style: const TextStyle(
+                                                      fontFamily: 'Outfit',
+                                                      color: Color(0xFF0F1113),
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                      FontWeight.bold,
                                                     ),
                                                   ),
 

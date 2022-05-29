@@ -24,7 +24,7 @@ class QuestionPreferenceScreen extends StatefulWidget {
 
 class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
   RangeValues _currentDistanceValues = const RangeValues(0, 10);
-  RangeValues _currentSalaryValues = const RangeValues(0, 20);
+  RangeValues _currentSalaryValues = const RangeValues(0, 24000);
   RangeValues _currentLabourValues = const RangeValues(20, 40);
   double _currentRemoteValues = 0;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -324,20 +324,11 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
   }
 
   signUp(Map data) async {
-    var headers = {
-      'Content-Type': 'application/json',
-    };
-    var request =
-        http.Request('POST', Uri.parse('http://localhost/auth/signup'));
-
-    request.body = json.encode(data);
-    request.headers.addAll(headers);
-    var streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
-    if (response.statusCode == 200) {
-      bool success = await performLogin(
+    bool successSingUp = await register(data);
+    if (successSingUp) {
+      bool successSignIn = await performLogin(
           data.values.elementAt(0), data.values.elementAt(1));
-      if (success) {
+      if (successSignIn) {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (BuildContext context) => HomePage()),
                 (Route<dynamic> route) => false);

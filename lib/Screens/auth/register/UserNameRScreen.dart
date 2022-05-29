@@ -20,8 +20,8 @@ class UserNameRScreen extends StatefulWidget {
 
 class _UserNameRScreenState extends State<UserNameRScreen> {
   DateTime currentDate = DateTime.now();
-  TextEditingController firstNameController = TextEditingController(text: 'jona');
-  TextEditingController lastNameController = TextEditingController(text: 'jona');
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
   TextEditingController postalCodeController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController birthDateController = TextEditingController();
@@ -397,7 +397,9 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                 ]),
               ),
               firstNameController.text.isNotEmpty &&
-                      lastNameController.text.isNotEmpty
+                      lastNameController.text.isNotEmpty && phoneController.text.isNotEmpty
+              && postalCodeController.text.isNotEmpty && descriptionController.text.isNotEmpty
+              && birthDateController.text.isNotEmpty
                   ? Padding(
                       padding: const EdgeInsets.only(bottom: 40),
                       child: Align(
@@ -427,7 +429,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                                     fontWeight: FontWeight.bold),
                               ))),
                           onTap: () {
-                            /*widget.userData.addAll({
+                            widget.userData.addAll({
                               "firstName": firstNameController.text,
                               "lastName": lastNameController.text,
                               "postalCode":
@@ -435,8 +437,9 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                               "phone": phoneController.text,
                               "birthDate": birthDateController.text,
                               "description": descriptionController.text,
-                              "companyUser": true
-                            });*/
+                              "companyUser": false
+                            });
+                            /*
                             widget.userData.addAll({
                               "firstName": "string",
                               "lastName": "string",
@@ -446,12 +449,11 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                               "description": "string",
                               "companyUser": true
 
-                            });
+                            }); */
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => QuestionSkillScreen(widget.userData)),
                             );
-                            //signupWithAll(widget.userData);
                           },
                         ),
                       ),
@@ -485,36 +487,5 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
         ),
       ),
     );
-  }
-
-  signupWithAll(Map data) async {
-    var headers = {
-      'Content-Type': 'application/json',
-    };
-    var request =
-        http.Request('POST', Uri.parse('http://localhost/auth/signup'));
-
-    request.body = json.encode(data);
-    request.headers.addAll(headers);
-    var streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
-
-    if (response.statusCode == 200) {
-      bool success = await performLogin(
-          data.values.elementAt(0), data.values.elementAt(1));
-      if (success) {
-
-      } else {
-        setState(() {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text("Server error")));
-        });
-      }
-    } else {
-      setState(() {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Error, retry again")));
-      });
-    }
   }
 }
