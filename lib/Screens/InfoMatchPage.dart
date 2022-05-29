@@ -66,7 +66,7 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                               child: Text(
-                                'Job Detail',
+                                'Detalle de la oferta',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
@@ -89,7 +89,7 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                               ),
                               Text(
                                 widget.offerMatch.isFinalized == true
-                                    ? " | Finalized"
+                                    ? " | Finalizado"
                                     : "",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w300,
@@ -112,7 +112,7 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                                 children: [
                                   Text(
                                     widget.offerMatch.offer.isRemote == true
-                                        ? "Remote | "
+                                        ? "Remoto | "
                                         : "Full | " + value.toString(),
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
@@ -224,7 +224,7 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                                             ),
                                           ),
                                           Text(
-                                            'Descripcion',
+                                            'Descripción',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white),
@@ -422,7 +422,7 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0, 0, 0, 10),
                                           child: Text(
-                                              "Not preferences",
+                                              "No hay preferencias",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.normal,
                                                   color: Colors.white)),

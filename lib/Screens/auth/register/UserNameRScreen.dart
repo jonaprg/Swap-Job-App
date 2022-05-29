@@ -60,14 +60,14 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                 children: const <Widget>[
                   Padding(
                     child: Text(
-                      "Create Account",
+                      "Crear cuenta",
                       style: TextStyle(fontSize: 30),
                     ),
                     padding: EdgeInsets.only(left: 50, top: 120),
                   ),
                   Padding(
                     child: Text(
-                      " | STEP 2 OF 4",
+                      " | PASO 2 DE 4",
                       style: TextStyle(fontSize: 15),
                     ),
                     padding: EdgeInsetsDirectional.fromSTEB(255, 130, 0, 0),
@@ -85,15 +85,15 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                       obscureText: false,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                        labelText: 'First Name',
+                        labelText: 'Nombre',
                         labelStyle: TextStyle(
-                          fontFamily: 'Outfit',
+                          fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
                         ),
                         hintStyle: TextStyle(
-                          fontFamily: 'Outfit',
+                          fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -117,7 +117,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                       ),
                       style: TextStyle(
-                        fontFamily: 'Outfit',
+                        fontFamily: 'Maven',
                         color: Color(0xFF0F1113),
                         fontSize: 14,
                         fontWeight: FontWeight.normal,
@@ -136,15 +136,15 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         obscureText: false,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
-                          labelText: 'Last Name',
+                          labelText: 'Apellido/s',
                           labelStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
                           hintStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
@@ -168,7 +168,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                           contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                         ),
                         style: TextStyle(
-                          fontFamily: 'Outfit',
+                          fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -187,16 +187,16 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         obscureText: false,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          labelText: 'Postal Code',
+                          labelText: 'Código postal',
                           labelStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
                           hintText: 'Only 5 digits',
                           hintStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
@@ -220,7 +220,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                           contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                         ),
                         style: TextStyle(
-                          fontFamily: 'Outfit',
+                          fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -239,16 +239,16 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         obscureText: false,
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
-                          labelText: 'Phone',
+                          labelText: 'Móvil',
                           labelStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
                           hintText: 'Only 9 digits.',
                           hintStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
@@ -272,7 +272,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                           contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                         ),
                         style: TextStyle(
-                          fontFamily: 'Outfit',
+                          fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -291,15 +291,15 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         obscureText: false,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          labelText: 'BirthDate | YYYY-MM-DD',
+                          labelText: 'Fecha de nacimiento | YYYY-MM-DD',
                           labelStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
                           hintStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
@@ -323,7 +323,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                           contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                         ),
                         style: TextStyle(
-                          fontFamily: 'Outfit',
+                          fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -342,15 +342,15 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         obscureText: false,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
-                          labelText: 'Description',
+                          labelText: 'Descripción',
                           labelStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
                           hintStyle: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
@@ -374,7 +374,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                           contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                         ),
                         style: TextStyle(
-                          fontFamily: 'Outfit',
+                          fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -422,7 +422,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                               width: MediaQuery.of(context).size.width * .75,
                               child: Center(
                                   child: Text(
-                                "CONTINUE",
+                                "CONTINUAR",
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: textColor,
@@ -472,7 +472,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                               width: MediaQuery.of(context).size.width * .75,
                               child: Center(
                                   child: Text(
-                                "CONTINUE",
+                                "CONTINUAR",
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: secondaryDarkBlueColor,

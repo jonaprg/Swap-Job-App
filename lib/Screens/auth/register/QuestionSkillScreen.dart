@@ -219,7 +219,7 @@ class _SkillScreenState extends State<QuestionSkillScreen>
           ),
           const Padding(
             child: Text(
-              "STEP 3 OF 4",
+              "PASO 3 DE 4",
               style: TextStyle(fontSize: 15),
             ),
             padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),

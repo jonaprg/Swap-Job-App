@@ -87,9 +87,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
                         child: Text(
-                          'Edit Profile',
+                          'Editar perfil',
                           style: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven Pro',
                             color: Color(0xFF0F1113),
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
@@ -109,9 +109,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 controller: firstNameController,
                 obscureText: false,
                 decoration: InputDecoration(
-                  labelText: 'First Name',
+                  labelText: 'Nombre',
                   labelStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
@@ -135,7 +135,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
                 style: TextStyle(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
                   fontWeight: FontWeight.normal,
@@ -148,15 +148,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 controller: lastNameController,
                 obscureText: false,
                 decoration: InputDecoration(
-                  labelText: 'Last Name',
+                  labelText: 'Apellido/s',
                   labelStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
                   hintStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
@@ -180,7 +180,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
                 style: TextStyle(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
                   fontWeight: FontWeight.normal,
@@ -195,15 +195,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 keyboardType: TextInputType.emailAddress,
 
                 decoration: InputDecoration(
-                  labelText: 'Email',
+                  labelText: 'Correo',
                   labelStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
                   hintStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
@@ -227,7 +227,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
                 style: TextStyle(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
                   fontWeight: FontWeight.normal,
@@ -240,15 +240,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 controller: postalCodeController,
                 obscureText: false,
                 decoration: InputDecoration(
-                  labelText: 'Postal Code',
+                  labelText: 'Código postal',
                   labelStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
                   hintStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
@@ -272,7 +272,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
                 style: TextStyle(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
                   fontWeight: FontWeight.normal,
@@ -287,15 +287,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 keyboardType: TextInputType.phone,
 
                 decoration: InputDecoration(
-                  labelText: 'Phone',
+                  labelText: 'Móvil',
                   labelStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
                   hintStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
@@ -319,7 +319,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
                 style: TextStyle(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
                   fontWeight: FontWeight.normal,
@@ -333,15 +333,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 obscureText: false,
                 keyboardType: TextInputType.datetime,
                 decoration: InputDecoration(
-                  labelText: 'Birth date | YYYY-MM-DD',
+                  labelText: 'Fecha de nacimiento | YYYY-MM-DD',
                   labelStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
                   hintStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
@@ -365,7 +365,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
                 style: TextStyle(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
                   fontWeight: FontWeight.normal,
@@ -381,15 +381,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 obscureText: false,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
-                  labelText: 'Description',
+                  labelText: 'Descripción',
                   labelStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
                   hintStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
@@ -413,7 +413,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
                 style: TextStyle(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
                   fontWeight: FontWeight.normal,
@@ -427,9 +427,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 value: visible,
                 onChanged: (newValue) => setState(() => visible = newValue),
                 title: Text(
-                  'Visible',
+                  'Visibilidad',
                   style: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
@@ -447,7 +447,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               padding: EdgeInsetsDirectional.fromSTEB(40, 0, 20, 16),
               child: DropdownButton<String>(
                 value: statusController.text,
-                hint:Text("Take status!"),
+                hint:Text("Coge el estado de trabajo!"),
                 isExpanded: true,
                 icon: const Icon(Icons.arrow_drop_down),
                 elevation: 10,

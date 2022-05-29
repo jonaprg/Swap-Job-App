@@ -242,7 +242,7 @@ class OfferList extends StatelessWidget {
                                             child: Text(
                                               offers[indexOffer]
                                                   .salary
-                                                  .toString(),
+                                                  .toString() + "€",
                                               textAlign: TextAlign.start,
                                               style: TextStyle(
                                                   fontWeight: FontWeight.normal,
@@ -282,7 +282,7 @@ class OfferList extends StatelessWidget {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 12),
                                       child: Text(
-                                        'Descripcion',
+                                        'Descripción',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white),
@@ -343,7 +343,7 @@ class OfferList extends StatelessWidget {
                                       child: Text(
                                         'Habilidades',
                                         style: TextStyle(
-                                            fontWeight: FontWeight.normal,
+                                            fontWeight: FontWeight.bold,
                                             color: Colors.white),
                                       ),
                                     ),

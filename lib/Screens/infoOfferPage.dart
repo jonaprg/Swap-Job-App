@@ -65,7 +65,7 @@ class _InfState extends State<InfoOffer> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                               child: Text(
-                                'Job Detail',
+                                'Detalle de la oferta',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
@@ -213,7 +213,7 @@ class _InfState extends State<InfoOffer> {
                                             ),
                                           ),
                                           Text(
-                                            'Descripcion',
+                                            'Descripción',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white),
@@ -405,7 +405,7 @@ class _InfState extends State<InfoOffer> {
                                     EdgeInsetsDirectional.fromSTEB(
                                         0, 0, 0, 10),
                                     child: Text(
-                                        "Not preferences",
+                                        "No hay preferencias",
                                         style: TextStyle(
                                             fontWeight: FontWeight.normal,
                                             color: Colors.white)),

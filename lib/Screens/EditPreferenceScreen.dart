@@ -274,7 +274,7 @@ class _EditPreferenceScreenState extends State<EditPreferenceScreen> {
                         width: MediaQuery.of(context).size.width * .75,
                         child: Center(
                             child: Text(
-                          "EDIT PREFERENCES",
+                          "CONFIMAR",
                           style: TextStyle(
                               fontSize: 15,
                               color: textColor,

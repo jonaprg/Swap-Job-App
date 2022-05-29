@@ -99,11 +99,6 @@ class _EditSkillScreenState extends State<EditSkillScreen>
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(
-          Icons.local_offer_outlined,
-          color: thirdBlueColor,
-          size: 25.0,
-        ),
         _tagsWidget(),
       ],
     );
