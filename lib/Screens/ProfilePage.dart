@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/services.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -6,7 +7,7 @@ import 'package:swapjobapp/Screens/auth/LoginSignUpScreen.dart';
 import '/Screens/EditProfile.dart';
 import '/Utils/color.dart';
 import '/Utils/requests.dart';
-
+import 'package:file_picker/file_picker.dart';
 import '../Model/User.dart';
 import 'EditPreferenceScreen.dart';
 import 'EditSkillScreen.dart';
@@ -590,6 +591,32 @@ class _ProfilePageState extends State<ProfilePage>
                     );
                   }
                 }
+            ),
+            SpeedDialChild(
+              child: const Icon(Icons.upload_file),
+              label: 'Subir titulo',
+              backgroundColor: Colors.blueAccent,
+              onTap: () async {
+                try {
+                  FilePickerResult? result = await FilePicker.platform.pickFiles(
+                    type: FileType.custom,
+                    allowedExtensions: ['pdf'],
+                  );
+                  print(result?.files[0].size);
+                } on PlatformException catch (e) {
+                  print("Unsupported operation" + e.toString());
+                } catch (ex) {
+                  print(ex);
+                }
+              },
+            ),
+            SpeedDialChild(
+              child: const Icon(Icons.upload_file),
+              label: 'Subir Currículum',
+              backgroundColor: Colors.blueAccent,
+              onTap: () {
+
+              },
             ),
           ]),
     );
