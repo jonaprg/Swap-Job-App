@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swapjobapp/Screens/auth/LoginSignUpScreen.dart';
+import '../Model/Preference.dart';
 import '/Screens/EditProfile.dart';
 import '/Utils/color.dart';
 import '/Utils/requests.dart';
@@ -25,16 +28,9 @@ class _ProfilePageState extends State<ProfilePage>
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   late List<User> user;
-
+  late List<Preference> _pref;
   int itemLength = 0;
-  @override
-  void initState() {
-    setState(() {
-      widget.itemsUser = getUserProfile();
-    });
 
-    super.initState();
-  }
 
   FutureOr onGoBack(dynamic value) {
     widget.itemsUser = getUserProfile();
@@ -55,12 +51,12 @@ class _ProfilePageState extends State<ProfilePage>
               );
             } else if (snapshot.hasData) {
               user = snapshot.data!;
-
               return SafeArea(
                 child: GestureDetector(
                   onTap: () => FocusScope.of(context).unfocus(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
+
                     children: [
                       SingleChildScrollView(
                         child: Column(
@@ -281,7 +277,7 @@ class _ProfilePageState extends State<ProfilePage>
                                 color: Color(0xFF090F13),
                                 size: 20,
                               ),
-                              onPressed: () async {
+                              onPressed: ()  {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -297,25 +293,18 @@ class _ProfilePageState extends State<ProfilePage>
                         padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 4),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF1E2429),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    20, 12, 20, 0),
-                              ),
+
                               Align(
                                 alignment: AlignmentDirectional(0, 0),
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 0, 10),
+                                      0, 0, 0, 0),
                                   child: Wrap(
-                                    spacing: 20,
-                                    runSpacing: 0,
+                                    spacing: 5,
+                                    runSpacing: 5,
                                     alignment: WrapAlignment.start,
                                     crossAxisAlignment:
                                         WrapCrossAlignment.start,
@@ -329,11 +318,46 @@ class _ProfilePageState extends State<ProfilePage>
                                         .keys
                                         .toList()
                                         .map((indexUserSkill) {
-                                      return Text(
-                                          user[0].skill[indexUserSkill].title,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.normal,
-                                              color: Colors.white));
+                                      return Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.3,
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                              color: thirdBlueColor,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  blurRadius: 3,
+                                                  color: Color(0x39000000),
+                                                  offset: Offset(0, 1),
+                                                )
+                                              ],
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
+                                                  child: Text(
+                                                    user[0].skill[indexUserSkill].title,
+                                                    textAlign: TextAlign.center,
+                                                    style: const TextStyle(
+                                                      fontFamily: 'Outfit',
+                                                      color: Color(0xFF0F1113),
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
                                     }).toList(),
                                   ),
                                 ),
@@ -395,7 +419,7 @@ class _ProfilePageState extends State<ProfilePage>
                                 color: Color(0xFF090F13),
                                 size: 20,
                               ),
-                              onPressed: () async {
+                              onPressed: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -406,61 +430,332 @@ class _ProfilePageState extends State<ProfilePage>
                           ],
                         ),
                       ),
-                      user[0].preference.isNotEmpty
-                          ? Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(16, 4, 16, 4),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF1E2429),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    const Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 12, 20, 0),
-                                    ),
-                                    Align(
-                                      alignment: AlignmentDirectional(0, 0),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 10),
-                                        child: Wrap(
-                                          spacing: 20,
-                                          runSpacing: 0,
-                                          alignment: WrapAlignment.start,
-                                          crossAxisAlignment:
-                                              WrapCrossAlignment.start,
-                                          direction: Axis.horizontal,
-                                          runAlignment: WrapAlignment.start,
-                                          verticalDirection:
-                                              VerticalDirection.down,
-                                          clipBehavior: Clip.none,
-                                          children: user[0]
-                                              .preference
-                                              .asMap()
-                                              .keys
-                                              .toList()
-                                              .map((indexUserSkill) {
-                                            return Text(
-                                                user[0]
-                                                    .preference[indexUserSkill]
-                                                    .title,
+                      user[0].preference.isNotEmpty ?
+                            Row(
+                                children : <Widget>[
+                                  Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width * 0.4,
+                                      height: 70,
+                                      decoration: BoxDecoration(
+                                        color: thirdBlueColor,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 3,
+                                            color: Color(0x39000000),
+                                            offset: Offset(0, 1),
+                                          )
+                                        ],
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+
+                                          Padding(
+                                            padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                                            child: Text(
+                                              user[0].preference[0].title,
+                                              textAlign: TextAlign.center,
                                                 style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    color: Colors.white));
-                                          }).toList(),
+                                                  fontFamily: 'Outfit',
+                                                  color: Color(0xFF0F1113),
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                            ),
+                                          ),
+                                          user[0].preference[0].title != 'remote' ?
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
+                                              child: Text(
+                                                user[0].preference[0].lowThreshold.toString()
+                                                + " a " +
+                                                user[0].preference[0].highThreshold.toString(),
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                  fontFamily: 'Outfit',
+                                                  color: Color(0xFF0F1113),
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                              ),
+                                            ),
+                                          ):
+                                          SizedBox(height: 0),
+                                          user[0].preference[0].title == 'remote' ?
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
+                                              child: Text((() {
+                                                if (user[0].preference[0].value == 0) {
+                                                  return "Presencial";
+                                                } else if (user[0].preference[0].value == 0.5) {
+                                                  return "Lo que quieran";
+                                                }
+                                                return "Remoto";
+                                              })(), textAlign: TextAlign.center,
+                                                  style: const TextStyle(
+                                                fontFamily: 'Outfit',
+                                                color: Color(0xFF0F1113),
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.normal,
+                                              )),
+                                              ),
+                                            )
+                                          : SizedBox(height: 0)
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                                      child: Container(
+                                        width: MediaQuery.of(context).size.width * 0.4,
+                                        height: 70,
+                                        decoration: BoxDecoration(
+                                          color: thirdBlueColor,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 3,
+                                              color: Color(0x39000000),
+                                              offset: Offset(0, 1),
+                                            )
+                                          ],
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+
+                                            Padding(
+                                              padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                                              child: Text(
+                                                user[0].preference[1].title,
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                  fontFamily: 'Outfit',
+                                                  color: Color(0xFF0F1113),
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                            user[0].preference[1].title != 'remote' ?
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
+                                                child: Text(
+                                                  user[0].preference[1].lowThreshold.toString()
+                                                      + " a " +
+                                                      user[0].preference[1].highThreshold.toString(),
+                                                  textAlign: TextAlign.center,
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Outfit',
+                                                    color: Color(0xFF0F1113),
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.normal,
+                                                  ),
+                                                ),
+                                              ),
+                                            ):
+                                            SizedBox(height: 0),
+                                            user[0].preference[1].title == 'remote' ?
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
+                                                child: Text((() {
+                                                  if (user[0].preference[1].value == 0) {
+                                                    return "Presencial";
+                                                  } else if (user[0].preference[1].value == 0.5) {
+                                                    return "Lo que quieran";
+                                                  }
+                                                  return "Remoto";
+                                                })(), textAlign: TextAlign.center,
+                                                    style: const TextStyle(
+                                                  fontFamily: 'Outfit',
+                                                  color: Color(0xFF0F1113),
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.normal,
+                                                )),
+                                              ),
+                                            )
+                                                : SizedBox(height: 0)
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            )
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                                      child: Container(
+                                        width: MediaQuery.of(context).size.width * 0.4,
+                                        height: 70,
+                                        decoration: BoxDecoration(
+                                          color: thirdBlueColor,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 3,
+                                              color: Color(0x39000000),
+                                              offset: Offset(0, 1),
+                                            )
+                                          ],
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+
+                                            Padding(
+                                              padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                                              child: Text(
+                                                user[0].preference[2].title,
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                  fontFamily: 'Outfit',
+                                                  color: Color(0xFF0F1113),
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                            user[0].preference[2].title != 'remote' ?
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
+                                                child: Text(
+                                                  user[0].preference[2].lowThreshold.toString()
+                                                      + " a " +
+                                                      user[0].preference[2].highThreshold.toString(),
+                                                  textAlign: TextAlign.center,
+                                                    style: const TextStyle(
+                                                      fontFamily: 'Outfit',
+                                                      color: Color(0xFF0F1113),
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.normal,
+                                                    ),
+                                                ),
+                                              ),
+                                            ):
+                                            SizedBox(height: 0),
+                                            user[0].preference[2].title == 'remote' ?
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
+                                                child: Text((() {
+                                                  if (user[0].preference[2].value == 0) {
+                                                    return "Presencial";
+                                                  } else if (user[0].preference[2].value == 0.5) {
+                                                    return "Lo que quieran";
+                                                  }
+                                                  return "Remoto";
+                                                })(),textAlign: TextAlign.center,
+                                                    style: const TextStyle(
+                                                  fontFamily: 'Outfit',
+                                                  color: Color(0xFF0F1113),
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.normal,
+                                                )),
+                                              ),
+                                            )
+                                                : SizedBox(height: 0)
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                                      child: Container(
+                                        width: MediaQuery.of(context).size.width * 0.4,
+                                        height: 70,
+                                        decoration: BoxDecoration(
+                                          color: thirdBlueColor,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 3,
+                                              color: Color(0x39000000),
+                                              offset: Offset(0, 1),
+                                            )
+                                          ],
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+
+                                            Padding(
+                                              padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                                              child: Text(
+                                                user[0].preference[3].title,
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                  fontFamily: 'Outfit',
+                                                  color: Color(0xFF0F1113),
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                            user[0].preference[3].title != 'remote' ?
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
+                                                child: Text(
+                                                  user[0].preference[3].lowThreshold.toString()
+                                                      + " a " +
+                                                      user[0].preference[3].highThreshold.toString(),
+                                                  textAlign: TextAlign.center,
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Outfit',
+                                                    color: Color(0xFF0F1113),
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.normal,
+                                                  ),
+                                                ),
+                                              ),
+                                            ):
+                                            SizedBox(height: 0),
+                                            user[0].preference[3].title == 'remote' ?
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
+                                                child: Text((() {
+                                                  if (user[0].preference[3].value == 0) {
+                                                    return "Presencial";
+                                                  } else if (user[0].preference[3].value == 0.5) {
+                                                    return "Lo que quieran";
+                                                  }
+                                                  return "Remoto";
+                                                })(), textAlign: TextAlign.center,
+                                                  style: const TextStyle(
+                                                  fontFamily: 'Outfit',
+                                                  color: Color(0xFF0F1113),
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.normal,
+                                                ),),
+                                              ),
+                                            )
+                                                : SizedBox(height: 0)
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ])
+
+
                           : Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(16, 4, 16, 4),
@@ -602,7 +897,11 @@ class _ProfilePageState extends State<ProfilePage>
                     type: FileType.custom,
                     allowedExtensions: ['pdf'],
                   );
-                  print(result?.files[0].size);
+                  if(result != null) {
+                    File selectedfile = File(result.files.single.path.toString());
+                    uploadFile(selectedfile);
+
+                  }
                 } on PlatformException catch (e) {
                   print("Unsupported operation" + e.toString());
                 } catch (ex) {

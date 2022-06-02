@@ -26,4 +26,9 @@ class Preference {
     'highThreshold' : highThreshold,
     'value' : value,
   };
+
+  @override
+  String toString() {
+    return 'Preference{title: $title, lowThreshold: $lowThreshold, highThreshold: $highThreshold, value: $value}';
+  }
 }

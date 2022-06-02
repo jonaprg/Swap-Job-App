@@ -16,35 +16,28 @@ class EditPreferenceScreen extends StatefulWidget {
   EditPreferenceScreen(this.userPreferences);
 
   @override
-  _EditPreferenceScreenState createState() =>
-      _EditPreferenceScreenState();
+  _EditPreferenceScreenState createState() => _EditPreferenceScreenState();
 }
 
 class _EditPreferenceScreenState extends State<EditPreferenceScreen> {
   List<Preference> _pref = [];
   late RangeValues _currentDistanceValues;
   late RangeValues _currentSalaryValues;
-  late RangeValues _currentLabourValues ;
+  late RangeValues _currentLabourValues;
   late double _currentRemoteValues;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
-
     super.initState();
 
     setState(() {
-    if(widget.userPreferences.isNotEmpty) {
-      _currentDistanceValues = RangeValues(widget.userPreferences[0].lowThreshold, widget.userPreferences[0].highThreshold);
-      _currentSalaryValues = RangeValues(widget.userPreferences[1].lowThreshold, widget.userPreferences[1].highThreshold);
-      _currentLabourValues = RangeValues(widget.userPreferences[2].lowThreshold, widget.userPreferences[2].highThreshold);
-      _currentRemoteValues = widget.userPreferences[3].value;
-    }
-    _currentDistanceValues = const RangeValues(0, 20);
-    _currentSalaryValues = const RangeValues(10000, 20000);
-    _currentLabourValues = const RangeValues(20, 25);
-    _currentRemoteValues = 0;
+        _currentDistanceValues = const RangeValues(0, 20);
+        _currentSalaryValues = const RangeValues(10000, 20000);
+        _currentLabourValues = const RangeValues(20, 25);
+        _currentRemoteValues = 0;
+
     });
   }
 
@@ -100,8 +93,10 @@ class _EditPreferenceScreenState extends State<EditPreferenceScreen> {
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    _currentDistanceValues.start.truncate().toString() + " km to " +
-                    _currentDistanceValues.end.truncate().toString() +" km",
+                    _currentDistanceValues.start.truncate().toString() +
+                        " km to " +
+                        _currentDistanceValues.end.truncate().toString() +
+                        " km",
                   ),
                 ],
               ),
@@ -139,8 +134,10 @@ class _EditPreferenceScreenState extends State<EditPreferenceScreen> {
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    _currentSalaryValues.start.truncate().toString()
-                        +"€ to "+ _currentSalaryValues.end.truncate().toString() +"€",
+                    _currentSalaryValues.start.truncate().toString() +
+                        "€ to " +
+                        _currentSalaryValues.end.truncate().toString() +
+                        "€",
                   ),
                 ],
               ),
@@ -179,8 +176,10 @@ class _EditPreferenceScreenState extends State<EditPreferenceScreen> {
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    _currentLabourValues.start.toString() + "hours to "
-                        + _currentLabourValues.end.toString() + "hours ",
+                    _currentLabourValues.start.toString() +
+                        "hours to " +
+                        _currentLabourValues.end.toString() +
+                        "hours ",
                   ),
                 ],
               ),
@@ -220,14 +219,13 @@ class _EditPreferenceScreenState extends State<EditPreferenceScreen> {
                         fontWeight: FontWeight.bold),
                   ),
                   Text((() {
-                    if(_currentRemoteValues == 0){
+                    if (_currentRemoteValues == 0) {
                       return "Presencial";
-                    }else if(_currentRemoteValues == 0.5) {
+                    } else if (_currentRemoteValues == 0.5) {
                       return "Lo que quieran";
                     }
                     return "Remoto";
                   })()),
-
                 ],
               ),
               Row(
@@ -282,22 +280,29 @@ class _EditPreferenceScreenState extends State<EditPreferenceScreen> {
                         ))),
                     onTap: () {
                       Preference distance = Preference(
-                          title : 'distance',
-                          lowThreshold: _currentDistanceValues.start.truncate().toDouble(),
-                          highThreshold: _currentDistanceValues.end.truncate().toDouble(),
+                          title: 'distance',
+                          lowThreshold: _currentDistanceValues.start
+                              .truncate()
+                              .toDouble(),
+                          highThreshold:
+                              _currentDistanceValues.end.truncate().toDouble(),
                           value: 0);
                       Preference salary = Preference(
-                          title : 'salary',
-                          lowThreshold: _currentDistanceValues.start.truncate().toDouble(),
-                          highThreshold: _currentDistanceValues.end.truncate().toDouble(),
+                          title: 'salary',
+                          lowThreshold:
+                              _currentSalaryValues.start.truncate().toDouble(),
+                          highThreshold:
+                              _currentSalaryValues.end.truncate().toDouble(),
                           value: 0);
                       Preference labour = Preference(
-                          title : 'labour',
-                          lowThreshold: _currentDistanceValues.start.truncate().toDouble(),
-                          highThreshold: _currentDistanceValues.end.truncate().toDouble(),
+                          title: 'labour',
+                          lowThreshold:
+                              _currentLabourValues.start.truncate().toDouble(),
+                          highThreshold:
+                              _currentLabourValues.end.truncate().toDouble(),
                           value: 0);
                       Preference remote = Preference(
-                          title : 'remote',
+                          title: 'remote',
                           lowThreshold: 0,
                           highThreshold: 0,
                           value: _currentRemoteValues);
@@ -306,33 +311,6 @@ class _EditPreferenceScreenState extends State<EditPreferenceScreen> {
                       _pref.add(salary);
                       _pref.add(labour);
                       _pref.add(remote);
-                      print(_pref);
-                      var preferencesData = [
-                        {
-                          'title': 'distance',
-                          'lowThreshold': _currentDistanceValues.start.truncate(),
-                          'highThreshold': _currentDistanceValues.end.truncate(),
-                          'value': 0,
-                        },
-                        {
-                          'title': 'salary',
-                          'lowThreshold': _currentSalaryValues.start.truncate(),
-                          'highThreshold': _currentSalaryValues.end.truncate(),
-                          'value': 0,
-                        },
-                        {
-                          'title': 'labour',
-                          'lowThreshold': _currentLabourValues.start,
-                          'highThreshold': _currentLabourValues.end,
-                          'value': 0,
-                        },
-                        {
-                          'title': 'remote',
-                          'lowThreshold': 0,
-                          'highThreshold': 0,
-                          'value': _currentRemoteValues,
-                        },
-                      ];
                       setPreferenceUser(_pref);
                       setState(() {});
                     },
@@ -345,6 +323,7 @@ class _EditPreferenceScreenState extends State<EditPreferenceScreen> {
       ),
     );
   }
+
   setPreferenceUser(List<Preference> preferenceUser) async {
     bool success = await requestSetPreferenceUser(preferenceUser);
     if (success) {
@@ -352,7 +331,6 @@ class _EditPreferenceScreenState extends State<EditPreferenceScreen> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-
           content: const Text('Sorry. Try again! Edit correctly preference/s'),
           duration: const Duration(milliseconds: 1500),
           width: 280.0, // Width of the SnackBar.

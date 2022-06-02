@@ -1,9 +1,13 @@
 import 'dart:convert';
 import 'dart:convert' as convert;
+import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
+import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:swapjobapp/Model/Preference.dart';
-
+import 'package:ftpconnect/ftpconnect.dart';
 import '../Model/Offer.dart';
 import '../Model/Skill.dart';
 import '../Model/User.dart';
@@ -290,4 +294,31 @@ Future<bool> register(Map data) async {
   var streamedResponse = await request.send();
   var response = await http.Response.fromStream(streamedResponse);
   return response.statusCode == 200;
+}
+
+
+Future<void> uploadFile(File selectedfile) async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  var token = sharedPreferences.getString('accessToken');
+  Dio dio = Dio();
+
+  FormData formdata = FormData.fromMap({
+    "file": await MultipartFile.fromFile(
+        selectedfile.path,
+        filename: basename(selectedfile.path)
+      //show only filename from path
+    ),
+  });
+  dio.options.headers['content-Type'] = 'application/json';
+  dio.options.headers["authorization"] = "Bearer $token";
+  Response response = await dio.post(baseUrl,
+    data: formdata);
+
+  if(response.statusCode == 200){
+    print(response.toString());
+    //print response from server
+  }else{
+    print("Error during connection to server.");
+  }
+
 }

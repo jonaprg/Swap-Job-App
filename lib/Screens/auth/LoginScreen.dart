@@ -17,8 +17,8 @@ class _LoginState extends State<LoginScreen> {
   bool _userWantsBiometrics = true;
   bool _isObscure = false;
   bool _isLoading = false;
-  String email = '';
-  String password = '';
+  String email = 'jona@swap.com';
+  String password = 'jona';
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -210,8 +210,8 @@ class _LoginState extends State<LoginScreen> {
   }
 
   login(String email, String password) async {
-    bool success = await performLogin(email, password);
-    //bool success = await performLogin("pako@astapor.com", "P@ssw0rd");
+    //bool success = await performLogin(email, password);
+    bool success = await performLogin("jona@swap.com", "jona");
     if (success) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (BuildContext context) => HomePage()),

@@ -184,14 +184,7 @@ class _MatchesPageState extends State<MatchesPage>
                                                       .fromSTEB(0, 10, 0, 0),
                                                   child: OutlinedButton(
                                                     onPressed: () {
-                                                      removeMatchOffer(
-                                                          matches[indexTwo]
-                                                              .offer
-                                                              .id);
-                                                      setState(() {
-                                                        matches
-                                                            .removeAt(indexTwo);
-                                                      });
+                                                      _showMyDialog(indexTwo);
                                                     },
                                                     child: const Text('NO ME GUSTA',
                                                         style: TextStyle(
@@ -240,4 +233,40 @@ class _MatchesPageState extends State<MatchesPage>
       ),
     );
   }
+
+  Future<void> _showMyDialog(int indexTwo) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('¿Quieres eliminar la oferta?'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Confirmar'),
+              onPressed: () {
+                removeMatchOffer(
+                    matches[indexTwo]
+                        .offer
+                        .id);
+                setState(() {
+                  matches
+                      .removeAt(indexTwo);
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
 }
