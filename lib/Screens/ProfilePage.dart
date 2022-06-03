@@ -899,8 +899,7 @@ class _ProfilePageState extends State<ProfilePage>
                   );
                   if(result != null) {
                     File selectedfile = File(result.files.single.path.toString());
-                    uploadFile(selectedfile);
-
+                    uploadFile(selectedfile, false);
                   }
                 } on PlatformException catch (e) {
                   print("Unsupported operation" + e.toString());
@@ -913,8 +912,21 @@ class _ProfilePageState extends State<ProfilePage>
               child: const Icon(Icons.upload_file),
               label: 'Subir Currículum',
               backgroundColor: Colors.blueAccent,
-              onTap: () {
-
+              onTap: () async {
+                try {
+                  FilePickerResult? result = await FilePicker.platform.pickFiles(
+                    type: FileType.custom,
+                    allowedExtensions: ['pdf'],
+                  );
+                  if(result != null) {
+                    File selectedfile = File(result.files.single.path.toString());
+                    uploadFile(selectedfile, true);
+                  }
+                } on PlatformException catch (e) {
+                  print("Unsupported operation" + e.toString());
+                } catch (ex) {
+                  print(ex);
+                }
               },
             ),
           ]),

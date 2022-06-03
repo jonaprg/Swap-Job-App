@@ -13,8 +13,8 @@ import '../Model/Skill.dart';
 import '../Model/User.dart';
 import '../Model/UserMatches.dart';
 
-//const String baseUrl = "http://localhost"; //LOCAL
-//const String baseUrl = "http://192.168.1.10"; //LOCAL MOBIL
+// const String baseUrl = "http://localhost"; //LOCAL
+// const String baseUrl = "http://192.168.1.10"; //LOCAL MOBIL
 const String baseUrl = "http://api.swapjob.tk/SwapJob"; //PRODUCTION
 // const String baseUrl = "http://swapjob.tk:8080/SwapJob"; //SEMI PRODUCTION
 
@@ -187,7 +187,6 @@ Future<bool> removeMatchOffer(int idOffer) async {
 }
 
 Future<bool> userExists(String email) async {
-
   var headers = {
     'Content-Type': 'application/json',
   };
@@ -286,8 +285,7 @@ Future<bool> register(Map data) async {
   var headers = {
     'Content-Type': 'application/json',
   };
-  var request =
-  http.Request('POST', Uri.parse(baseUrl + '/auth/signup'));
+  var request = http.Request('POST', Uri.parse(baseUrl + '/auth/signup'));
 
   request.body = json.encode(data);
   request.headers.addAll(headers);
@@ -296,29 +294,22 @@ Future<bool> register(Map data) async {
   return response.statusCode == 200;
 }
 
-
-Future<void> uploadFile(File selectedfile) async {
+Future<bool> uploadFile(File selectedfile, bool isCv) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
-  Dio dio = Dio();
+  var headers = {
+    'Authorization': 'Bearer $token',
+    'Content-Type': 'multipart/form-data'
+  };
 
-  FormData formdata = FormData.fromMap({
-    "file": await MultipartFile.fromFile(
-        selectedfile.path,
-        filename: basename(selectedfile.path)
-      //show only filename from path
-    ),
-  });
-  dio.options.headers['content-Type'] = 'application/json';
-  dio.options.headers["authorization"] = "Bearer $token";
-  Response response = await dio.post(baseUrl,
-    data: formdata);
+  var request = http.MultipartRequest(
+      'POST', Uri.parse(baseUrl + '/user/upload' + (isCv ? 'cv' : 'title')));
 
-  if(response.statusCode == 200){
-    print(response.toString());
-    //print response from server
-  }else{
-    print("Error during connection to server.");
-  }
+  request.files
+      .add(await http.MultipartFile.fromPath('file', selectedfile.path));
+  request.headers.addAll(headers);
 
+  http.StreamedResponse response = await request.send();
+
+  return response.statusCode == 200;
 }

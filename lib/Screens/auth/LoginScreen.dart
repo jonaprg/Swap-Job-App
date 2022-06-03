@@ -210,8 +210,8 @@ class _LoginState extends State<LoginScreen> {
   }
 
   login(String email, String password) async {
-    //bool success = await performLogin(email, password);
-    bool success = await performLogin("jona@swap.com", "jona");
+    bool success = await performLogin(email, password);
+    // bool success = await performLogin("jona@swap.com", "jona");
     if (success) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (BuildContext context) => HomePage()),
