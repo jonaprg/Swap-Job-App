@@ -3,32 +3,43 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:swapjobapp/Model/Skill.dart';
+import '../Model/Preference.dart';
 import '/Screens/Home.dart';
 import '/Utils/color.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../Utils/requests.dart';
-import 'QuestionSkillScreen.dart';
 
-class QuestionPreferenceScreen extends StatefulWidget {
-  Map<String, dynamic> userData;
-  List<Skill> tags = [];
-  List<int> skillId = [];
+class EditPreferenceScreen extends StatefulWidget {
+  List<Preference> userPreferences = [];
 
-  QuestionPreferenceScreen(this.userData, this.tags);
+  EditPreferenceScreen(this.userPreferences);
 
   @override
-  _QuestionPreferenceScreenState createState() =>
-      _QuestionPreferenceScreenState();
+  _EditPreferenceScreenState createState() => _EditPreferenceScreenState();
 }
 
-class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
-  RangeValues _currentDistanceValues = const RangeValues(0, 10);
-  RangeValues _currentSalaryValues = const RangeValues(0, 24000);
-  RangeValues _currentLabourValues = const RangeValues(20, 40);
-  double _currentRemoteValues = 0;
+class _EditPreferenceScreenState extends State<EditPreferenceScreen> {
+  List<Preference> _pref = [];
+  late RangeValues _currentDistanceValues;
+  late RangeValues _currentSalaryValues;
+  late RangeValues _currentLabourValues;
+  late double _currentRemoteValues;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  late Map<String, dynamic> user = {};
+
+  @override
+  void initState() {
+    super.initState();
+
+    setState(() {
+        _currentDistanceValues = const RangeValues(0, 20);
+        _currentSalaryValues = const RangeValues(10000, 20000);
+        _currentLabourValues = const RangeValues(20, 25);
+        _currentRemoteValues = 0;
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +55,11 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(2, 10, 2, 2),
+                    padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
                     child: Center(
                       child: IconButton(
                         icon: const Icon(Icons.arrow_back_ios,
-                            color: Colors.orange, size: 20),
+                            color: Colors.orange, size: 16),
                         tooltip: 'Back',
                         onPressed: () {
                           setState(() {
@@ -65,16 +76,9 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                       'Que preferencias quieres?',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontSize: 20),
+                          color: Colors.white,
+                          fontSize: 24),
                     ),
-                  ),
-                  const Padding(
-                    child: Text(
-                      " | PASO 4 DE 4",
-                      style: TextStyle(fontSize: 15),
-                    ),
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                   ),
                 ],
               ),
@@ -82,16 +86,18 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    'Distancia | ',
+                    'Distance | ',
                     style: TextStyle(
                         fontSize: 16,
                         color: textColor,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    _currentDistanceValues.start.truncate().toString() + " km a " +
-                        _currentDistanceValues.end.truncate().toString() +" km",
-                  )
+                    _currentDistanceValues.start.truncate().toString() +
+                        " km to " +
+                        _currentDistanceValues.end.truncate().toString() +
+                        " km",
+                  ),
                 ],
               ),
               Row(
@@ -101,7 +107,7 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                       child: RangeSlider(
-                        activeColor:  Color(0xffffb703),
+                        activeColor: Color(0xffffb703),
                         inactiveColor: Color(0xFFF1F4F8),
                         max: 100,
                         values: _currentDistanceValues,
@@ -121,15 +127,17 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    'Salario | ',
+                    'Salary | ',
                     style: TextStyle(
                         fontSize: 16,
                         color: textColor,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    _currentSalaryValues.start.truncate().toString()
-                        +"€ a "+ _currentSalaryValues.end.truncate().toString() +"€",
+                    _currentSalaryValues.start.truncate().toString() +
+                        "€ to " +
+                        _currentSalaryValues.end.truncate().toString() +
+                        "€",
                   ),
                 ],
               ),
@@ -140,7 +148,7 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                       child: RangeSlider(
-                        activeColor:  Color(0xffffb703),
+                        activeColor: Color(0xffffb703),
                         inactiveColor: Color(0xFFF1F4F8),
                         max: 50000,
                         values: _currentSalaryValues,
@@ -161,15 +169,17 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    'Horas de trabajo | ',
+                    'Labour | ',
                     style: TextStyle(
                         fontSize: 16,
                         color: textColor,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    _currentLabourValues.start.toString() + "h a "
-                        + _currentLabourValues.end.toString() + "h ",
+                    _currentLabourValues.start.toString() +
+                        "hours to " +
+                        _currentLabourValues.end.toString() +
+                        "hours ",
                   ),
                 ],
               ),
@@ -180,7 +190,7 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                       child: RangeSlider(
-                        activeColor:  Color(0xffffb703),
+                        activeColor: Color(0xffffb703),
                         inactiveColor: Color(0xFFF1F4F8),
                         max: 40,
                         min: 20,
@@ -202,16 +212,16 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    'Presencialidad | ',
+                    'Remote | ',
                     style: TextStyle(
                         fontSize: 16,
                         color: textColor,
                         fontWeight: FontWeight.bold),
                   ),
                   Text((() {
-                    if(_currentRemoteValues == 0){
+                    if (_currentRemoteValues == 0) {
                       return "Presencial";
-                    }else if(_currentRemoteValues == 0.5) {
+                    } else if (_currentRemoteValues == 0.5) {
                       return "Lo que quieran";
                     }
                     return "Remoto";
@@ -225,7 +235,7 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                       child: Slider(
-                        activeColor:  Color(0xffffb703),
+                        activeColor: Color(0xffffb703),
                         inactiveColor: Color(0xFFF1F4F8),
                         min: 0,
                         max: 1,
@@ -253,65 +263,56 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                                 begin: Alignment.topRight,
                                 end: Alignment.bottomLeft,
                                 colors: [
-                                  thirdBlueColor.withOpacity(.5),
-                                  thirdBlueColor.withOpacity(.8),
-                                  thirdBlueColor,
-                                  thirdBlueColor
+                                  primaryOrangeColor.withOpacity(.5),
+                                  primaryOrangeColor.withOpacity(.8),
+                                  primaryOrangeColor,
+                                  primaryOrangeColor
                                 ])),
                         height: MediaQuery.of(context).size.height * .065,
                         width: MediaQuery.of(context).size.width * .75,
                         child: Center(
                             child: Text(
-                          "REGISTRAR",
+                          "CONFIMAR",
                           style: TextStyle(
                               fontSize: 15,
                               color: textColor,
                               fontWeight: FontWeight.bold),
                         ))),
                     onTap: () {
-                      for (Skill item in widget.tags) {
-                        widget.skillId.add(item.id);
-                      }
-                      user.addAll({
-                        'email': widget.userData["email"],
-                        'password': widget.userData["password"],
-                        'firstName': widget.userData["firstName"],
-                        'lastName': widget.userData["lastName"],
-                        'postalCode': widget.userData["postalCode"],
-                        'phone': widget.userData["phone"],
-                        'birthDate': widget.userData["birthDate"],
-                        'description': widget.userData["description"],
-                        'companyUser': true,
-                        'skillIdList': widget.skillId,
-                        'preferenceIdList': [
-                          {
-                            'title': 'distance',
-                            'lowThreshold': _currentDistanceValues.start.truncate(),
-                            'highThreshold': _currentDistanceValues.end.truncate(),
-                            'value': 0,
-                          },
-                          {
-                            'title': 'salary',
-                            'lowThreshold': _currentSalaryValues.start.truncate(),
-                            'highThreshold': _currentSalaryValues.end.truncate(),
-                            'value': 0,
-                          },
-                          {
-                            'title': 'labour',
-                            'lowThreshold': _currentLabourValues.start.truncate(),
-                            'highThreshold': _currentLabourValues.end.truncate(),
-                            'value': 0,
-                          },
-                          {
-                            'title': 'remote',
-                            'lowThreshold': 0,
-                            'highThreshold': 0,
-                            'value': _currentRemoteValues,
-                          },
-                        ],
-                      });
+                      Preference distance = Preference(
+                          title: 'distance',
+                          lowThreshold: _currentDistanceValues.start
+                              .truncate()
+                              .toDouble(),
+                          highThreshold:
+                              _currentDistanceValues.end.truncate().toDouble(),
+                          value: 0);
+                      Preference salary = Preference(
+                          title: 'salary',
+                          lowThreshold:
+                              _currentSalaryValues.start.truncate().toDouble(),
+                          highThreshold:
+                              _currentSalaryValues.end.truncate().toDouble(),
+                          value: 0);
+                      Preference labour = Preference(
+                          title: 'labour',
+                          lowThreshold:
+                              _currentLabourValues.start.truncate().toDouble(),
+                          highThreshold:
+                              _currentLabourValues.end.truncate().toDouble(),
+                          value: 0);
+                      Preference remote = Preference(
+                          title: 'remote',
+                          lowThreshold: 0,
+                          highThreshold: 0,
+                          value: _currentRemoteValues);
+
+                      _pref.add(distance);
+                      _pref.add(salary);
+                      _pref.add(labour);
+                      _pref.add(remote);
+                      setPreferenceUser(_pref);
                       setState(() {});
-                      signUp(user);
                     },
                   ),
                 ),
@@ -323,26 +324,25 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
     );
   }
 
-  signUp(Map data) async {
-    bool successSingUp = await register(data);
-    if (successSingUp) {
-      bool successSignIn = await performLogin(
-          data.values.elementAt(0), data.values.elementAt(1));
-      if (successSignIn) {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (BuildContext context) => HomePage()),
-                (Route<dynamic> route) => false);
-      } else {
-        setState(() {
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Not login, try again!")));
-        });
-      }
+  setPreferenceUser(List<Preference> preferenceUser) async {
+    bool success = await requestSetPreferenceUser(preferenceUser);
+    if (success) {
+      Navigator.pop(context);
     } else {
-      setState(() {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Error, retry again")));
-      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Sorry. Try again! Edit correctly preference/s'),
+          duration: const Duration(milliseconds: 1500),
+          width: 280.0, // Width of the SnackBar.
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8.0, // Inner padding for SnackBar content.
+          ),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+        ),
+      );
     }
   }
 }

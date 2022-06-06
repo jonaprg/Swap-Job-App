@@ -31,20 +31,16 @@ class _RegisterState extends State<RegisterScreen> {
         duration: const Duration(milliseconds: 50),
         child: Padding(
           padding: const EdgeInsets.only(top: 10.0),
-          child: FloatingActionButton(
-            elevation: 10,
             child: IconButton(
-              color: Colors.white,
-              icon: const Icon(Icons.arrow_back_ios),
+              icon: const Icon(Icons.arrow_back_ios,
+                  color: Colors.orange, size: 20),
+              tooltip: 'Back',
               onPressed: () {
-                Navigator.pop(context);
+                setState(() {
+                  Navigator.pop(context);
+                });
               },
             ),
-            backgroundColor: primaryOrangeColor,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
@@ -59,10 +55,17 @@ class _RegisterState extends State<RegisterScreen> {
                 children: const <Widget>[
                   Padding(
                     child: Text(
-                      "SIGN UP",
-                      style: TextStyle(fontSize: 40),
+                      "Crear cuenta",
+                      style: TextStyle(fontSize: 30),
                     ),
                     padding: EdgeInsets.only(left: 50, top: 120),
+                  ),
+                  Padding(
+                    child: Text(
+                      " | PASO 1 DE 4",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    padding: EdgeInsetsDirectional.fromSTEB(255, 130, 0, 0),
                   ),
                 ],
               ),
@@ -75,7 +78,7 @@ class _RegisterState extends State<RegisterScreen> {
                     keyboardType: TextInputType.emailAddress,
 
                     decoration: InputDecoration(
-                      hintText: "Email",
+                      hintText: "Correo",
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: primaryOrangeColor)),
                       helperStyle: TextStyle(
@@ -95,7 +98,7 @@ class _RegisterState extends State<RegisterScreen> {
                     autocorrect: false,
                     style: const TextStyle(fontSize: 23),
                     decoration: InputDecoration(
-                      hintText: "Password",
+                      hintText: "Contraseña",
                       suffixIcon: IconButton(
                         icon: Icon(
                           _isObscure ? Icons.visibility : Icons.visibility_off,
@@ -140,7 +143,7 @@ class _RegisterState extends State<RegisterScreen> {
                               width: MediaQuery.of(context).size.width * .75,
                               child: Center(
                                   child: Text(
-                                "CONTINUE",
+                                "CONTINUAR",
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: textColor,
@@ -170,7 +173,7 @@ class _RegisterState extends State<RegisterScreen> {
                               width: MediaQuery.of(context).size.width * .75,
                               child: Center(
                                   child: Text(
-                                "CONTINUE",
+                                "CONTINUAR",
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: textColor,

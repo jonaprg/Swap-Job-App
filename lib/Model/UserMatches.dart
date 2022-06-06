@@ -20,8 +20,8 @@ class UserMatch {
 
     return UserMatch(
       id : json['id'] as int,
-      isFinalized : json['isFinalized'] as bool,
-      isContracted : json['isContracted'] as bool,
+      isFinalized : json['finalized'] as bool,
+      isContracted : json['contracted'] as bool,
       user : User.fromJson(json['user']),
       offer : Offer.fromJson(json['offer']),
     );

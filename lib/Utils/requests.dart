@@ -1,15 +1,20 @@
 import 'dart:convert';
 import 'dart:convert' as convert;
+import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
+import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:swapjobapp/Model/Preference.dart';
+import 'package:ftpconnect/ftpconnect.dart';
 import '../Model/Offer.dart';
 import '../Model/Skill.dart';
 import '../Model/User.dart';
 import '../Model/UserMatches.dart';
 
 // const String baseUrl = "http://localhost"; //LOCAL
-// const String baseUrl = "http://192.168.137.1"; //LOCAL MOBIL
+// const String baseUrl = "http://192.168.1.10"; //LOCAL MOBIL
 const String baseUrl = "http://api.swapjob.tk/SwapJob"; //PRODUCTION
 // const String baseUrl = "http://swapjob.tk:8080/SwapJob"; //SEMI PRODUCTION
 
@@ -33,7 +38,6 @@ Future<List<User>> getUserProfile() async {
     throw Exception('Failed to load matches for user');
   }
 }
-
 
 Future<List<UserMatch>> getMatchesUser() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -60,7 +64,8 @@ Future<bool> editProfile(
     String phone,
     String birth,
     String description,
-    bool visible) async {
+    bool visible,
+    String status) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
 
@@ -73,8 +78,6 @@ Future<bool> editProfile(
     "birthDate": birth,
     "description": description,
     "status_id": 0,
-    "skillList": [],
-    "preferenceList": [],
     "visible": visible
   };
   var headers = {
@@ -167,7 +170,6 @@ Future<bool> matchOffer(int idOffer) async {
 }
 
 Future<bool> removeMatchOffer(int idOffer) async {
-
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
   var data = {"offerId": idOffer};
@@ -185,7 +187,6 @@ Future<bool> removeMatchOffer(int idOffer) async {
 }
 
 Future<bool> userExists(String email) async {
-
   var headers = {
     'Content-Type': 'application/json',
   };
@@ -244,4 +245,71 @@ Future<List<Skill>> getSkills() async {
   }
 
   return [];
+}
+
+Future<bool> requestSetSkillsUser(List<int> ids) async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  var token = sharedPreferences.getString('accessToken');
+  var headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $token',
+  };
+  var request = http.Request('POST', Uri.parse(baseUrl + '/skill/update'));
+
+  request.body = json.encode(ids);
+  request.headers.addAll(headers);
+  var streamedResponse = await request.send();
+  var response = await http.Response.fromStream(streamedResponse);
+  return response.statusCode == 200;
+}
+
+Future<bool> requestSetPreferenceUser(List<Preference> preferences) async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  var token = sharedPreferences.getString('accessToken');
+  var headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $token',
+  };
+  var request = http.Request('POST', Uri.parse(baseUrl + '/preference/update'));
+
+  request.body = json.encode(preferences);
+  request.headers.addAll(headers);
+  var streamedResponse = await request.send();
+  var response = await http.Response.fromStream(streamedResponse);
+  print(response.body);
+  print(response.statusCode);
+  return response.statusCode == 200;
+}
+
+Future<bool> register(Map data) async {
+  var headers = {
+    'Content-Type': 'application/json',
+  };
+  var request = http.Request('POST', Uri.parse(baseUrl + '/auth/signup'));
+
+  request.body = json.encode(data);
+  request.headers.addAll(headers);
+  var streamedResponse = await request.send();
+  var response = await http.Response.fromStream(streamedResponse);
+  return response.statusCode == 200;
+}
+
+Future<bool> uploadFile(File selectedfile, bool isCv) async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  var token = sharedPreferences.getString('accessToken');
+  var headers = {
+    'Authorization': 'Bearer $token',
+    'Content-Type': 'multipart/form-data'
+  };
+
+  var request = http.MultipartRequest(
+      'POST', Uri.parse(baseUrl + '/user/upload' + (isCv ? 'cv' : 'title')));
+
+  request.files
+      .add(await http.MultipartFile.fromPath('file', selectedfile.path));
+  request.headers.addAll(headers);
+
+  http.StreamedResponse response = await request.send();
+
+  return response.statusCode == 200;
 }

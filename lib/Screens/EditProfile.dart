@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swapjobapp/Model/Status.dart';
 import 'package:swapjobapp/Utils/color.dart';
 import 'package:swapjobapp/Utils/requests.dart';
 
@@ -19,6 +20,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   late TextEditingController birthDateController;
   late TextEditingController descriptionController;
   late TextEditingController emailController;
+  late TextEditingController statusController;
   late bool visible;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -36,6 +38,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       descriptionController = TextEditingController(text: widget.user[0].description);
       emailController = TextEditingController(text: widget.user[0].email);
       visible = widget.user[0].isVisible;
+      statusController = TextEditingController(text: widget.user[0].status.title);
     });
   }
 
@@ -68,13 +71,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           children: [
                             Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                                  EdgeInsetsDirectional.fromSTEB(15, 20, 0, 0),
                               child: IconButton(
-                                icon: Icon(
-                                  Icons.arrow_back_rounded,
-                                  color: Color(0xFF090F13),
-                                  size: 30,
-                                ),
+                                icon: Icon(Icons.arrow_back_ios,
+                                    color: Colors.orange, size: 20)
+                                ,
                                 onPressed: () async {
                                   Navigator.pop(context);
                                 },
@@ -86,9 +87,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
                         child: Text(
-                          'Edit Profile',
+                          'Editar perfil',
                           style: TextStyle(
-                            fontFamily: 'Outfit',
+                            fontFamily: 'Maven Pro',
                             color: Color(0xFF0F1113),
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
@@ -108,9 +109,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 controller: firstNameController,
                 obscureText: false,
                 decoration: InputDecoration(
-                  labelText: 'First Name',
+                  labelText: 'Nombre',
                   labelStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
@@ -134,7 +135,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
                 style: TextStyle(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
                   fontWeight: FontWeight.normal,
@@ -147,15 +148,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 controller: lastNameController,
                 obscureText: false,
                 decoration: InputDecoration(
-                  labelText: 'Last Name',
+                  labelText: 'Apellido/s',
                   labelStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
                   hintStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
@@ -179,7 +180,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
                 style: TextStyle(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
                   fontWeight: FontWeight.normal,
@@ -194,15 +195,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 keyboardType: TextInputType.emailAddress,
 
                 decoration: InputDecoration(
-                  labelText: 'Email',
+                  labelText: 'Correo',
                   labelStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
                   hintStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
@@ -226,7 +227,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
                 style: TextStyle(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
                   fontWeight: FontWeight.normal,
@@ -239,15 +240,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 controller: postalCodeController,
                 obscureText: false,
                 decoration: InputDecoration(
-                  labelText: 'Postal Code',
+                  labelText: 'Código postal',
                   labelStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
                   hintStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
@@ -271,7 +272,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
                 style: TextStyle(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
                   fontWeight: FontWeight.normal,
@@ -286,15 +287,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 keyboardType: TextInputType.phone,
 
                 decoration: InputDecoration(
-                  labelText: 'Phone',
+                  labelText: 'Móvil',
                   labelStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
                   hintStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
@@ -318,7 +319,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
                 style: TextStyle(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
                   fontWeight: FontWeight.normal,
@@ -332,15 +333,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 obscureText: false,
                 keyboardType: TextInputType.datetime,
                 decoration: InputDecoration(
-                  labelText: 'Birth date | YYYY-MM-DD',
+                  labelText: 'Fecha de nacimiento | YYYY-MM-DD',
                   labelStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
                   hintStyle: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
@@ -364,23 +365,71 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
                 style: TextStyle(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
                   fontWeight: FontWeight.normal,
                 ),
               ),
             ),
-            // Generated code for this SwitchListTile Widget...
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+              padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+              child: TextFormField(
+                controller: descriptionController,
+                minLines: 1,
+                maxLines: 5,
+                obscureText: false,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: 'Descripción',
+                  labelStyle: TextStyle(
+                    fontFamily: 'Maven Pro',
+                    color: Color(0xFF0F1113),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  hintStyle: TextStyle(
+                    fontFamily: 'Maven Pro',
+                    color: Color(0xFF0F1113),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFF1F4F8),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFF1F4F8),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                ),
+                style: TextStyle(
+                  fontFamily: 'Maven Pro',
+                  color: Color(0xFF0F1113),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
               child: SwitchListTile.adaptive(
                 value: visible,
                 onChanged: (newValue) => setState(() => visible = newValue),
                 title: Text(
-                  'Visible',
+                  'Visibilidad',
                   style: TextStyle(
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
@@ -394,45 +443,74 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             ),
 
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(40, 0, 20, 16),
+              child: DropdownButton<String>(
+                value: statusController.text,
+                hint:Text("Coge el estado de trabajo!"),
+                isExpanded: true,
+                icon: const Icon(Icons.arrow_drop_down),
+                elevation: 10,
+                style: const TextStyle(color: Colors.black),
+
+                onChanged: (String? newValue) {
+                  setState(() {
+                    statusController.text = newValue!;
+                  });
+                },
+                items: <String>['Active', 'Inactive', 'Looking for job', 'Open to work']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ),
+
 
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
-              child: TextFormField(
-                controller: descriptionController,
-                obscureText: false,
-                decoration: InputDecoration(
-                  labelText: 'Description',
-                  labelStyle: TextStyle(
-                    fontFamily: 'Outfit',
-                    color: Color(0xFF0F1113),
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                  ),
+              padding: const EdgeInsets.only(bottom: 40),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: InkWell(
+                  child: Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(25),
+                          gradient: LinearGradient(
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft,
+                              colors: [
+                                primaryOrangeColor.withOpacity(.5),
+                                primaryOrangeColor.withOpacity(.8),
+                                primaryOrangeColor,
+                                primaryOrangeColor
+                              ])),
+                      height: MediaQuery.of(context).size.height * .065,
+                      width: MediaQuery.of(context).size.width * .75,
+                      child: Center(
+                          child: Text(
+                            "EDIT PROFILE",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: textColor,
+                                fontWeight: FontWeight.bold),
+                          ))),
+                    onTap: () {
+
+                      editUserProfile(
+                          firstNameController.text,
+                          lastNameController.text,
+                          emailController.text,
+                          postalCodeController.text,
+                          phoneController.text,
+                          birthDateController.text,
+                          descriptionController.text, visible, statusController.text);
+                    }
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(16.0),
-                  primary: primaryOrangeColor,
-                  textStyle: const TextStyle(fontSize: 20),
-                ),
-                onPressed: () {
-
-                  editUserProfile(
-                    firstNameController.text,
-                    lastNameController.text,
-                    emailController.text,
-                    postalCodeController.text,
-                    phoneController.text,
-                    birthDateController.text,
-                    descriptionController.text, visible);
-                },
-                child: const Text('DONE'),
-              ),
-            )
           ],
         ),
       ),
@@ -440,9 +518,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   editUserProfile(String firstName, String lastName, String email,
-      String postalCode, String phone, String birth, String description, bool visible) async {
+      String postalCode, String phone, String birth, String description,
+      bool visible, String status) async {
     bool success = await editProfile(
-        firstName, lastName, email, postalCode, phone, birth, description, visible);
+        firstName, lastName, email, postalCode, phone, birth, description
+        , visible, status);
     if (success) {
         Navigator.pop(context);
     } else {

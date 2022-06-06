@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:swapjobapp/Screens/infoMatchPage.dart';
+import 'package:swapjobapp/Screens/InfoMatchPage.dart';
+import 'package:swapjobapp/Utils/color.dart';
 import '/Model/UserMatches.dart';
 import '/Utils/requests.dart';
 import 'infoOfferPage.dart';
@@ -35,7 +36,7 @@ class _MatchesPageState extends State<MatchesPage>
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             print(snapshot.error);
-            return  Center(
+            return const Center(
               child: Text('An error has occurred!'),
             );
           } else if (snapshot.hasData) {
@@ -49,106 +50,180 @@ class _MatchesPageState extends State<MatchesPage>
                     spacing: 5,
                     runSpacing: 5,
                     children: List.generate(matches.length, (indexTwo) {
-                      return Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Text('Offer: ' +matches[indexTwo].offer.title,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.black)),
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.info_rounded),
-                                  tooltip: 'Information about the offer',
-                                  onPressed: () async {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              InfoMatchOffer(matches[indexTwo])),
-                                    );
-                                  },
-                                ),
-
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 4),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                OutlinedButton(
-                                  onPressed: () {
-
-                                    removeMatchOffer(matches[indexTwo].offer.id);
-                                    setState(() {
-                                      matches.removeAt(indexTwo);
-
-                                    });
-                                  },
-                                  child: const Text('REMOVE',
-                                      style: TextStyle(color: Colors.red)),
-                                ),
-                                OutlinedButton(
-                                  onPressed: () {
-
-                                    setState(() {
-
-                                    });
-                                  },
-                                  child: const Text('CONTRACTED',
-                                      style: TextStyle(color: Colors.green)),
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Padding(
-                                        padding:
-                                        EdgeInsetsDirectional.fromSTEB(0, 0, 0, 4),
-                                        child: Text('Company: ' + matches[indexTwo].offer.companyName,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.normal,
-                                                color: Colors.black)),
+                      return SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                              child: ListView(
+                                padding: EdgeInsets.zero,
+                                primary: false,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        16, 0, 16, 8),
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 3,
+                                            color: Color(0x411D2429),
+                                            offset: Offset(0, 1),
+                                          )
+                                        ],
+                                        borderRadius: BorderRadius.circular(8),
                                       ),
-                                      Text('Salary: ' + matches[indexTwo].offer.salary.toString() + ' €',
-                                          textAlign: TextAlign.end,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.normal,
-                                              color: Colors.black)),
-                                    ],
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 8, 8, 8),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(8, 8, 4, 0),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      matches[indexTwo]
+                                                          .offer
+                                                          .title,
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black,
+                                                          fontSize: 18),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 4, 8, 0),
+                                                      child: Text(
+                                                        matches[indexTwo]
+                                                            .offer
+                                                            .companyName,
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            color: Colors.black,
+                                                            fontSize: 15),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 4, 8, 0),
+                                                      child: Text(
+                                                        matches[indexTwo]
+                                                                .offer
+                                                                .salary
+                                                                .toString() +
+                                                            "€",
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            color: Colors.black,
+                                                            fontSize: 15),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                0, 0, 0, 0),
+                                                    child: IconButton(
+                                                      icon: const Icon(
+                                                          Icons.info_outline_rounded),
+                                                      tooltip:
+                                                          'Información sobre la oferta',
+                                                      onPressed: () async {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  InfoMatchOffer(
+                                                                      matches[
+                                                                          indexTwo])),
+                                                        );
+                                                      },
+                                                    )),
+                                                matches[indexTwo].isFinalized == false ?
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 10, 0, 0),
+                                                  child: OutlinedButton(
+                                                    onPressed: () {
+                                                      _showMyDialog(indexTwo);
+                                                    },
+                                                    child: const Text('NO ME GUSTA',
+                                                        style: TextStyle(
+                                                            color: Colors.red)),
+                                                  ),
+                                                ) :
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 10, 0, 0),
+                                                  child: OutlinedButton(
+                                                    onPressed: () {
+
+                                                      setState(() {
+
+                                                      });
+                                                    },
+                                                    child: const Text('CONTRACTADO',
+                                                        style: TextStyle(
+                                                            color: Colors.blueAccent)),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          const Divider(
-                            thickness: 1,
-                            indent: 20,
-                            endIndent: 0,
-                            color: Colors.grey,
-                          ),
-                        ],
-
+                          ],
+                        ),
                       );
-
                     }),
                   ),
                 );
               },
             );
-
-
           } else {
             return const Center(
               child: CircularProgressIndicator(),
@@ -158,4 +233,40 @@ class _MatchesPageState extends State<MatchesPage>
       ),
     );
   }
+
+  Future<void> _showMyDialog(int indexTwo) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('¿Quieres eliminar la oferta?'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Confirmar'),
+              onPressed: () {
+                removeMatchOffer(
+                    matches[indexTwo]
+                        .offer
+                        .id);
+                setState(() {
+                  matches
+                      .removeAt(indexTwo);
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
 }

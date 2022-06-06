@@ -5,18 +5,18 @@ import 'package:swapjobapp/Screens/auth/register/QuestionPreferenceScreen.dart';
 import 'package:swapjobapp/Utils/color.dart';
 import 'package:swapjobapp/Utils/requests.dart';
 
-class QuestionSkillScreen extends StatefulWidget {
-  const QuestionSkillScreen(this.userData);
+class EditSkillScreen extends StatefulWidget {
+  const EditSkillScreen(this.userSkill);
 
-  final Map<String, dynamic> userData;
+  final List<Skill> userSkill;
 
   @override
-  _SkillScreenState createState() => _SkillScreenState();
+  _EditSkillScreenState createState() => _EditSkillScreenState();
 }
 
-class _SkillScreenState extends State<QuestionSkillScreen>
+class _EditSkillScreenState extends State<EditSkillScreen>
     with SingleTickerProviderStateMixin {
-  final List<Skill> _tags = [];
+  final List<int> _skillId = [];
   final TextEditingController _tagTextEditingController =
       TextEditingController();
 
@@ -51,17 +51,17 @@ class _SkillScreenState extends State<QuestionSkillScreen>
   }
 
   _addTags(tagModel) async {
-    if (!_tags.contains(tagModel)) {
+    if (!widget.userSkill.contains(tagModel)) {
       setState(() {
-        _tags.add(tagModel);
+        widget.userSkill.add(tagModel);
       });
     }
   }
 
   _removeTag(tagModel) async {
-    if (_tags.contains(tagModel)) {
+    if (widget.userSkill.contains(tagModel)) {
       setState(() {
-        _tags.remove(tagModel);
+        widget.userSkill.remove(tagModel);
       });
     }
   }
@@ -99,11 +99,6 @@ class _SkillScreenState extends State<QuestionSkillScreen>
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(
-          Icons.local_offer_outlined,
-          color: thirdBlueColor,
-          size: 25.0,
-        ),
         _tagsWidget(),
       ],
     );
@@ -120,7 +115,7 @@ class _SkillScreenState extends State<QuestionSkillScreen>
       Wrap(
         alignment: WrapAlignment.start,
         children: _filterResultList()
-            .where((tagModel) => !_tags.contains(tagModel))
+            .where((tagModel) => !widget.userSkill.contains(tagModel))
             .map((tagModel) => tagChip(
                   tagModel: tagModel,
                   onTap: () => _addTags(tagModel),
@@ -132,7 +127,12 @@ class _SkillScreenState extends State<QuestionSkillScreen>
     ]);
   }
 
-  Widget tagChip({tagModel, onTap, action, removable}) {
+  Widget tagChip({
+    tagModel,
+    onTap,
+    action,
+    removable,
+  }) {
     return InkWell(
         onTap: onTap,
         child: Stack(
@@ -166,14 +166,15 @@ class _SkillScreenState extends State<QuestionSkillScreen>
                 backgroundColor: Colors.orange.shade600,
                 radius: 8.0,
                 child: Icon(
-                  removable ? Icons.close : Icons.add,
+                  removable ? Icons.clear : Icons.add,
                   size: 10.0,
                   color: Colors.white,
                 ),
               ),
             )
           ],
-        ));
+        )
+    );
   }
 
   Widget _tagsWidget() {
@@ -188,25 +189,23 @@ class _SkillScreenState extends State<QuestionSkillScreen>
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(2, 10, 2, 2),
-                  child: Center(
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back_ios,
-                          color: Colors.orange, size: 20),
-                      tooltip: 'Back',
-                      onPressed: () {
-                        setState(() {
-                          Navigator.pop(context);
-                        });
-                      },
+                  padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: Color(0xFF090F13),
+                      size: 30,
                     ),
+                    onPressed: () async {
+                      Navigator.pop(context);
+                    },
                   ),
                 ),
               ],
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Text(
               '¿Que habilidades te desarollas mejor?',
               style: TextStyle(
@@ -215,23 +214,17 @@ class _SkillScreenState extends State<QuestionSkillScreen>
               ),
             ),
           ),
-          const Padding(
-            child: Text(
-              "PASO 3 DE 4",
-              style: TextStyle(fontSize: 15),
-            ),
-            padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-          ),
-          _tags.length > 0
+          widget.userSkill.length > 0
               ? Column(children: [
                   Wrap(
                     alignment: WrapAlignment.start,
-                    children: _tags
+                    children: widget.userSkill
                         .map((tagModel) => tagChip(
-                            tagModel: tagModel,
-                            onTap: () => _removeTag(tagModel),
-                            action: 'Remove',
-                            removable: true))
+                              tagModel: tagModel,
+                              onTap: () => _removeTag(tagModel),
+                              action: 'Remove',
+                              removable: true,
+                            ))
                         .toSet()
                         .toList(),
                   ),
@@ -252,10 +245,10 @@ class _SkillScreenState extends State<QuestionSkillScreen>
                               begin: Alignment.topRight,
                               end: Alignment.bottomLeft,
                               colors: [
-                                thirdBlueColor.withOpacity(.5),
-                                thirdBlueColor.withOpacity(.8),
-                                thirdBlueColor,
-                                thirdBlueColor
+                                primaryOrangeColor.withOpacity(.5),
+                                primaryOrangeColor.withOpacity(.8),
+                                primaryOrangeColor,
+                                primaryOrangeColor
                               ])),
                       height: MediaQuery.of(context).size.height * .065,
                       width: MediaQuery.of(context).size.width * .75,
@@ -268,14 +261,11 @@ class _SkillScreenState extends State<QuestionSkillScreen>
                             fontWeight: FontWeight.bold),
                       ))),
                   onTap: () {
-                    setState(() {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => QuestionPreferenceScreen(
-                                widget.userData, _tags)),
-                      );
-                    });
+                    for (Skill item in widget.userSkill) {
+                      _skillId.add(item.id);
+                    }
+                    setSkillUser(_skillId);
+                    setState(() {});
                   },
                 ),
               ),
@@ -284,5 +274,28 @@ class _SkillScreenState extends State<QuestionSkillScreen>
         ],
       ),
     );
+  }
+
+  setSkillUser(List<int> skillUser) async {
+    bool success = await requestSetSkillsUser(skillUser);
+    if (success) {
+      Navigator.pop(context);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Sorry. Try again! Take the skill/s'),
+          duration: const Duration(milliseconds: 1500),
+          width: 280.0,
+          // Width of the SnackBar.
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8.0, // Inner padding for SnackBar content.
+          ),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+        ),
+      );
+    }
   }
 }

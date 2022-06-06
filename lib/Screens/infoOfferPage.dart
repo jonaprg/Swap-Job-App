@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swapjobapp/Model/UserMatches.dart';
+import 'package:geocode/geocode.dart';
 
 import '../Model/Offer.dart';
 import '../Utils/color.dart';
@@ -44,7 +44,7 @@ class _InfState extends State<InfoOffer> {
                               child: Center(
                                 child: Ink(
                                   decoration: const ShapeDecoration(
-                                    color: Colors.lightBlue,
+                                    color: Color(0xff023047),
                                     shape: CircleBorder(),
                                   ),
                                   child: IconButton(
@@ -59,14 +59,13 @@ class _InfState extends State<InfoOffer> {
                                   ),
                                 ),
                               ),
-
                             ),
                             SizedBox(height: 20.0),
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                               child: Text(
-                                'Job Detail',
+                                'Detalle de la oferta',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
@@ -85,24 +84,33 @@ class _InfState extends State<InfoOffer> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
-                                fontSize: 20),
+                                    fontSize: 20),
                               ),
                             ],
                           ),
                         ),
+
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                widget.offer.isRemote == true ? "Remoto | " : "Full | "
-                                'Melbourne',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ],
+                          padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 12),
+                          child: FutureBuilder<String>(
+                            future: getLocation(widget.offer),
+                            initialData: "",
+                            builder: (BuildContext contextLocation,
+                                snapshotLocation) {
+                              String value = snapshotLocation.data!;
+                              return Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Text(
+                              widget.offer.isRemote == true ? "Remoto | " : "Full | " + value.toString(),
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.white),
+                                  )
+                                ],
+                              );
+                            },
                           ),
                         ),
                       ],
@@ -113,6 +121,7 @@ class _InfState extends State<InfoOffer> {
                   padding: EdgeInsetsDirectional.fromSTEB(0, 190, 0, 0),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
                     decoration: BoxDecoration(
                       color: secondaryDarkBlueColor,
                       boxShadow: [
@@ -146,7 +155,7 @@ class _InfState extends State<InfoOffer> {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                 ),
-                                child:  Image.network(
+                                child: Image.network(
                                   widget.offer.companyImage,
                                 ),
                               ),
@@ -204,7 +213,7 @@ class _InfState extends State<InfoOffer> {
                                             ),
                                           ),
                                           Text(
-                                            'Descripcion',
+                                            'Descripción',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white),
@@ -223,10 +232,11 @@ class _InfState extends State<InfoOffer> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(8, 0, 0, 12),
                                               child: Text(
-                                                widget.offer.salary.toString() + " €",
+                                                widget.offer.salary.toString() +
+                                                    " €",
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
+                                                    fontWeight: FontWeight.normal,
                                                     color: Colors.white),
                                               ),
                                             ),
@@ -237,7 +247,7 @@ class _InfState extends State<InfoOffer> {
                                                 widget.offer.description,
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
+                                                    fontWeight: FontWeight.normal,
                                                     color: Colors.white),
                                               ),
                                             ),
@@ -264,7 +274,7 @@ class _InfState extends State<InfoOffer> {
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      20, 12, 20, 12),
+                                      20, 12, 20, 0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -275,35 +285,43 @@ class _InfState extends State<InfoOffer> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 0, 12),
                                         child: Text(
-                                          'Preferences',
+                                          'Habilidades',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white),
                                         ),
                                       ),
-                                      Expanded(
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(8, 0, 0, 0),
-                                              child: Text(
-                                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n',
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
                                     ],
+                                  ),
+                                ),
+                                Align(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 10),
+                                    child: Wrap(
+                                      spacing: 20,
+                                      runSpacing: 0,
+                                      alignment: WrapAlignment.start,
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.start,
+                                      direction: Axis.horizontal,
+                                      runAlignment: WrapAlignment.start,
+                                      verticalDirection: VerticalDirection.down,
+                                      clipBehavior: Clip.none,
+                                      children: widget.offer.skillList
+                                          .asMap()
+                                          .keys
+                                          .toList()
+                                          .map((indexSkill) {
+                                        return Text(
+                                            widget.offer.skillList[indexSkill]
+                                                .title,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                color: Colors.white));
+                                      }).toList(),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -311,28 +329,9 @@ class _InfState extends State<InfoOffer> {
                           ),
                         ),
                         Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(20, 12, 20, 12),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  'Requisitos',
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(24, 4, 24, 4),
+                          padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 4),
                           child: Container(
-                            width: double.infinity,
+                            width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                               color: Color(0xFF1E2429),
                               borderRadius: BorderRadius.circular(8),
@@ -342,34 +341,74 @@ class _InfState extends State<InfoOffer> {
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 8, 20, 8),
+                                      20, 12, 20, 0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Expanded(
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(8, 0, 0, 0),
-                                              child: Text(
-                                                'Tell me about a time you made a mistake. How did you handle it?\nTell me about a time you made a mistake. How did you handle it?\nTell me about a time you made a mistake. How did you handle it?\nTell me about a time you made a mistake. How did you handle it?\nTell me about a time you made a mistake. How did you handle it?',
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                          ],
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 12),
+                                        child: Text(
+                                          'Preferencias',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
                                         ),
                                       ),
                                     ],
+                                  ),
+                                ),
+                                widget.offer.preferenceList.isNotEmpty
+                                    ? Align(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: Padding(
+                                    padding:
+                                    EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 10),
+                                    child: Wrap(
+                                      spacing: 20,
+                                      runSpacing: 0,
+                                      alignment: WrapAlignment.start,
+                                      crossAxisAlignment:
+                                      WrapCrossAlignment.start,
+                                      direction: Axis.horizontal,
+                                      runAlignment: WrapAlignment.start,
+                                      verticalDirection:
+                                      VerticalDirection.down,
+                                      clipBehavior: Clip.none,
+                                      children: widget
+                                          .offer.preferenceList
+                                          .asMap()
+                                          .keys
+                                          .toList()
+                                          .map((indexPrefe) {
+                                        return Text(
+                                            widget
+                                                .offer
+                                                .preferenceList[indexPrefe]
+                                                .title,
+                                            style: TextStyle(
+                                                fontWeight:
+                                                FontWeight.normal,
+                                                color: Colors.white));
+                                      }).toList(),
+                                    ),
+                                  ),
+                                )
+                                    : const Align(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: Padding(
+                                    padding:
+                                    EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 10),
+                                    child: Text(
+                                        "No hay preferencias",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.white)),
                                   ),
                                 ),
                               ],
@@ -396,5 +435,25 @@ class _InfState extends State<InfoOffer> {
         ),
       ),
     );
+  }
+
+  Future<String> getLocation(Offer offers) async {
+    GeoCode geoCode = GeoCode();
+
+    String replaced =
+        offers.coordinates.replaceAll('(', "").replaceAll(")", "");
+
+    final splitted = replaced.split(',');
+    print(splitted);
+    try {
+      Address address = await geoCode.reverseGeocoding(
+          latitude: double.parse(splitted[0]),
+          longitude: double.parse(splitted[1].trim()));
+      return address.city.toString();
+    } catch (e) {
+      print(e);
+    }
+
+    return "";
   }
 }

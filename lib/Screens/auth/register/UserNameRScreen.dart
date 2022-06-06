@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:swapjobapp/Screens/skillListScreen.dart';
 import '/Screens/Home.dart';
 import '/Utils/color.dart';
 import 'package:http/http.dart' as http;
@@ -21,8 +20,8 @@ class UserNameRScreen extends StatefulWidget {
 
 class _UserNameRScreenState extends State<UserNameRScreen> {
   DateTime currentDate = DateTime.now();
-  TextEditingController firstNameController = TextEditingController(text: 'jona');
-  TextEditingController lastNameController = TextEditingController(text: 'jona');
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
   TextEditingController postalCodeController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController birthDateController = TextEditingController();
@@ -34,17 +33,19 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
       backgroundColor: Colors.white,
       floatingActionButton: AnimatedOpacity(
         opacity: 1.0,
-        duration: Duration(milliseconds: 50),
+        duration: const Duration(milliseconds: 50),
         child: Padding(
           padding: const EdgeInsets.only(top: 10.0),
-
-            child: IconButton(
-              color: secondaryDarkBlueColor,
-              icon: Icon(Icons.arrow_back_ios),
-              onPressed: () {
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back_ios,
+                color: Colors.orange, size: 20),
+            tooltip: 'Back',
+            onPressed: () {
+              setState(() {
                 Navigator.pop(context);
-              },
-            ),
+              });
+            },
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
@@ -56,133 +57,349 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Stack(
-                children: <Widget>[
+                children: const <Widget>[
                   Padding(
                     child: Text(
-                      "Create Account",
-                      style: TextStyle(fontSize: 40),
+                      "Crear cuenta",
+                      style: TextStyle(fontSize: 30),
                     ),
                     padding: EdgeInsets.only(left: 50, top: 120),
+                  ),
+                  Padding(
+                    child: Text(
+                      " | PASO 2 DE 4",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    padding: EdgeInsetsDirectional.fromSTEB(255, 130, 0, 0),
                   ),
                 ],
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50),
                 child: Column(children: <Widget>[
-                  TextFormField(
-                    controller: firstNameController,
-                    style: const TextStyle(fontSize: 23),
-                    decoration: InputDecoration(
-                      hintText: "First name",
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryOrangeColor)),
-                      helperStyle: TextStyle(
-                          color: secondaryDarkBlueColor, fontSize: 15),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        value = firstNameController.text;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 30.0),
-                  TextFormField(
-                    controller: lastNameController,
-                    style: const TextStyle(fontSize: 23),
-                    decoration: InputDecoration(
-                      hintText: "Last name",
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryOrangeColor)),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        value = lastNameController.text;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 30.0),
-                  TextFormField(
-                    controller: postalCodeController,
-                    keyboardType: TextInputType.number,
 
-                    style: const TextStyle(fontSize: 23),
-                    decoration: InputDecoration(
-                      hintText: "Postal Code",
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryOrangeColor)),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+                    child: TextFormField(
+                      controller: firstNameController,
+                      obscureText: false,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        labelText: 'Nombre',
+                        labelStyle: TextStyle(
+                          fontFamily: 'Maven',
+                          color: Color(0xFF0F1113),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        hintStyle: TextStyle(
+                          fontFamily: 'Maven',
+                          color: Color(0xFF0F1113),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFF1F4F8),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFF1F4F8),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                      ),
+                      style: TextStyle(
+                        fontFamily: 'Maven',
+                        color: Color(0xFF0F1113),
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          value = firstNameController.text;
+                        });
+                      }
                     ),
-                    onChanged: (value) {
-                      setState(() {
-                        value = postalCodeController.text;
-                      });
-                    },
                   ),
-                  const SizedBox(height: 30.0),
-                  TextFormField(
-                    controller: phoneController,
-                    keyboardType: TextInputType.phone,
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+                    child: TextFormField(
+                        controller: lastNameController,
+                        obscureText: false,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          labelText: 'Apellido/s',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Maven',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          hintStyle: TextStyle(
+                            fontFamily: 'Maven',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                        ),
+                        style: TextStyle(
+                          fontFamily: 'Maven',
+                          color: Color(0xFF0F1113),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            value = lastNameController.text;
+                          });
+                        }
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+                    child: TextFormField(
+                        controller: postalCodeController,
+                        obscureText: false,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'Código postal',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Maven',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          hintText: 'Only 5 digits',
+                          hintStyle: TextStyle(
+                            fontFamily: 'Maven',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                        ),
+                        style: TextStyle(
+                          fontFamily: 'Maven',
+                          color: Color(0xFF0F1113),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            value = postalCodeController.text;
+                          });
+                        }
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+                    child: TextFormField(
+                        controller: phoneController,
+                        obscureText: false,
+                        keyboardType: TextInputType.phone,
+                        decoration: InputDecoration(
+                          labelText: 'Móvil',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Maven',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          hintText: 'Only 9 digits.',
+                          hintStyle: TextStyle(
+                            fontFamily: 'Maven',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                        ),
+                        style: TextStyle(
+                          fontFamily: 'Maven',
+                          color: Color(0xFF0F1113),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            value = phoneController.text;
+                          });
+                        }
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+                    child: TextFormField(
+                        controller: birthDateController,
+                        obscureText: false,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'Fecha de nacimiento | YYYY-MM-DD',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Maven',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          hintStyle: TextStyle(
+                            fontFamily: 'Maven',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                        ),
+                        style: TextStyle(
+                          fontFamily: 'Maven',
+                          color: Color(0xFF0F1113),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            value = birthDateController.text;
+                          });
+                        }
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+                    child: TextFormField(
+                        controller: descriptionController,
+                        obscureText: false,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          labelText: 'Descripción',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Maven',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          hintStyle: TextStyle(
+                            fontFamily: 'Maven',
+                            color: Color(0xFF0F1113),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFF1F4F8),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                        ),
+                        style: TextStyle(
+                          fontFamily: 'Maven',
+                          color: Color(0xFF0F1113),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            value = descriptionController.text;
+                          });
+                        }
+                    ),
+                  ),
 
-                    style: const TextStyle(fontSize: 23),
-                    decoration: InputDecoration(
-                      hintText: "Phone",
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryOrangeColor)),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        value = phoneController.text;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 30.0),
-                  /*Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text(DateFormat('yyyy-MM-dd').format(currentDate)),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      RaisedButton(
-                        onPressed: () => _selectDate(context),
-                        child: Text('Select birthday date'),
-                      ),
-                    ],
-                  ),*/
-                  TextFormField(
-                    controller: birthDateController,
-                    style: const TextStyle(fontSize: 23),
-                    decoration: InputDecoration(
-                      hintText: "BirthDate | YYYY-MM-DD",
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryOrangeColor)),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        value = birthDateController.text;
-                      });
-                    },
-                  ),
-                  TextFormField(
-                    controller: descriptionController,
-                    minLines: 1,
-                    maxLines: 5,
-                    keyboardType: TextInputType.multiline,
-                    style: const TextStyle(fontSize: 23),
-                    decoration: InputDecoration(
-                      hintText: "Description",
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryOrangeColor)),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        value = descriptionController.text;
-                      });
-                    },
-                  ),
+
+
+
+
+
+
+
                 ]),
               ),
               firstNameController.text.isNotEmpty &&
-                      lastNameController.text.isNotEmpty
+                      lastNameController.text.isNotEmpty && phoneController.text.isNotEmpty
+              && postalCodeController.text.isNotEmpty && descriptionController.text.isNotEmpty
+              && birthDateController.text.isNotEmpty
                   ? Padding(
                       padding: const EdgeInsets.only(bottom: 40),
                       child: Align(
@@ -205,14 +422,14 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                               width: MediaQuery.of(context).size.width * .75,
                               child: Center(
                                   child: Text(
-                                "CONTINUE",
+                                "CONTINUAR",
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: textColor,
                                     fontWeight: FontWeight.bold),
                               ))),
                           onTap: () {
-                            /*widget.userData.addAll({
+                            widget.userData.addAll({
                               "firstName": firstNameController.text,
                               "lastName": lastNameController.text,
                               "postalCode":
@@ -220,8 +437,9 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                               "phone": phoneController.text,
                               "birthDate": birthDateController.text,
                               "description": descriptionController.text,
-                              "companyUser": true
-                            });*/
+                              "companyUser": false
+                            });
+                            /*
                             widget.userData.addAll({
                               "firstName": "string",
                               "lastName": "string",
@@ -231,12 +449,11 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                               "description": "string",
                               "companyUser": true
 
-                            });
+                            }); */
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => QuestionSkillScreen(widget.userData)),
                             );
-                            //signupWithAll(widget.userData);
                           },
                         ),
                       ),
@@ -255,7 +472,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                               width: MediaQuery.of(context).size.width * .75,
                               child: Center(
                                   child: Text(
-                                "CONTINUE",
+                                "CONTINUAR",
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: secondaryDarkBlueColor,
@@ -270,36 +487,5 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
         ),
       ),
     );
-  }
-
-  signupWithAll(Map data) async {
-    var headers = {
-      'Content-Type': 'application/json',
-    };
-    var request =
-        http.Request('POST', Uri.parse('http://localhost/auth/signup'));
-
-    request.body = json.encode(data);
-    request.headers.addAll(headers);
-    var streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
-
-    if (response.statusCode == 200) {
-      bool success = await performLogin(
-          data.values.elementAt(0), data.values.elementAt(1));
-      if (success) {
-
-      } else {
-        setState(() {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text("Server error")));
-        });
-      }
-    } else {
-      setState(() {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Error, retry again")));
-      });
-    }
   }
 }

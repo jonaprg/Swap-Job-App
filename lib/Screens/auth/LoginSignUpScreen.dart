@@ -51,7 +51,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                     child: Container(
                       child: Column(),
                       width: double.infinity,
-                      height: 205,
+                      height: 200,
                       decoration: BoxDecoration(
                           gradient: LinearGradient(colors: [
                         Theme.of(context).primaryColor,
@@ -64,7 +64,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                     child: Container(
                       child: Column(),
                       width: double.infinity,
-                      height: 350,
+                      height: 360,
                       decoration: BoxDecoration(
                           gradient: LinearGradient(colors: [
                         Theme.of(context).primaryColor,
@@ -84,7 +84,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                             fontSize: 35),
                       )),
                       width: double.infinity,
-                      height: 200,
+                      height: 220,
                       decoration: BoxDecoration(
                           gradient: LinearGradient(colors: [
                         Theme.of(context).primaryColor,
@@ -121,7 +121,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                             width: MediaQuery.of(context).size.width * .8,
                             child: const Center(
                                 child: Text(
-                              "SIGN UP WITH GOOGLE",
+                              "REGISTRO CON GOOGLE",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
@@ -149,7 +149,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                     height: MediaQuery.of(context).size.height * .065,
                     width: MediaQuery.of(context).size.width * .75,
                     child: const Center(
-                        child: Text("LOG IN WITH EMAIL",
+                        child: Text("INICIO CON EMAIL",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold))),
@@ -181,7 +181,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                             width: MediaQuery.of(context).size.width * .8,
                             child: const Center(
                                 child: Text(
-                              "SIGN UP WITH EMAIL",
+                              "REGISTRO CON EMAIL",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
@@ -216,7 +216,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
       } else {
         setState(() {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("The user not exists, bad credentials")));
+              content: Text("El usuario no existe, credenciales incorrectas")));
         });
       }
     } else {
@@ -230,7 +230,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
       } else {
         setState(() {
           ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Error on creating Google User")));
+              const SnackBar(content: Text("Error creando usuario de Google")));
         });
       }
     }
@@ -315,13 +315,5 @@ class WaveClipper3 extends CustomClipper<Path> {
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) {
     return false;
-  }
-}
-
-_launchURL(String url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
   }
 }

@@ -54,4 +54,8 @@ class User {
     );
   }
 
+  @override
+  String toString() {
+    return 'User{id: $id, skill: $skill, preference: $preference}';
+  }
 }
