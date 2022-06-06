@@ -8,7 +8,6 @@ import '../Model/Offer.dart';
 import '../Model/Skill.dart';
 import '../Model/User.dart';
 import '../Model/UserMatches.dart';
-import '../Model/ContractedRequest.dart';
 
 const String baseUrl = "http://localhost"; //LOCAL
 // const String baseUrl = "http://192.168.1.10"; //LOCAL MOBIL
