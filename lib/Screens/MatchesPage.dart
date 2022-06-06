@@ -276,7 +276,6 @@ class _MatchesPageState extends State<MatchesPage>
               onPressed: () {
                 contractedMatchOffer(
                     matches[indexTwo]
-                        .offer
                         .id, contracted);
                 setState(() {
 

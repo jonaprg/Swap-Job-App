@@ -8,10 +8,11 @@ import '../Model/Offer.dart';
 import '../Model/Skill.dart';
 import '../Model/User.dart';
 import '../Model/UserMatches.dart';
+import '../Model/ContractedRequest.dart';
 
-//const String baseUrl = "http://localhost"; //LOCAL
+const String baseUrl = "http://localhost"; //LOCAL
 // const String baseUrl = "http://192.168.1.10"; //LOCAL MOBIL
-const String baseUrl = "http://api.swapjob.tk/SwapJob"; //PRODUCTION
+// const String baseUrl = "http://api.swapjob.tk/SwapJob"; //PRODUCTION
 // const String baseUrl = "http://swapjob.tk:8080/SwapJob"; //SEMI PRODUCTION
 
 final http.Client client = http.Client();
@@ -185,7 +186,8 @@ Future<bool> removeMatchOffer(int idOffer) async {
 Future<bool> contractedMatchOffer(int idOffer, bool contracted) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
-  var data = {"matchOfferId": idOffer, "isContracted" : contracted};
+  var data = {"matchOfferId": idOffer, "contracted" : contracted};
+  // ContractedRequest data = ContractedRequest(matchOfferId: idOffer, isContracted: contracted);
   var headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token',
