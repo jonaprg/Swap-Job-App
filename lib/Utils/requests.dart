@@ -1,19 +1,15 @@
 import 'dart:convert';
 import 'dart:convert' as convert;
 import 'dart:io';
-import 'package:dio/dio.dart';
-import 'package:flutter/services.dart';
-import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:swapjobapp/Model/Preference.dart';
-import 'package:ftpconnect/ftpconnect.dart';
 import '../Model/Offer.dart';
 import '../Model/Skill.dart';
 import '../Model/User.dart';
 import '../Model/UserMatches.dart';
 
-// const String baseUrl = "http://localhost"; //LOCAL
+//const String baseUrl = "http://localhost"; //LOCAL
 // const String baseUrl = "http://192.168.1.10"; //LOCAL MOBIL
 const String baseUrl = "http://api.swapjob.tk/SwapJob"; //PRODUCTION
 // const String baseUrl = "http://swapjob.tk:8080/SwapJob"; //SEMI PRODUCTION
@@ -186,6 +182,25 @@ Future<bool> removeMatchOffer(int idOffer) async {
   return response.statusCode == 200;
 }
 
+Future<bool> contractedMatchOffer(int idOffer, bool contracted) async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  var token = sharedPreferences.getString('accessToken');
+  var data = {"matchOfferId": idOffer, "isContracted" : contracted};
+  var headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $token',
+  };
+  var request = http.Request('POST', Uri.parse(baseUrl + '/setContracted'));
+  request.body = json.encode(data);
+  print(request.body);
+  request.headers.addAll(headers);
+  var streamedResponse = await request.send();
+  var response = await http.Response.fromStream(streamedResponse);
+  print(response.statusCode);
+  print(response.body);
+  return response.statusCode == 200;
+}
+
 Future<bool> userExists(String email) async {
   var headers = {
     'Content-Type': 'application/json',
@@ -196,7 +211,6 @@ Future<bool> userExists(String email) async {
   request.headers.addAll(headers);
   var streamedResponse = await request.send();
   var response = await http.Response.fromStream(streamedResponse);
-  print(response.body);
   return response.body == 'true' ? true : false;
 }
 
@@ -276,8 +290,6 @@ Future<bool> requestSetPreferenceUser(List<Preference> preferences) async {
   request.headers.addAll(headers);
   var streamedResponse = await request.send();
   var response = await http.Response.fromStream(streamedResponse);
-  print(response.body);
-  print(response.statusCode);
   return response.statusCode == 200;
 }
 

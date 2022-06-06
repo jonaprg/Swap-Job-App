@@ -15,7 +15,7 @@ class _LoginState extends State<LoginScreen> {
 
   bool _isBiometricAvailable = false;
   bool _userWantsBiometrics = true;
-  bool _isObscure = false;
+  bool _isObscure = true;
   bool _isLoading = false;
   String email = 'jona@swap.com';
   String password = 'jona';

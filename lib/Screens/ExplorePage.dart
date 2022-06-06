@@ -39,7 +39,6 @@ class _ExplorePageState extends State<ExplorePage>
         future: widget.itemsTemp,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            print({snapshot.error});
             return Center(
               child: Text('OFFERS EMPTY'),
             );
@@ -68,6 +67,7 @@ class OfferList extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return ListView.builder(
+      controller: ScrollController(),
       itemCount: 1,
       itemBuilder: (contextItem, indexOfferItem) {
         return Padding(
@@ -78,7 +78,7 @@ class OfferList extends StatelessWidget {
               totalNum: offers.length,
               swipeEdge: 4.0,
               maxWidth: MediaQuery.of(contextItem).size.width ,
-              maxHeight: MediaQuery.of(contextItem).size.height ,
+              maxHeight: MediaQuery.of(contextItem).size.height,
               minWidth: MediaQuery.of(contextItem).size.width * 0.75,
               minHeight: MediaQuery.of(contextItem).size.height * 0.75,
               cardBuilder: (contextCard, indexOffer) => Container(
@@ -424,7 +424,7 @@ class OfferList extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: const Text('YOU LIKED IT'),
-                        duration: const Duration(milliseconds: 1500),
+                        duration: const Duration(milliseconds: 500),
                         width: 300.0, // Width of the SnackBar.
                         padding: const EdgeInsets.symmetric(
                           horizontal:
@@ -441,7 +441,7 @@ class OfferList extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: const Text('YOU DISLIKED IT'),
-                      duration: const Duration(milliseconds: 1500),
+                      duration: const Duration(milliseconds: 500),
                       width: 280.0, // Width of the SnackBar.
                       padding: const EdgeInsets.symmetric(
                         horizontal: 8.0, // Inner padding for SnackBar content.
