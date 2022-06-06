@@ -461,7 +461,6 @@ class _InfoMatchOfferState extends State<InfoMatchOffer> {
         offers.coordinates.replaceAll('(', "").replaceAll(")", "");
 
     final splitted = replaced.split(',');
-    print(splitted);
     try {
       Address address = await geoCode.reverseGeocoding(
           latitude: double.parse(splitted[0]),

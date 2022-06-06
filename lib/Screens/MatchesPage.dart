@@ -17,7 +17,7 @@ class MatchesPage extends StatefulWidget {
 class _MatchesPageState extends State<MatchesPage>
     with TickerProviderStateMixin {
   late List<UserMatch> matches;
-
+  bool _isButtonDisabled = true;
   int itemLength = 0;
   @override
   void initState() {
@@ -184,7 +184,7 @@ class _MatchesPageState extends State<MatchesPage>
                                                       .fromSTEB(0, 10, 0, 0),
                                                   child: OutlinedButton(
                                                     onPressed: () {
-                                                      _showMyDialog(indexTwo);
+                                                      _showMyDialogRemove(indexTwo);
                                                     },
                                                     child: const Text('NO ME GUSTA',
                                                         style: TextStyle(
@@ -194,13 +194,9 @@ class _MatchesPageState extends State<MatchesPage>
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(0, 10, 0, 0),
+
                                                   child: OutlinedButton(
-                                                    onPressed: () {
-
-                                                      setState(() {
-
-                                                      });
-                                                    },
+                                                    onPressed: () => _showMyDialogContracted(indexTwo, true),
                                                     child: const Text('CONTRACTADO',
                                                         style: TextStyle(
                                                             color: Colors.blueAccent)),
@@ -234,7 +230,7 @@ class _MatchesPageState extends State<MatchesPage>
     );
   }
 
-  Future<void> _showMyDialog(int indexTwo) async {
+  Future<void> _showMyDialogRemove(int indexTwo) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -267,6 +263,39 @@ class _MatchesPageState extends State<MatchesPage>
       },
     );
   }
+  Future<void> _showMyDialogContracted(int indexTwo, bool contracted) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('¿Has sido contractado para esta oferta? Si es así confirma, porfavor'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Confirmar'),
+              onPressed: () {
+                contractedMatchOffer(
+                    matches[indexTwo]
+                        .offer
+                        .id, contracted);
+                setState(() {
+
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
 
 }
