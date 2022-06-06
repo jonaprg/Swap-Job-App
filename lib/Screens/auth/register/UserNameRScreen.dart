@@ -70,7 +70,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                       " | PASO 2 DE 4",
                       style: TextStyle(fontSize: 15),
                     ),
-                    padding: EdgeInsetsDirectional.fromSTEB(255, 130, 0, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(220, 135, 0, 0),
                   ),
                 ],
               ),

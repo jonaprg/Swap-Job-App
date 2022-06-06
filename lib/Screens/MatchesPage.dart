@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:swapjobapp/Screens/Home.dart';
 import 'package:swapjobapp/Screens/InfoMatchPage.dart';
 import 'package:swapjobapp/Utils/color.dart';
 import '/Model/UserMatches.dart';
@@ -17,7 +20,6 @@ class MatchesPage extends StatefulWidget {
 class _MatchesPageState extends State<MatchesPage>
     with TickerProviderStateMixin {
   late List<UserMatch> matches;
-  bool _isButtonDisabled = true;
   int itemLength = 0;
   @override
   void initState() {
@@ -26,7 +28,10 @@ class _MatchesPageState extends State<MatchesPage>
       widget.itemsMatches = getMatchesUser();
     });
   }
-
+  FutureOr onGoBack(dynamic value) {
+    widget.itemsMatches = getMatchesUser();
+    setState(() {});
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -158,26 +163,68 @@ class _MatchesPageState extends State<MatchesPage>
                                                   CrossAxisAlignment.end,
                                               children: [
                                                 Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                0, 0, 0, 0),
-                                                    child: IconButton(
-                                                      icon: const Icon(
-                                                          Icons.info_outline_rounded),
-                                                      tooltip:
-                                                          'Información sobre la oferta',
-                                                      onPressed: () async {
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  InfoMatchOffer(
-                                                                      matches[
-                                                                          indexTwo])),
-                                                        );
-                                                      },
-                                                    )),
+                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                                  child: Row(
+                                                    mainAxisSize: MainAxisSize.max,
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Column(
+                                                        mainAxisSize: MainAxisSize.max,
+                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                        children: [
+                                                          Padding(
+                                                              padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  0, 0, 0, 0),
+                                                              child: IconButton(
+                                                                icon: const Icon(
+                                                                    Icons.info_outline_rounded),
+                                                                tooltip:
+                                                                'Información sobre la oferta',
+                                                                onPressed: () async {
+                                                                  Navigator.push(
+                                                                    context,
+                                                                    MaterialPageRoute(
+                                                                        builder: (context) =>
+                                                                            InfoMatchOffer(
+                                                                                matches[
+                                                                                indexTwo])),
+                                                                  );
+                                                                },
+                                                              )),
+
+                                                        ],
+                                                      ),
+                                                      matches[indexTwo].isFinalized == true &&
+                                                          matches[indexTwo].isContracted == true ?
+                                                      Padding(
+                                                        padding: EdgeInsetsDirectional
+                                                            .fromSTEB(0, 0, 0, 0),
+                                                        child: IconButton(
+                                                            icon: const Icon(
+                                                                Icons.delete_forever_sharp,
+                                                            color: Colors.redAccent),
+                                                            onPressed: () {
+                                                              _showMyDialogRemove(indexTwo);
+                                                            }
+                                                        ),
+                                                      ) : SizedBox(width: 0),
+                                                    ],
+                                                  ),
+                                                ),
+
+
+
+
+
+
+
+
+
+
+
                                                 matches[indexTwo].isFinalized == false ?
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
@@ -190,18 +237,43 @@ class _MatchesPageState extends State<MatchesPage>
                                                         style: TextStyle(
                                                             color: Colors.red)),
                                                   ),
-                                                ) :
+                                                ) : const Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 10, 0, 0),
+                                                  child: Text('FINALIZADO',
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontWeight: FontWeight.bold),
+                                                  ),
+                                                ),
+                                                matches[indexTwo].isFinalized == true
+                                                && matches[indexTwo].isContracted == false ?
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(0, 10, 0, 0),
 
                                                   child: OutlinedButton(
-                                                    onPressed: () => _showMyDialogContracted(indexTwo, true),
-                                                    child: const Text('CONTRACTADO',
+                                                    onPressed: ()  { _showMyDialogContracted(indexTwo, true);
+
+                                                    setState(() {
+                                                    });
+                                                    },
+                                                    child: const Text('HE SIDO CONTRACTADO',
                                                         style: TextStyle(
                                                             color: Colors.blueAccent)),
                                                   ),
-                                                ),
+                                                ): SizedBox(width: 0),
+                                                matches[indexTwo].isContracted == true ?
+                                                const Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 10, 0, 0),
+
+                                                  child: Text('CONTRACTADO',
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                    fontWeight: FontWeight.bold ),
+                                                  ),
+                                                ) : SizedBox(width: 0)
                                               ],
                                             ),
                                           ],
@@ -275,13 +347,13 @@ class _MatchesPageState extends State<MatchesPage>
               child: Text('Confirmar'),
               onPressed: () {
                 contractedMatchOffer(
-                    matches[indexTwo]
-                        .id, contracted);
+                    matches[indexTwo].id, contracted);
                 setState(() {
 
                 });
                 Navigator.of(context).pop();
-              },
+
+                },
             ),
             TextButton(
               child: Text('Cancelar'),

@@ -9,9 +9,9 @@ import '../Model/Skill.dart';
 import '../Model/User.dart';
 import '../Model/UserMatches.dart';
 
-const String baseUrl = "http://localhost"; //LOCAL
+//const String baseUrl = "http://localhost"; //LOCAL
 // const String baseUrl = "http://192.168.1.10"; //LOCAL MOBIL
-// const String baseUrl = "http://api.swapjob.tk/SwapJob"; //PRODUCTION
+const String baseUrl = "http://api.swapjob.tk/SwapJob"; //PRODUCTION
 // const String baseUrl = "http://swapjob.tk:8080/SwapJob"; //SEMI PRODUCTION
 
 final http.Client client = http.Client();
