@@ -1,12 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:swapjobapp/Screens/Home.dart';
 import 'package:swapjobapp/Screens/InfoMatchPage.dart';
-import 'package:swapjobapp/Utils/color.dart';
 import '/Model/UserMatches.dart';
 import '/Utils/requests.dart';
-import 'infoOfferPage.dart';
 
 class MatchesPage extends StatefulWidget {
   late Future<List<UserMatch>> itemsMatches;
@@ -40,7 +36,6 @@ class _MatchesPageState extends State<MatchesPage>
         future: widget.itemsMatches,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            print(snapshot.error);
             return const Center(
               child: Text('An error has occurred!'),
             );
@@ -75,7 +70,7 @@ class _MatchesPageState extends State<MatchesPage>
                                       width: double.infinity,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
                                             blurRadius: 3,
                                             color: Color(0x411D2429),
@@ -243,7 +238,8 @@ class _MatchesPageState extends State<MatchesPage>
                                                   child: Text('FINALIZADO',
                                                         style: TextStyle(
                                                             color: Colors.black,
-                                                            fontWeight: FontWeight.bold),
+                                                            fontWeight: FontWeight.bold,
+                                                        fontSize: 13),
                                                   ),
                                                 ),
                                                 matches[indexTwo].isFinalized == true
@@ -266,12 +262,13 @@ class _MatchesPageState extends State<MatchesPage>
                                                 matches[indexTwo].isContracted == true ?
                                                 const Padding(
                                                   padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 10, 0, 0),
+                                                      .fromSTEB(0, 5, 0, 0),
 
                                                   child: Text('CONTRACTADO',
                                                     style: TextStyle(
                                                         color: Colors.black,
-                                                    fontWeight: FontWeight.bold ),
+                                                    fontWeight: FontWeight.bold,
+                                                        fontSize: 13 ),
                                                   ),
                                                 ) : SizedBox(width: 0)
                                               ],
@@ -341,7 +338,7 @@ class _MatchesPageState extends State<MatchesPage>
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('¿Has sido contractado para esta oferta? Si es así confirma, porfavor'),
+          title: const Text('¿Has sido contractado para esta oferta? Si es así confirma, porfavor'),
           actions: <Widget>[
             TextButton(
               child: Text('Confirmar'),

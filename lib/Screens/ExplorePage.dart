@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
 import '/Screens/infoOfferPage.dart';
 import '/Utils/color.dart';
@@ -411,13 +410,10 @@ class OfferList extends StatelessWidget {
                 ),
               ),
               cardController: controller = CardController(),
-              swipeUpdateCallback:
-                  (DragUpdateDetails details, Alignment align) {
-                /// Get swiping card's alignment
-              },
+              swipeUpdateCallback: (DragUpdateDetails details, Alignment align) {},
               swipeCompleteCallback:
                   (CardSwipeOrientation orientation, int indexOffer) async {
-                /// Get orientation & indexOffer of swiped card!
+                /// LIKE OFFER
                 if (orientation == CardSwipeOrientation.RIGHT) {
                   bool success = await matchOffer(offers[indexOffer].id);
                   if (success) {

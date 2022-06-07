@@ -57,7 +57,7 @@ class SignUpRequest {
     'phone' : phone,
     'birthDate' : birthDate,
     'description' : description,
-    'companyUser' : true,
+    'companyUser' : false,
     'skills' : skill,
     'preference' : preference,
   };

@@ -53,9 +53,4 @@ class User {
       preference : itemPreferenceUser,
     );
   }
-
-  @override
-  String toString() {
-    return 'User{id: $id, skill: $skill, preference: $preference}';
-  }
 }

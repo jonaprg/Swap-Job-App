@@ -5,7 +5,6 @@ import '../../Utils/requests.dart';
 import '../Home.dart';
 import '/Screens/auth/LoginScreen.dart';
 import '/Screens/auth/register/RegisterScreen.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class LoginSignUpScreen extends StatefulWidget {
   @override
@@ -13,7 +12,6 @@ class LoginSignUpScreen extends StatefulWidget {
 }
 
 class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
   late String name;
   bool shouldPop = true;
   final GoogleSignIn _googleSignIn = GoogleSignIn(

@@ -81,7 +81,7 @@ class _LoginState extends State<LoginScreen> {
                   Padding(
                     child: Text(
                       "INICIAR SESIÓN ",
-                      style: TextStyle(fontSize: 40, fontFamily: 'MavenPro'),
+                      style: TextStyle(fontSize: 40, fontFamily: 'Maven'),
                     ),
                     padding: EdgeInsets.only(left: 50, top: 120),
                   ),
@@ -256,8 +256,8 @@ class _LoginState extends State<LoginScreen> {
         Navigator.of(context).pop();
       },
     );
-    Widget continueButton = FlatButton(
-      child: Text("YES"),
+    Widget continueButton = TextButton(
+      child: const Text("YES"),
       onPressed: () {
         SharedPreferences.getInstance().then((prefs) {
           prefs.setBool("userWantsBiometrics", true);
@@ -271,8 +271,8 @@ class _LoginState extends State<LoginScreen> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Biometrics detected"),
-      content: Text("Would you like to use the biomethrics sensor?"),
+      title: const Text("Biometrics detected"),
+      content: const Text("Would you like to use the biomethrics sensor?"),
       actions: [
         cancelButton,
         continueButton,

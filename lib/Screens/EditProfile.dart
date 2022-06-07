@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:swapjobapp/Model/Status.dart';
 import 'package:swapjobapp/Utils/color.dart';
 import 'package:swapjobapp/Utils/requests.dart';
 
@@ -22,7 +21,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   late TextEditingController emailController;
   late TextEditingController statusController;
   late bool visible;
-
+  late int statusId;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
@@ -84,12 +83,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           ],
                         ),
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
                         child: Text(
                           'Editar perfil',
                           style: TextStyle(
-                            fontFamily: 'Maven Pro',
+                            fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
@@ -110,7 +109,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 obscureText: false,
                 decoration: InputDecoration(
                   labelText: 'Nombre',
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
@@ -134,7 +133,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   fillColor: Colors.white,
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
@@ -149,13 +148,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 obscureText: false,
                 decoration: InputDecoration(
                   labelText: 'Apellido/s',
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
@@ -179,7 +178,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   fillColor: Colors.white,
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
@@ -196,27 +195,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
                 decoration: InputDecoration(
                   labelText: 'Correo',
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Color(0xFFF1F4F8),
                       width: 2,
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Color(0xFFF1F4F8),
                       width: 2,
                     ),
@@ -226,7 +225,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   fillColor: Colors.white,
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
@@ -241,27 +240,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 obscureText: false,
                 decoration: InputDecoration(
                   labelText: 'Código postal',
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Color(0xFFF1F4F8),
                       width: 2,
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Color(0xFFF1F4F8),
                       width: 2,
                     ),
@@ -271,7 +270,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   fillColor: Colors.white,
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
@@ -288,27 +287,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
                 decoration: InputDecoration(
                   labelText: 'Móvil',
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Color(0xFFF1F4F8),
                       width: 2,
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Color(0xFFF1F4F8),
                       width: 2,
                     ),
@@ -318,7 +317,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   fillColor: Colors.white,
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
@@ -334,27 +333,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 keyboardType: TextInputType.datetime,
                 decoration: InputDecoration(
                   labelText: 'Fecha de nacimiento | YYYY-MM-DD',
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Color(0xFFF1F4F8),
                       width: 2,
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Color(0xFFF1F4F8),
                       width: 2,
                     ),
@@ -364,7 +363,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   fillColor: Colors.white,
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
@@ -382,27 +381,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelText: 'Descripción',
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     fontFamily: 'Maven Pro',
                     color: Color(0xFF0F1113),
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Color(0xFFF1F4F8),
                       width: 2,
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Color(0xFFF1F4F8),
                       width: 2,
                     ),
@@ -412,7 +411,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   fillColor: Colors.white,
                   contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Maven Pro',
                   color: Color(0xFF0F1113),
                   fontSize: 14,
@@ -426,7 +425,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               child: SwitchListTile.adaptive(
                 value: visible,
                 onChanged: (newValue) => setState(() => visible = newValue),
-                title: Text(
+                title: const Text(
                   'Visibilidad',
                   style: TextStyle(
                     fontFamily: 'Maven Pro',
@@ -447,7 +446,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               padding: EdgeInsetsDirectional.fromSTEB(40, 0, 20, 16),
               child: DropdownButton<String>(
                 value: statusController.text,
-                hint:Text("Coge el estado de trabajo!"),
+                hint:const Text("Coge el estado de trabajo!"),
                 isExpanded: true,
                 icon: const Icon(Icons.arrow_drop_down),
                 elevation: 10,
@@ -498,15 +497,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 fontWeight: FontWeight.bold),
                           ))),
                     onTap: () {
-
+                      if(statusController.text == "Active") {
+                        statusId = 1;
+                      } else if(statusController.text == "Inactive") {
+                        statusId = 2;
+                      } else if(statusController.text == "Looking for job") {
+                        statusId = 3;
+                      } else if(statusController.text == "Open to work") {
+                        statusId = 4;
+                      }
                       editUserProfile(
-                          firstNameController.text,
-                          lastNameController.text,
-                          emailController.text,
-                          postalCodeController.text,
-                          phoneController.text,
-                          birthDateController.text,
-                          descriptionController.text, visible, statusController.text);
+                        firstNameController.text,
+                        lastNameController.text,
+                        emailController.text,
+                        postalCodeController.text,
+                        phoneController.text,
+                        birthDateController.text,
+                        descriptionController.text, visible, statusId);
                     }
                 ),
               ),
@@ -519,7 +526,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   editUserProfile(String firstName, String lastName, String email,
       String postalCode, String phone, String birth, String description,
-      bool visible, String status) async {
+      bool visible, int status) async {
     bool success = await editProfile(
         firstName, lastName, email, postalCode, phone, birth, description
         , visible, status);

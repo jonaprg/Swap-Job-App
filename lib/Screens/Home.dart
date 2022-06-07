@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,9 +10,6 @@ import 'ExplorePage.dart';
 import 'MatchesPage.dart';
 import 'ProfilePage.dart';
 import 'auth/LoginSignUpScreen.dart';
-
-
-
 
 class HomePage extends StatefulWidget {
   @override

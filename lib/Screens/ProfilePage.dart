@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +27,6 @@ class _ProfilePageState extends State<ProfilePage>
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   late List<User> user;
-  late List<Preference> _pref;
   int itemLength = 0;
 
 
@@ -148,7 +146,7 @@ class _ProfilePageState extends State<ProfilePage>
                                                       .fromSTEB(0, 0, 0, 0),
                                                   child: Text(
                                                     "Status: ",
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontFamily: 'Outfit',
                                                       color: Color(0xFF0F1113),
                                                       fontSize: 16,
@@ -297,7 +295,6 @@ class _ProfilePageState extends State<ProfilePage>
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-
                               Align(
                                 alignment: AlignmentDirectional(0, 0),
                                 child: Padding(
@@ -313,14 +310,9 @@ class _ProfilePageState extends State<ProfilePage>
                                     runAlignment: WrapAlignment.start,
                                     verticalDirection: VerticalDirection.down,
                                     clipBehavior: Clip.none,
-                                    children: user[0]
-                                        .skill
-                                        .asMap()
-                                        .keys
-                                        .toList()
+                                    children: user[0].skill.asMap().keys.toList()
                                         .map((indexUserSkill) {
                                       return
-
                                         Chip(
                                           labelPadding: EdgeInsets.all(2.0),
                                           label: Text(
@@ -334,7 +326,6 @@ class _ProfilePageState extends State<ProfilePage>
                                           shadowColor: Colors.grey[60],
                                           padding: EdgeInsets.all(8.0),
                                         );
-
                                     }).toList(),
 
                                   ),

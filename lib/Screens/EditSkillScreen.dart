@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tags/flutter_tags.dart';
 import 'package:swapjobapp/Model/Skill.dart';
-import 'package:swapjobapp/Screens/auth/register/QuestionPreferenceScreen.dart';
 import 'package:swapjobapp/Utils/color.dart';
 import 'package:swapjobapp/Utils/requests.dart';
 
@@ -204,8 +202,8 @@ class _EditSkillScreenState extends State<EditSkillScreen>
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Text(
               '¿Que habilidades te desarollas mejor?',
               style: TextStyle(

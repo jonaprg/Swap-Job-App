@@ -15,6 +15,4 @@ class Status {
       title : json['title'] as String,
     );
   }
-
-
 }

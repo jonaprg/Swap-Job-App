@@ -1,14 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:swapjobapp/Model/Skill.dart';
 import '/Screens/Home.dart';
 import '/Utils/color.dart';
-import 'package:http/http.dart' as http;
-
 import '../../../Utils/requests.dart';
-import 'QuestionSkillScreen.dart';
 
 class QuestionPreferenceScreen extends StatefulWidget {
   Map<String, dynamic> userData;
@@ -59,7 +53,7 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                     ),
                   ),
                   SizedBox(height: 20.0),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                     child: Text(
                       'Que preferencias quieres?',
@@ -281,7 +275,7 @@ class _QuestionPreferenceScreenState extends State<QuestionPreferenceScreen> {
                         'phone': widget.userData["phone"],
                         'birthDate': widget.userData["birthDate"],
                         'description': widget.userData["description"],
-                        'companyUser': true,
+                        'companyUser': false,
                         'skillIdList': widget.skillId,
                         'preferenceIdList': [
                           {

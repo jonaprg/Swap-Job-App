@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tags/flutter_tags.dart';
 import 'package:swapjobapp/Model/Skill.dart';
 import 'package:swapjobapp/Screens/auth/register/QuestionPreferenceScreen.dart';
 import 'package:swapjobapp/Utils/color.dart';

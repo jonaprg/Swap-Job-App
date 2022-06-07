@@ -26,9 +26,4 @@ class UserMatch {
       offer : Offer.fromJson(json['offer']),
     );
   }
-
-  @override
-  String toString() {
-    return 'MatchUser{id: $id, isFinalized: $isFinalized, isContracted: $isContracted, user: $user, offer: $offer}';
-  }
 }

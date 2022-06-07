@@ -1,12 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import '/Screens/Home.dart';
 import '/Utils/color.dart';
-import 'package:http/http.dart' as http;
-
-import '../../../Utils/requests.dart';
 import 'QuestionSkillScreen.dart';
 
 class UserNameRScreen extends StatefulWidget {
@@ -86,13 +79,13 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         labelText: 'Nombre',
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                           fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
                         ),
-                        hintStyle: TextStyle(
+                        hintStyle: const TextStyle(
                           fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
@@ -116,7 +109,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         fillColor: Colors.white,
                         contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                       ),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Maven',
                         color: Color(0xFF0F1113),
                         fontSize: 14,
@@ -137,13 +130,13 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           labelText: 'Apellido/s',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                             fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
@@ -167,7 +160,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                           fillColor: Colors.white,
                           contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
@@ -188,28 +181,28 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: 'Código postal',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
                           hintText: 'Only 5 digits',
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                             fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFFF1F4F8),
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFFF1F4F8),
                               width: 2,
                             ),
@@ -219,7 +212,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                           fillColor: Colors.white,
                           contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
@@ -240,7 +233,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                           labelText: 'Móvil',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
@@ -261,7 +254,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFFF1F4F8),
                               width: 2,
                             ),
@@ -271,7 +264,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                           fillColor: Colors.white,
                           contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
@@ -298,14 +291,14 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                             fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFFF1F4F8),
                               width: 2,
                             ),
@@ -322,7 +315,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                           fillColor: Colors.white,
                           contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
@@ -343,13 +336,13 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           labelText: 'Descripción',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                             fontFamily: 'Maven',
                             color: Color(0xFF0F1113),
                             fontSize: 14,
@@ -373,7 +366,7 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                           fillColor: Colors.white,
                           contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Maven',
                           color: Color(0xFF0F1113),
                           fontSize: 14,
@@ -386,14 +379,6 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                         }
                     ),
                   ),
-
-
-
-
-
-
-
-
                 ]),
               ),
               firstNameController.text.isNotEmpty &&
@@ -439,17 +424,6 @@ class _UserNameRScreenState extends State<UserNameRScreen> {
                               "description": descriptionController.text,
                               "companyUser": false
                             });
-                            /*
-                            widget.userData.addAll({
-                              "firstName": "string",
-                              "lastName": "string",
-                              "postalCode": 0,
-                              "phone": "string",
-                              "birthDate": "1997-11-05",
-                              "description": "string",
-                              "companyUser": true
-
-                            }); */
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => QuestionSkillScreen(widget.userData)),

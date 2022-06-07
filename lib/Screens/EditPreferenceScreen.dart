@@ -1,13 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:swapjobapp/Model/Skill.dart';
 import '../Model/Preference.dart';
-import '/Screens/Home.dart';
 import '/Utils/color.dart';
-import 'package:http/http.dart' as http;
-
 import '../../../Utils/requests.dart';
 
 class EditPreferenceScreen extends StatefulWidget {
@@ -70,7 +63,7 @@ class _EditPreferenceScreenState extends State<EditPreferenceScreen> {
                     ),
                   ),
                   SizedBox(height: 20.0),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                     child: Text(
                       'Que preferencias quieres?',

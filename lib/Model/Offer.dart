@@ -51,9 +51,4 @@ class Offer {
     preferenceList : itemPreference,
     );
   }
-
-  @override
-  String toString() {
-    return 'Offer{id: $id, title: $title, description: $description, salary: $salary, isRemote: $isRemote, isVisible: $isVisible, labour: $labour, skillList: $skillList, preferenceList: $preferenceList, companyName: $companyName, companyImage: $companyImage, coordinates: $coordinates}';
-  }
 }

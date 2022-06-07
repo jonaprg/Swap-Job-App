@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../Home.dart';
 import '/Utils/color.dart';
 import 'UserNameRScreen.dart';
 import '/Utils/requests.dart';
@@ -12,8 +11,8 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterState extends State<RegisterScreen> {
   Map<String, dynamic> userData = {}; //user personal info
   bool _isLoading = false;
-  String email = 'a';
-  String password = 'a';
+  String email = '';
+  String password = '';
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool _isObscure = true;

@@ -61,7 +61,7 @@ Future<bool> editProfile(
     String birth,
     String description,
     bool visible,
-    String status) async {
+    int status) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString('accessToken');
 
@@ -73,7 +73,7 @@ Future<bool> editProfile(
     "phone": phone,
     "birthDate": birth,
     "description": description,
-    "status_id": 0,
+    "status_id": status,
     "visible": visible
   };
   var headers = {
@@ -84,11 +84,9 @@ Future<bool> editProfile(
   var request = http.Request('POST', Uri.parse(baseUrl + '/user/edit'));
 
   request.body = json.encode(data);
-  print(request.body);
   request.headers.addAll(headers);
   var streamedResponse = await request.send();
   var response = await http.Response.fromStream(streamedResponse);
-
   return response.statusCode == 200;
 }
 
@@ -144,7 +142,6 @@ Future<List<Offer>> getOffers() async {
   } else {
     print("Failed to load offers");
   }
-
   return [];
 }
 
@@ -193,12 +190,10 @@ Future<bool> contractedMatchOffer(int idOffer, bool contracted) async {
   };
   var request = http.Request('POST', Uri.parse(baseUrl + '/setContracted'));
   request.body = json.encode(data);
-  print(request.body);
   request.headers.addAll(headers);
   var streamedResponse = await request.send();
   var response = await http.Response.fromStream(streamedResponse);
-  print(response.statusCode);
-  print(response.body);
+
   return response.statusCode == 200;
 }
 

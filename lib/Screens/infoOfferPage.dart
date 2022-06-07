@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:geocode/geocode.dart';
-
 import '../Model/Offer.dart';
 import '../Utils/color.dart';
 
@@ -28,7 +27,7 @@ class _InfState extends State<InfoOffer> {
                   width: MediaQuery.of(context).size.width,
                   height: 220,
                   decoration: BoxDecoration(
-                    color: thirdBlueColor,
+                    color: Colors.grey[50],
                   ),
                   child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(20, 50, 20, 0),
@@ -61,14 +60,14 @@ class _InfState extends State<InfoOffer> {
                               ),
                             ),
                             SizedBox(height: 20.0),
-                            Padding(
+                            const Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                               child: Text(
                                 'Detalle de la oferta',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontSize: 24),
                               ),
                             ),
@@ -81,9 +80,9 @@ class _InfState extends State<InfoOffer> {
                             children: [
                               Text(
                                 widget.offer.title,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontSize: 20),
                               ),
                             ],
@@ -106,7 +105,7 @@ class _InfState extends State<InfoOffer> {
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                         fontWeight: FontWeight.normal,
-                                        color: Colors.white),
+                                        color: Colors.black),
                                   )
                                 ],
                               );
@@ -124,14 +123,14 @@ class _InfState extends State<InfoOffer> {
                     height: MediaQuery.of(context).size.height,
                     decoration: BoxDecoration(
                       color: secondaryDarkBlueColor,
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           blurRadius: 4,
                           color: Color(0x5B000000),
                           offset: Offset(0, -2),
                         )
                       ],
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(0),
                         bottomRight: Radius.circular(0),
                         topLeft: Radius.circular(20),
@@ -200,7 +199,7 @@ class _InfState extends State<InfoOffer> {
                                             MainAxisAlignment.center,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-                                        children: [
+                                        children: const [
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
@@ -280,7 +279,7 @@ class _InfState extends State<InfoOffer> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: [
+                                    children: const [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 0, 12),
@@ -347,7 +346,7 @@ class _InfState extends State<InfoOffer> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: [
+                                    children: const [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 0, 12),
@@ -442,9 +441,7 @@ class _InfState extends State<InfoOffer> {
 
     String replaced =
         offers.coordinates.replaceAll('(', "").replaceAll(")", "");
-
     final splitted = replaced.split(',');
-    print(splitted);
     try {
       Address address = await geoCode.reverseGeocoding(
           latitude: double.parse(splitted[0]),
